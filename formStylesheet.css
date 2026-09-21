@@ -1,57 +1,178 @@
 @import url('https://googleapis.com');
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*{ 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
 }
 
-body{
-    font-family: 'EB Garamond', Garamond, Georgia, serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
+body{ 
+    font-family: 'EB Garamond', Garamond, Georgia, serif; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: flex-start; 
+    min-height: 100vh; 
+    background-color: #f5f5f5; /* Apenas para contraste básico */
+    padding: 20px;
 }
 
-h1{
-    margin-top: 25px;
-    font-size: 75px;
-    font-weight: 1200;
+h1{ 
+    margin-bottom: 15px; 
+    font-size: 45px; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
-#formBox{
-    margin-top: 25px;
-    padding-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 60px;
-    border: solid;
-}
-
-.CharacterInfoBox h2{
-    font-size: 45px;
-    font-weight: 950;
-}
-
-.CharacterInfoBox{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: solid;
-    width: 85%;
-    justify-content: center;
-}
-
-#formCharacterInfoBox{
+#formBox{ 
+    display: flex; 
+    flex-direction: column; 
+    gap: 30px; 
     width: 100%;
-    border: solid;
+    max-width: 800px; /* Limita a largura máxima do formulário */
 }
 
-img{
-    width: 250px;
-    resize: 1;
+/* CONTAINER GERAL DE CADA SEÇÃO */
+.CharacterInfoBox {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #000;
+    width: 100%;
+    padding: 15px;
+}
+
+.CharacterInfoBox h2 {
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #000;
+    padding-bottom: 5px;
+}
+
+/* 1. SEÇÃO: CREATE CHARACTER */
+#formCharacterInfoBox {
+    display: flex;
+    flex-wrap: wrap; /* Permite que o 'Health' quebre a linha ou se alinhe */
+    gap: 15px;
+}
+
+.characterInfoInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1 1 40%; /* Faz os inputs dividirem o espaço em duas colunas */
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.characterInfoInput input {
+    flex: 1;
+    padding: 4px;
+}
+
+
+/* 2. SEÇÃO: CHARACTER STATUS (ESTRUTURA DE TABELA) */
+#formCharacterStatusBox {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.statusRow {
+    display: grid;
+    /* Alinha em 4 colunas: Nome do Atributo, Valor, Mod, Mod+Level */
+    grid-template-columns: 2fr 1fr 1fr 1fr; 
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #ccc;
+    padding: 5px 0;
+}
+
+.statusLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+.statusLabel img {
+    width: 24px;
+    height: 24px;
+    border: 1px dashed #000; /* Placeholder para o ícone */
+}
+
+.statusRow input {
+    width: 100%;
+    padding: 4px;
+    text-align: center;
+}
+
+/* Customizações para o cabeçalho e rodapé dos atributos */
+.headerRow {
+    font-weight: bold;
+    border-bottom: 2px solid #000;
+}
+
+.columnLabel {
+    text-align: center;
+    font-size: 14px;
+}
+
+.footerRow {
+    grid-template-columns: 2fr 1fr; /* Humanity usa apenas duas colunas na imagem */
+    border-top: 2px solid #000;
+    margin-top: 10px;
+}
+
+
+/* 3. SEÇÃO INFERIOR: LADO A LADO */
+#bottomSection {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Quadrados de Equipamento (Esquerda) */
+#equipmentSlotsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+    grid-template-rows: repeat(2, 100px);
+    gap: 15px;
+    align-content: center;
+    justify-content: center;
+}
+
+.slot {
+    border: 2px dashed #666;
+    background-color: #e0e0e0;
+}
+
+/* Pergaminho de Textos (Direita) */
+#extraInfoBox {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border: 2px solid #000;
+    padding: 15px;
+}
+
+.textareaGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.textareaGroup label {
+    font-weight: 700;
+}
+
+.textareaGroup textarea {
+    width: 100%;
+    resize: none; /* Impede o usuário de quebrar o layout puxando a caixa */
+    padding: 8px;
+    font-family: inherit;
 }

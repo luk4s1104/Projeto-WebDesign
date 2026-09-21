@@ -7,51 +7,157 @@
     <title>Creator</title>
 </head>
 <body>
-    <h1>Insert your informations</h1>
-        <form action="#" id="formBox">
-            <div class="CharacterInfoBox">
-                <h2>Create Character</h2>
-                <div id="formCharacterInfoBox">
-                    <label for="name">Name: </label>
+    <h1>INSERT YOUR CHARACTER INFO</h1>
+    
+    <form action="#" id="formBox">
+        
+        <!-- SEÇÃO: CREATE CHARACTER -->
+        <div class="CharacterInfoBox">
+            <h2>CREATE CHARACTER</h2>
+            <div id="formCharacterInfoBox">
+                <div class="characterInfoInput">
+                    <label for="name">Name:</label>
                     <input name="name" id="name" type="text">
-                    <label for="sex">Sex: </label>
+                </div>
+                <div class="characterInfoInput">
+                    <label for="sex">Sex:</label>
                     <input name="sex" id="sex" type="text">
-                    <label for="class">Class: </label>
+                </div>
+                <div class="characterInfoInput">
+                    <label for="class">Class:</label>
                     <input name="class" id="class" type="text">
-                    <label for="gift">Gift: </label>
+                </div>
+                <div class="characterInfoInput">
+                    <label for="gift">Gift:</label>
                     <input name="gift" id="gift" type="text">
-                    <label for="health">Health: </label>
+                </div>
+                <div class="characterInfoInput">
+                    <label for="health">Health:</label>
                     <input name="health" id="health" type="number">
                 </div>
             </div>
-            <div class="CharacterInfoBox">
-                <h2>Character Status</h2>
-                <div id="formCharacterStatusBox">
-                    <label for="level">Level: </label>
+        </div>
+
+        <!-- SEÇÃO: CHARACTER STATUS -->
+        <div class="CharacterInfoBox">
+            <h2>CHARACTER STATUS</h2>
+            <div id="formCharacterStatusBox">
+                
+                <!-- Linha do Level (Cabeçalho da tabela) -->
+                <div class="statusRow headerRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="level">LEVEL</label>
+                    </div>
                     <input name="level" id="level" type="number">
-                    <label for="vitality">Vitality: </label>
+                    <span class="columnLabel">MOD</span>
+                    <span class="columnLabel">MOD+LEVEL</span>
+                </div>
+
+                <!-- Atributos principais com os campos adicionais da imagem -->
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="vitality">VITALITY</label>
+                    </div>
                     <input name="vitality" id="vitality" type="number">
-                    <label for="strenght">Strength: </label>
-                    <input name="strenght" id="strenght" type="number">
-                    <label for="dexterity">Dexterity: </label>
+                    <input name="vitalityMod" type="number">
+                    <input name="vitalityModLevel" type="number">
+                </div>
+
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="strength">STRENGTH</label>
+                    </div>
+                    <input name="strength" id="strength" type="number">
+                    <input name="strengthMod" type="number">
+                    <input name="strengthModLevel" type="number">
+                </div>
+
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="dexterity">DEXTERITY</label>
+                    </div>
                     <input name="dexterity" id="dexterity" type="number">
-                    <label for="resistence">Resistence: </label>
+                    <input name="dexterityMod" type="number">
+                    <input name="dexterityModLevel" type="number">
+                </div>
+
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="resistence">RESISTENCE</label>
+                    </div>
                     <input name="resistence" id="resistence" type="number">
-                    <label for="inteligence">Intelligence: </label>
-                    <input name="inteligence" id="inteligence" type="number">
-                    <label for="faith">Faith: </label>
+                    <input name="resistenceMod" type="number">
+                    <input name="resistenceModLevel" type="number">
+                </div>
+
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="intelligence">INTELLIGENCE</label>
+                    </div>
+                    <input name="intelligence" id="intelligence" type="number">
+                    <input name="intelligenceMod" type="number">
+                    <input name="intelligenceModLevel" type="number">
+                </div>
+
+                <div class="statusRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="faith">FAITH</label>
+                    </div>
                     <input name="faith" id="faith" type="number">
+                    <input name="faithMod" type="number">
+                    <input name="faithModLevel" type="number">
+                </div>
+
+                <!-- Linha da Humanity (Rodapé da tabela) -->
+                <div class="statusRow footerRow">
+                    <div class="statusLabel">
+                        <img src="#" alt="icon">
+                        <label for="humanity">HUMANITY</label>
+                    </div>
+                    <input name="humanity" id="humanity" type="number">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SEÇÃO INFERIOR: SLOTS E TEXTOS (Lado a Lado) -->
+        <div id="bottomSection">
+            
+            <!-- Blocos de Inventário/Equipamento (4 quadrados cinzas da esquerda) -->
+            <div id="equipmentSlotsGrid">
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+                <div class="slot"></div>
+            </div>
+
+            <!-- Listas de Texto (Pergaminho da direita) -->
+            <div id="extraInfoBox">
+                <div class="textareaGroup">
+                    <label for="spells">SPELLS:</label>
+                    <textarea name="spells" id="spells" rows="4"></textarea>
+                </div>
+                
+                <div class="textareaGroup">
+                    <label for="equipment">EQUIPMENT:</label>
+                    <textarea name="equipment" id="equipment" rows="4"></textarea>
+                </div>
+                
+                <div class="textareaGroup">
+                    <label for="items">ITEMS:</label>
+                    <textarea name="items" id="items" rows="4"></textarea>
                 </div>
             </div>
-            <div id="extraInfoBox">
-                <label for="spells">Spells: </label>
-                <input name="spells" id="spells" type="text">
-                <label for="equipment">Equipment: </label>
-                <input name="equipment" id="equipment" type="text">
-                <label for="itens">Itens: </label>
-                <input name="itens" id="itens" type="text">
-            </div>
-        </form>
-    <img src="mockup image.webp" alt="mockup image" height="250px">
+
+        </div>
+
+    </form>
 </body>
 </html>
