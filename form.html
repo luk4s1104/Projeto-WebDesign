@@ -3,44 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="formStylesheet.css">
     <title>Creator</title>
 </head>
 <body>
     <h1>Insert your informations</h1>
-    <img src="mockup image.webp" alt="mockup image" height="250px">
-    <div id="formBox">
-        <form action="#">
-            <div id="CharacterInfoBox">
+        <form action="#" id="formBox">
+            <div class="CharacterInfoBox">
                 <h2>Create Character</h2>
-                <label for="name">Name: </label>
-                <input name="name" id="name" type="text">
-                <label for="sex">Sex: </label>
-                <input name="sex" id="sex" type="text">
-                <label for="class">Class: </label>
-                <input name="class" id="class" type="text">
-                <label for="gift">Gift: </label>
-                <input name="gift" id="gift" type="text">
-                <label for="health">Health: </label>
-                <input name="health" id="health" type="number">
+                <div id="formCharacterInfoBox">
+                    <label for="name">Name: </label>
+                    <input name="name" id="name" type="text">
+                    <label for="sex">Sex: </label>
+                    <input name="sex" id="sex" type="text">
+                    <label for="class">Class: </label>
+                    <input name="class" id="class" type="text">
+                    <label for="gift">Gift: </label>
+                    <input name="gift" id="gift" type="text">
+                    <label for="health">Health: </label>
+                    <input name="health" id="health" type="number">
+                </div>
             </div>
-            <div id="CharacterStatusBox">
+            <div class="CharacterInfoBox">
                 <h2>Character Status</h2>
-                <label for="level">Level: </label>
-                <input name="level" id="level" type="number">
-                <label for="vitality">Vitality: </label>
-                <input name="vitality" id="vitality" type="number">
-                <label for="strenght">Strength: </label>
-                <input name="strenght" id="strenght" type="number">
-                <label for="dexterity">Dexterity: </label>
-                <input name="dexterity" id="dexterity" type="number">
-                <label for="resistence">Resistence: </label>
-                <input name="resistence" id="resistence" type="number">
-                <label for="inteligence">Intelligence: </label>
-                <input name="inteligence" id="inteligence" type="number">
-                <label for="faith">Faith: </label>
-                <input name="faith" id="faith" type="number">
+                <div id="formCharacterStatusBox">
+                    <label for="level">Level: </label>
+                    <input name="level" id="level" type="number">
+                    <label for="vitality">Vitality: </label>
+                    <input name="vitality" id="vitality" type="number">
+                    <label for="strenght">Strength: </label>
+                    <input name="strenght" id="strenght" type="number">
+                    <label for="dexterity">Dexterity: </label>
+                    <input name="dexterity" id="dexterity" type="number">
+                    <label for="resistence">Resistence: </label>
+                    <input name="resistence" id="resistence" type="number">
+                    <label for="inteligence">Intelligence: </label>
+                    <input name="inteligence" id="inteligence" type="number">
+                    <label for="faith">Faith: </label>
+                    <input name="faith" id="faith" type="number">
+                </div>
             </div>
-            <div id="ExtraInfoBox">
+            <div id="extraInfoBox">
                 <label for="spells">Spells: </label>
                 <input name="spells" id="spells" type="text">
                 <label for="equipment">Equipment: </label>
@@ -49,6 +52,6 @@
                 <input name="itens" id="itens" type="text">
             </div>
         </form>
-    </div>
+    <img src="mockup image.webp" alt="mockup image" height="250px">
 </body>
 </html>
