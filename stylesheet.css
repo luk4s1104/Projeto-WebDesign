@@ -1,15 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
-  background-image: url('./Imagens/rpg-de-mesa.png');
+    /* Imagem de fundo com um degradê escuro por cima */
+    background-image: url('./Imagens/rpg-de-mesa.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('./Imagens/rpg-de-mesa.png');
+    background-size: cover;             /* Faz a imagem cobrir toda a tela, sem esticar ou distorcer */
+    background-position: center;        /* Centraliza a imagem na tela para mostrar a melhor parte */       
+
+    font-family: 'Inter', sans-serif; /* Define a fonte principal do site (Inter) e usa sem-serifa como reserva */
+    color: #f3f4f6;
+
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    min-height: 100vh;      /* Garante que o corpo do site tenha no mínimo a altura total da tela do dispositivo */
+    padding: 20px;          /* Cria um espaçamento de segurança nas bordas para o conteúdo não colar na tela */
 }
+
+.principal {
+    text-align: center;     
+    max-width: 800px;
+    background-color: rgba(20, 20, 20, 0.6); /* Fundo sutil atrás do texto */   
+    padding: 40px 30px;                  /* Espaçamento interno da caixa (40px cima/baixo e 30px nas laterais) */
+    border-radius: 12px;            /* Arredonda os cantos da caixa de texto */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda fina */
+    backdrop-filter: blur(8px); /* Efeito de vidro fosco no fundo */
+}
+
 h1 {
-    text-align: center;
-    color: aliceblue;
+    font-family: 'Cinzel', serif;
+    font-size: 2.8rem;      /* Define o tamanho do texto */
+    font-weight: 700;       /* Deixa a fonte em negrito */
+    color: #ffffff;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);  /* Adiciona uma sombra preta atrás das letras */
+    margin-bottom: 20px;        /* Cria um espaço vazio de 20px abaixo do título */
+    letter-spacing: 1px;        /* Aumenta levemente o espaço entre as letras do título */
 }
-h2 {
-    text-align: justify;
+
+.description {
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #d1d5db;
+    margin-bottom: 40px;    /* Cria um espaço vazio de 40px abaixo da descrição (afastando os botões) */
+    font-weight: 300;       /* Deixa a fonte mais fina e leve */
 }
-h3 {
-    text-align: center;
-    text-decoration: underline;
-    font-size: 25px;
+
+.cta-buttons {
+    display: flex;      /* Ativa o Flexbox para alinhar os botões um ao lado do outro */
+    flex-wrap: wrap;    /* Permite que os botões pulem de linha automaticamente se não couberem na tela */
+    gap: 20px;          /* Cria uma distância padrão de 20px fixa entre cada botão */
+    justify-content: center;
+}
+
+.btn {                     /*aplica mudanças a todos os botoes*/
+    display: inline-block; /* Permite ajustar altura/largura e alinhar ao lado de outros botões */
+    padding: 14px 28px;    /* Define o espaçamento interno (14px cima/baixo, 28px lados) para dar volume */
+    font-size: 1rem;       /* Define o tamanho do texto do botão */
+    font-weight: 600;      /* Deixa a fonte em negrito */
+    text-decoration: none; 
+    border-radius: 8px;     /* Deixa os cantos do botão arredondados e modernos */
+    transition: all 0.3s ease;   /* Faz com que qualquer mudança (como o :hover) aconteça de forma suave e gradual */
+    cursor: pointer;            /* Transforma a seta do mouse naquela "mãozinha" de clique quando passa por cima */
+}
+
+.btn-primary {
+    background-color: #b91c1c; 
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
+}
+.btn-primary:hover {
+    background-color: #dc2626; 
+    transform: translateY(-3px);  /* Move o botão 3 pixels para cima */
+    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
+}
+
+.btn-secondary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Adiciona uma borda contornando o botão */
+}
+
+.btn-secondary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-3px); /* Move o botão 3 pixels para cima */
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .cta-buttons {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
+    }
 }
