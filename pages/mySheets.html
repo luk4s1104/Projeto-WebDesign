@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Fichas - Aventura Digital</title>
+    <link rel="stylesheet" href="../stylesheets/mySheetsStylesheet.css">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
+    <header class="main-header">
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Campanhas</a></li>
+                <li class="active"><a href="#">Minhas Fichas</a></li>
+                <li><a href="#">Biblioteca</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTAINER DA DASHBOARD -->
+    <div class="dashboard-container">
+        <main class="main-content">
+            
+            <header class="panel-header">
+                <div>
+                    <h1>Minhas Fichas</h1>
+                    <small>MINHAS FICHAS (12)</small>
+                </div>
+                <button type="button" class="btn-criar-topo">Criar Ficha</button>
+            </header>
+
+            <section class="filters-section">
+                <form class="filters-form" onsubmit="return false;">
+                    <input type="search" placeholder="Search">
+                    <select name="classe"><option>Classe</option></select>
+                    <select name="race"><option>Race</option></select>
+                    <select name="nivel"><option>Nivel</option></select>
+                </form>
+            </section>
+
+            <section class="characters-section">
+                <h3>Personagens Criados (8)</h3>
+
+                <div class="cards-grid">
+                    <!-- CARD 1 -->
+                    <article class="char-card">
+                        <header class="char-card-header">
+                            <div>
+                                <h4>Eldrin Presa da Noite</h4>
+                                <div class="char-subtitle">Elf Rogue</div>
+                            </div>
+                            <span class="char-level">Nvl 6</span>
+                        </header>
+
+                        <figure class="char-avatar">
+                            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=150" alt="Avatar Eldrin">
+                            <figcaption>Elf Rogue</figcaption>
+                        </figure>
+
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>FOR</th><th>DES</th><th>CON</th><th>INT</th><th>SAB</th><th>CAR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10</td><td>18</td><td>14</td><td>16</td><td>12</td><td>10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <ul class="equip-list">
+                            <li>🗡️ Punhal</li>
+                            <li>🏹 Arco</li>
+                        </ul>
+
+                        <footer class="char-card-footer">
+                            <div class="update-time">
+                                <span>Último atualizado ado</span>
+                                <span>12/10/2023</span>
+                            </div>
+                            <ul class="action-buttons">
+                                <li><button type="button">Visualizar</button></li>
+                                <li><button type="button">Editar</button></li>
+                                <li><button type="button">Deletar</button></li>
+                                <li><button type="button">Compartilhar</button></li>
+                            </ul>
+                        </footer>
+                    </article>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- RODAPÉ GLOBAL DA PÁGINA -->
+    <footer class="global-footer">
+        <div class="footer-container">
+            
+            <!-- Direitos Autorais e Versão -->
+            <div class="footer-info">
+                <p class="footer-copyright">&copy; 2026 Aventura Digital. Todos os direitos reservados.</p>
+                <span class="footer-version">Versão v2.4.1</span>
+            </div>
+
+            <!-- Links Rápidos de Suporte / Rodapé -->
+            <nav class="footer-nav">
+                <ul class="footer-links">
+                    <li><a href="#ajuda">Ajuda & Suporte</a></li>
+                    <li><a href="#termos">Termos de Uso</a></li>
+                    <li><a href="#privacidade">Política de Privacidade</a></li>
+                    <li><a href="#comunidade">Comunidade Discord</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
