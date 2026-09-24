@@ -22,6 +22,52 @@ body{
     padding: 20px;          /* Cria um espaçamento de segurança nas bordas para o conteúdo não colar na tela */
 }
 
+/* Configuração Principal do Cabeçalho */
+.site-header {
+    display: flex;
+    justify-content: space-between; /* Mantém espaço para novos elementos no futuro */
+    align-items: center;            /* Alinha a imagem e o texto no centro vertical */
+    padding: 20px 40px;             /* Espaçamento interno nas bordas */
+    background: rgba(0, 0, 0, 0.4); /* Fundo escuro transparente */
+    backdrop-filter: blur(5px);     /* Efeito de vidro fosco no fundo */
+    position: absolute;             /* Fixa o cabeçalho sobre a imagem de fundo do site */
+    top: 0;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;         /* Evita que o padding aumente o tamanho total do topo */
+    z-index: 10;                    /* Garante que fique por cima da seção central */
+}
+
+/* Alinhamento do Bloco do Logo (Imagem + Texto) */
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;                      /* Espaçamento perfeito entre o dado e o texto */
+}
+
+/* Container da Imagem */
+.logo-img {
+    display: flex;
+    align-items: center;
+}
+
+/* Controle do Tamanho e Cor da Imagem do D20 */
+.logo-img img {
+    height: 40px;                   /* Altura ideal para o cabeçalho */
+    width: auto;                    /* Mantém a proporção correta para não distorcer */
+    filter: invert(1);              /* Inverte a cor preta do dado para branco, destacando no fundo escuro */
+}
+
+/* Estilização do Texto do Logo */
+.logo-texto {
+    color: #ffffff;                 /* Cor branca pura */
+    font-size: 24px;
+    font-weight: bold;              /* Deixa a fonte em negrito */
+    font-family: sans-serif;        /* Fonte limpa */
+    letter-spacing: 0.5px;          /* Pequeno espaçamento entre as letras */
+}
+
+
 .principal {
     text-align: center;     
     max-width: 800px;
@@ -87,10 +133,22 @@ h1 {
     border: 1px solid rgba(255, 255, 255, 0.3);  /* Adiciona uma borda contornando o botão */
 }
 
+.btn-terciary {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.3);  /* Adiciona uma borda contornando o botão */
+}
+
 .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-3px); /* Move o botão 3 pixels para cima */
 }
+
+.btn-terciary:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translatey(-3px); /* Move o botão 3 pixels para cima */
+}
+
 h2 {
     text-align: justify;
 }
