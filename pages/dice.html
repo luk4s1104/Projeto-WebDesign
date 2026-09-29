@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolar Dados - Aventura Digital</title>
+    <link rel="stylesheet" href="../stylesheets/dice.css">
+</head>
+<body>
+
+    <!-- BARRA DE NAVEGAÇÃO SUPERIOR -->
+    <header class="main-header">
+        <nav class="nav-bar">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Campanhas</a></li>
+                <li><a href="mySheets.html">Minhas Fichas</a></li>
+                <li><a href="sheetLibrary.html">Biblioteca</a></li>
+                <li class="active"><a href="dice.html">Rolar Dados</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- CONTAINER DA DASHBOARD -->
+    <div class="dashboard-container">
+        <main class="main-content">
+            
+            <!-- PAINEL DE CONFIGURAÇÃO (BASEADO NO TOPO DA SUA IMAGEM) -->
+            <section class="dice-config-panel">
+                <div class="config-group">
+                    <label for="dice-count">Número de dados</label>
+                    <select id="dice-count">
+                        <option value="6" selected>6 dados</option>
+                        <option value="1">1 dado</option>
+                        <option value="2">2 dados</option>
+                        <option value="3">3 dados</option>
+                        <option value="4">4 dados</option>
+                        <option value="5">5 dados</option>
+                    </select>
+                </div>
+
+                <div class="config-group">
+                    <label for="dice-sides">Número de lados</label>
+                    <select id="dice-sides">
+                        <option value="7" selected>7 lados</option>
+                        <option value="4">d4</option>
+                        <option value="6">d6</option>
+                        <option value="8">d8</option>
+                        <option value="10">d10</option>
+                        <option value="12">d12</option>
+                        <option value="20">d20</option>
+                    </select>
+                </div>
+            </section>
+
+            <!-- ÁREA DE EXIBIÇÃO DOS DADOS (GRID MOCKUP) -->
+            <section class="dice-display-area">
+                <div class="dice-grid">
+                    
+                    <!-- Dado 1 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">3</span>
+                        <span class="dice-sub-num left">6</span>
+                        <span class="main-value">7</span>
+                    </div>
+
+                    <!-- Dado 2 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">3</span>
+                        <span class="dice-sub-num left">6</span>
+                        <span class="main-value">2</span>
+                    </div>
+
+                    <!-- Dado 3 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">3</span>
+                        <span class="dice-sub-num left">1</span>
+                        <span class="main-value">4</span>
+                    </div>
+
+                    <!-- Dado 4 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">3</span>
+                        <span class="dice-sub-num left">6</span>
+                        <span class="main-value">7</span>
+                    </div>
+
+                    <!-- Dado 5 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">2</span>
+                        <span class="dice-sub-num left">4</span>
+                        <span class="main-value">1</span>
+                    </div>
+
+                    <!-- Dado 6 -->
+                    <div class="dice-mockup">
+                        <span class="dice-sub-num top">3</span>
+                        <span class="dice-sub-num left">1</span>
+                        <span class="main-value">4</span>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- SEÇÃO DE AÇÃO E RESULTADOS -->
+            <section class="dice-action-area">
+                <button type="button" class="btn-roll">Lançar</button>
+                <div class="total-display">
+                    Total : <span class="total-value">25</span>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- RODAPÉ GLOBAL DA PÁGINA -->
+    <footer class="global-footer">
+        <div class="footer-container">
+            <div class="footer-info">
+                <p class="footer-copyright">&copy; 2026 Aventura Digital. Todos os direitos reservados.</p>
+                <span class="footer-version">Versão v2.4.1</span>
+            </div>
+            <nav class="footer-nav">
+                <ul class="footer-links">
+                    <li><a href="#ajuda">Ajuda & Suporte</a></li>
+                    <li><a href="#termos">Termos de Uso</a></li>
+                    <li><a href="#privacidade">Política de Privacidade</a></li>
+                    <li><a href="#comunidade">Comunidade Discord</a></li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+</html>
