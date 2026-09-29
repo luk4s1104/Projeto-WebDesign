@@ -9,10 +9,8 @@ html {
 }
 
 body{
-  background-image: url('../Img_folder/rpg-de-mesa.png');
-    /* Imagem de fundo com um degradê escuro por cima */
-    background-image: url('../Img_folder/rpg-de-mesa.png');
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('../Img_folder/rpg-de-mesa.png');
+    background-image: '../Img_folder/rpg-de-mesa.png';
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), '../Img_folder/rpg-de-mesa.png';
     background-size: cover;             
     background-position: center;        
     background-repeat: no-repeat;
