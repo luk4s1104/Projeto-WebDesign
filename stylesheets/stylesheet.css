@@ -4,22 +4,30 @@
     box-sizing: border-box;
 }
 
-body{
-  background-image: url('./Img_folder/rpg-de-mesa.png');
-    /* Imagem de fundo com um degradê escuro por cima */
-    background-image: url('./Img_folder/rpg-de-mesa.png');
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('./Img_folder/rpg-de-mesa.png');
-    background-size: cover;             /* Faz a imagem cobrir toda a tela, sem esticar ou distorcer */
-    background-position: center;        /* Centraliza a imagem na tela para mostrar a melhor parte */       
+html {
+    scroll-behavior: smooth;
+}
 
-    font-family: 'Inter', sans-serif; /* Define a fonte principal do site (Inter) e usa sem-serifa como reserva */
+body{
+  background-image: url('../Img_folder/rpg-de-mesa.png');
+    /* Imagem de fundo com um degradê escuro por cima */
+    background-image: url('../Img_folder/rpg-de-mesa.png');
+    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('../Img_folder/rpg-de-mesa.png');
+    background-size: cover;             
+    background-position: center;        
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Mantém o fundo estático enquanto o texto rola por cima */
+
+    font-family: 'Inter', sans-serif; 
     color: #f3f4f6;
 
     display: flex;
-    justify-content: center;    
-    align-items: center;
-    min-height: 100vh;      /* Garante que o corpo do site tenha no mínimo a altura total da tela do dispositivo */
-    padding: 20px;          /* Cria um espaçamento de segurança nas bordas para o conteúdo não colar na tela */
+    flex-direction: column; /* Organiza os blocos um embaixo do outro */
+    align-items: center;    /* Centraliza todos os blocos horizontalmente na tela */
+    min-height: 100vh;      
+    margin: 0;
+     padding: 120px 0 0 0; /* 120px no topo impede que o cabeçalho cubra o texto */
+    box-sizing: border-box;         /* Cria um espaçamento de segurança nas bordas para o conteúdo não colar na tela */
 }
 
 /* Configuração Principal do Cabeçalho */
@@ -67,35 +75,94 @@ body{
     letter-spacing: 0.5px;          /* Pequeno espaçamento entre as letras */
 }
 
-
-.principal {
-    text-align: center;     
-    max-width: 800px;
-    background-color: rgba(20, 20, 20, 0.6); /* Fundo sutil atrás do texto */   
-    padding: 40px 30px;                  /* Espaçamento interno da caixa (40px cima/baixo e 30px nas laterais) */
-    border-radius: 12px;            /* Arredonda os cantos da caixa de texto */
-    border: 1px solid rgba(255, 255, 255, 0.1); /* Borda fina */
-    backdrop-filter: blur(8px); /* Efeito de vidro fosco no fundo */
-}
-
-h1 {
+.conteudo-principal {
+    max-width: 750px;
+    margin: 40px auto 60px auto; /* 120px de margem inferior empurra a próxima seção para baixo */
     text-align: center;
-    color: aliceblue;
-    font-family: 'Cinzel', serif;
-    font-size: 2.8rem;      /* Define o tamanho do texto */
-    font-weight: 700;       /* Deixa a fonte em negrito */
-    color: #ffffff;
-    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);  /* Adiciona uma sombra preta atrás das letras */
-    margin-bottom: 20px;        /* Cria um espaço vazio de 20px abaixo do título */
-    letter-spacing: 1px;        /* Aumenta levemente o espaço entre as letras do título */
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
 }
 
-.description {
-    font-size: 1.15rem;
+.conteudo-principal h1 {
+    font-size: 32px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.conteudo-principal p {
+    font-size: 16px;
     line-height: 1.6;
     color: #d1d5db;
-    margin-bottom: 40px;    /* Cria um espaço vazio de 40px abaixo da descrição (afastando os botões) */
-    font-weight: 300;       /* Deixa a fonte mais fina e leve */
+    margin-bottom: 25px;
+}
+
+.acoes-principais {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.botao-quem-somos {
+    background-color: transparent;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.botao-quem-somos:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.botao-saiba-mais{
+    background-color: transparent;
+    color: #ffffff;
+    padding: 12px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid #ffffff;
+    transition: background-color 0.2s ease;
+}
+
+.botao-saiba-mais:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.secao-explicativa {
+    max-width: 750px;
+    margin: 0 auto 40px auto; /* Reduzido a margem inferior para acumular as seções */
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+}
+
+.secao-explicativa h2 {
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 30px;
+    border-bottom: 1px solid #374151;
+    padding-bottom: 10px;
+}
+
+.bloco-recurso {
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.bloco-recurso h3 {
+    font-size: 18px;
+    color: #f3f4f6;
+    margin-bottom: 8px;
+}
+
+.bloco-recurso p {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.5;
 }
 
 .cta-buttons {
@@ -149,8 +216,71 @@ h1 {
     transform: translatey(-3px); /* Move o botão 3 pixels para cima */
 }
 
-h2 {
-    text-align: justify;
+.sobre-nos{
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto 30px auto; /* Margem inferior reduzida para manter o espaçamento curto */
+    background: rgba(0, 0, 0, 0.8);
+    padding: 40px;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.sobre-nos h2{
+    font-size: 24px;
+    color: #ffffff;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #374151; /* Linha sutil divisória */
+    padding-bottom: 10px;
+    text-align: left;
+}
+
+.sub-bloco-sobre {
+    margin-bottom: 25px;
+}
+
+.sub-bloco-sobre:last-child {
+    margin-bottom: 0;
+}
+
+.sub-bloco-sobre h3 {
+    font-size: 16px;
+    color: #f3f4f6;
+    margin-bottom: 12px;
+    text-align: left;
+}
+
+.sub-bloco-sobre p {
+    font-size: 14px;
+    color: #9ca3af;
+    line-height: 1.6;
+    text-align: left;
+}
+
+.lista-integrantes {
+    list-style: none; 
+    padding: 0;
+    margin: 0;
+    text-align: left;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+}
+
+.lista-integrantes li {
+    font-size: 14px;
+    color: #9ca3af;
+    background: rgba(255, 255, 255, 0.03); /* Fundo cinza bem sutil para criar um bloco */
+    padding: 10px 15px;
+    border-radius: 4px;
+    border-left: 3px solid #b91c1c; /* Detalhe em vermelho escuro combinando com a identidade do site */
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lista-integrantes li:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
 }
 
 @media (max-width: 600px) {
@@ -164,8 +294,38 @@ h2 {
         width: 100%;
     }
 }
-h3 {
-    text-align: center;
-    text-decoration: underline;
-    font-size: 25px;
+
+.rodape {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;            
+    padding: 20px 40px;             
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(5px);     
+    margin-top: auto;
+    width: 100%;
+    box-sizing: border-box;         
+    z-index: 10;                    
+}
+
+.rodape .texto p {
+    font-size: 14px;
+    color: #9ca3af; 
+    margin: 0;
+}
+
+.links-rodape {
+    display: flex;
+    gap: 20px; /* Cria um espaçamento horizontal idêntico entre cada link */
+}
+
+.links-rodape a {
+    font-size: 14px;
+    color: #f3f4f6; 
+    text-decoration: none; 
+    transition: color 0.2s ease; 
+}
+
+.links-rodape a:hover {
+    color: #9ca3af; 
 }
