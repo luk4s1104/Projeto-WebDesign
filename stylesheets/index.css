@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. RESET E CONFIGURAÇÕES GERAIS
+   1. RESET E CONFIGURAÇÕES GERAIS - TEMA ESCURO
    ========================================================================== */
 * {
     margin: 0;
@@ -9,21 +9,26 @@
 }
 
 body {
-    background-color: #ffffff;
-    color: #334155;
+    /* Cor de fundo escura global  */
+    background-color: #0f172a; 
+    color: #e2e8f0; 
     line-height: 1.6;
 }
 
+html {
+    scroll-behavior: smooth; /* Faz a mágica da rolagem suave acontecer */
+}
+
 /* ==========================================================================
-   2. HEADER (CABEÇALHO) - Estilo Minimalista e Limpo
+   2. HEADER (CABEÇALHO) - Tema Escuro
    ========================================================================== */
 .site-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 18px 8%;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
+    background-color: #1a2335; 
+    border-bottom: 1px solid #334155; /* Linha divisória sutil */
     position: sticky;
     top: 0;
     z-index: 100;
@@ -39,12 +44,13 @@ body {
     height: 32px;
     width: auto;
     display: block;
+    filter: invert(100%) brightness(1000%);
 }
 
 .logo-texto {
     font-weight: 700;
     font-size: 1.25rem;
-    color: #0f172a;
+    color: #ffffff; 
 }
 
 .cta-buttons {
@@ -53,10 +59,10 @@ body {
     align-items: center;
 }
 
-/* Efeito Underline nos Links do Header */
+/* Efeito Underline nos Links do Header - Cor Clara */
 .cta-buttons a {
     text-decoration: none;
-    color: #64748b;
+    color: #94a3b8; 
     font-size: 0.95rem;
     font-weight: 500;
     position: relative;
@@ -71,34 +77,49 @@ body {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #0d9488;
+    background-color: #0d9488; 
     transition: width 0.25s ease-in-out;
 }
 
 .cta-buttons a:hover {
-    color: #0d9488;
+    color: #0d9488; 
 }
 
 .cta-buttons a:hover::after {
     width: 100%;
 }
 
-/* ==========================================================================
-   3. HERO SECTION (BANNER PRINCIPAL)
-   ========================================================================== */
+ /* ==========================================================================
+   3. HERO SECTION (BANNER PRINCIPAL) - OTIMIZADO PARA SATURAÇÃO E COR
+   ========================================================================= */
 .conteudo-principal {
-    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
-                url('../Img_folder/rpg-de-mesa.png');
+    background-color: #0f172a; 
+
+    background-image: linear-gradient(
+        to bottom, 
+        rgba(15, 23, 42, 0.95) 0%, 
+        rgba(15, 23, 42, 0.85) 35%, 
+        rgba(15, 23, 42, 0.4) 70%, 
+        rgba(15, 23, 42, 0.1) 100%
+    ), 
+    url('../Img_folder/rog-dados.png');
+    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    
+    filter: saturate(120%) contrast(105%);
+    
     color: #ffffff;
-    padding: 100px 8%;
-    min-height: 480px;
+    padding: 120px 8%; 
+    min-height: 520px; 
     display: flex;
     flex-direction: column;
     justify-content: center;
+    
+    position: relative; 
 }
+
 
 .conteudo-principal h1 {
     font-size: 3.2rem;
@@ -112,10 +133,11 @@ body {
 
 .conteudo-principal p {
     font-size: 1.15rem;
-    color: #cbd5e1;
+    color: #d1d5db; 
     margin-bottom: 35px;
     max-width: 680px;
 }
+
 
 /* Botões do Hero */
 .acoes-principais {
@@ -137,7 +159,7 @@ body {
 
 /* Botão Principal (Ver Como Funciona) */
 .botao-saiba-mais {
-    background-color: #0d9488; /* Verde Teal */
+    background-color: #0d9488; 
     color: #ffffff;
     border: none;
 }
@@ -171,7 +193,7 @@ body {
 .secao-explicativa h2, 
 .sobre-nos h2 {
     font-size: 2rem;
-    color: #0f172a;
+    color: #ffffff; 
     margin-bottom: 40px;
     font-weight: 700;
 }
@@ -187,12 +209,12 @@ body {
 
 .bloco-recurso h3 {
     font-size: 1.2rem;
-    color: #0f172a;
+    color: #ffffff; 
     margin-bottom: 8px;
 }
 
 .bloco-recurso p {
-    color: #64748b;
+    color: #cbd5e1; 
     font-size: 1rem;
     max-width: 750px;
 }
@@ -203,12 +225,12 @@ body {
 
 .sub-bloco-sobre h3 {
     font-size: 1.2rem;
-    color: #0f172a;
+    color: #ffffff; 
     margin-bottom: 12px;
 }
 
 .sub-bloco-sobre p {
-    color: #64748b;
+    color: #cbd5e1; 
     font-size: 1rem;
     max-width: 800px;
 }
@@ -218,25 +240,32 @@ body {
 }
 
 .lista-integrantes li {
-    color: #64748b;
+    color: #cbd5e1; 
     padding: 8px 0;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #334155; 
     font-size: 0.95rem;
     max-width: 400px;
 }
 
+.lista-integrantes :hover{
+    color: #ffffff;
+    padding-left: 5px;
+    transition: all 0.25s ease;
+    text-shadow: 0 0 8px rgba(13, 148, 136, 0.4);
+}
+
 /* ==========================================================================
-   5. RODAPÉ (FOOTER)
+   5. RODAPÉ (FOOTER) - Tema Escuro
    ========================================================================== */
 .rodape {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px 8%;
-    border-top: 1px solid #e2e8f0;
-    background-color: #ffffff;
+    border-top: 1px solid #334155; 
+    background-color: #1a2335; 
     font-size: 0.875rem;
-    color: #64748b;
+    color: #94a3b8; 
 }
 
 .links-rodape {
@@ -245,13 +274,13 @@ body {
 }
 
 .links-rodape a {
-    color: #64748b;
+    color: #94a3b8; 
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .links-rodape a:hover {
-    color: #0d9488;
+    color: #0d9488; 
 }
 
 /* ==========================================================================
@@ -261,6 +290,7 @@ body {
     .site-header {
         flex-direction: column;
         gap: 15px;
+        padding: 15px;
     }
 
     .cta-buttons {
@@ -273,9 +303,27 @@ body {
         font-size: 2.2rem;
     }
 
+    .secao-explicativa, 
+    .sobre-nos {
+        padding: 50px 5%;
+    }
+
     .rodape {
         flex-direction: column;
         gap: 15px;
         text-align: center;
+        padding: 20px 5%;
+    }
+}
+
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2rem;
+    }
+    .cta-buttons {
+        flex-direction: column;
+    }
+    .btn {
+        width: 100%;
     }
 }
