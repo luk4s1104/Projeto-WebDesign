@@ -1,331 +1,281 @@
+/* ==========================================================================
+   1. RESET E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
-html {
-    scroll-behavior: smooth;
+body {
+    background-color: #ffffff;
+    color: #334155;
+    line-height: 1.6;
 }
 
-body{
-  background-image: url('../Img_folder/rpg-de-mesa.png');
-    /* Imagem de fundo com um degradê escuro por cima */
-    background-image: url('../Img_folder/rpg-de-mesa.png');
-    background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.85)), url('../Img_folder/rpg-de-mesa.png');
-    background-size: cover;             
-    background-position: center;        
-    background-repeat: no-repeat;
-    background-attachment: fixed; /* Mantém o fundo estático enquanto o texto rola por cima */
-
-    font-family: 'Inter', sans-serif; 
-    color: #f3f4f6;
-
-    display: flex;
-    flex-direction: column; /* Organiza os blocos um embaixo do outro */
-    align-items: center;    /* Centraliza todos os blocos horizontalmente na tela */
-    min-height: 100vh;      
-    margin: 0;
-     padding: 120px 0 0 0; /* 120px no topo impede que o cabeçalho cubra o texto */
-    box-sizing: border-box;         /* Cria um espaçamento de segurança nas bordas para o conteúdo não colar na tela */
-}
-
-/* Configuração Principal do Cabeçalho */
+/* ==========================================================================
+   2. HEADER (CABEÇALHO) - Estilo Minimalista e Limpo
+   ========================================================================== */
 .site-header {
     display: flex;
-    justify-content: space-between; /* Mantém espaço para novos elementos no futuro */
-    align-items: center;            /* Alinha a imagem e o texto no centro vertical */
-    padding: 20px 40px;             /* Espaçamento interno nas bordas */
-    background: rgba(0, 0, 0, 0.4); /* Fundo escuro transparente */
-    backdrop-filter: blur(5px);     /* Efeito de vidro fosco no fundo */
-    position: absolute;             /* Fixa o cabeçalho sobre a imagem de fundo do site */
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 8%;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
     top: 0;
-    left: 0;
-    width: 100%;
-    box-sizing: border-box;         /* Evita que o padding aumente o tamanho total do topo */
-    z-index: 10;                    /* Garante que fique por cima da seção central */
+    z-index: 100;
 }
 
-/* Alinhamento do Bloco do Logo (Imagem + Texto) */
 .logo {
     display: flex;
     align-items: center;
-    gap: 15px;                      /* Espaçamento perfeito entre o dado e o texto */
+    gap: 12px;
 }
 
-/* Container da Imagem */
-.logo-img {
+.logo-img img {
+    height: 32px;
+    width: auto;
+    display: block;
+}
+
+.logo-texto {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #0f172a;
+}
+
+.cta-buttons {
     display: flex;
+    gap: 28px;
     align-items: center;
 }
 
-/* Controle do Tamanho e Cor da Imagem do D20 */
-.logo-img img {
-    height: 40px;                   /* Altura ideal para o cabeçalho */
-    width: auto;                    /* Mantém a proporção correta para não distorcer */
-    filter: invert(1);              /* Inverte a cor preta do dado para branco, destacando no fundo escuro */
+/* Efeito Underline nos Links do Header */
+.cta-buttons a {
+    text-decoration: none;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.2s ease;
 }
 
-/* Estilização do Texto do Logo */
-.logo-texto {
-    color: #ffffff;                 /* Cor branca pura */
-    font-size: 24px;
-    font-weight: bold;              /* Deixa a fonte em negrito */
-    font-family: sans-serif;        /* Fonte limpa */
-    letter-spacing: 0.5px;          /* Pequeno espaçamento entre as letras */
+.cta-buttons a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0d9488;
+    transition: width 0.25s ease-in-out;
 }
 
+.cta-buttons a:hover {
+    color: #0d9488;
+}
+
+.cta-buttons a:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   3. HERO SECTION (BANNER PRINCIPAL)
+   ========================================================================== */
 .conteudo-principal {
-    max-width: 750px;
-    margin: 40px auto 60px auto; /* 120px de margem inferior empurra a próxima seção para baixo */
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 40px;
-    border-radius: 8px;
-    backdrop-filter: blur(10px);
+    background: linear-gradient(rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.85)), 
+                url('../Img_folder/rpg-de-mesa.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #ffffff;
+    padding: 100px 8%;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .conteudo-principal h1 {
-    font-size: 32px;
+    font-size: 3.2rem;
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+    max-width: 800px;
     color: #ffffff;
-    margin-bottom: 15px;
 }
 
 .conteudo-principal p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #d1d5db;
-    margin-bottom: 25px;
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    margin-bottom: 35px;
+    max-width: 680px;
 }
 
+/* Botões do Hero */
 .acoes-principais {
     display: flex;
-    justify-content: center;
-    gap: 15px;
+    gap: 16px;
 }
 
+.botao-saiba-mais, 
 .botao-quem-somos {
-    background-color: transparent;
-    color: #ffffff;
+    display: inline-flex;
+    align-items: center;
     padding: 12px 24px;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
     text-decoration: none;
-    border: 1px solid #ffffff;
-    transition: background-color 0.2s ease;
+    transition: all 0.2s ease;
 }
 
-.botao-quem-somos:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-}
-
-.botao-saiba-mais{
-    background-color: transparent;
+/* Botão Principal (Ver Como Funciona) */
+.botao-saiba-mais {
+    background-color: #0d9488; /* Verde Teal */
     color: #ffffff;
-    padding: 12px 24px;
-    border-radius: 4px;
-    text-decoration: none;
-    border: 1px solid #ffffff;
-    transition: background-color 0.2s ease;
+    border: none;
 }
 
 .botao-saiba-mais:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: #0f766e;
+}
+
+/* Botão Secundário (Sobre nós) */
+.botao-quem-somos {
+    background-color: transparent;
+    color: #ffffff;
+    border: 1px solid #475569;
+}
+
+.botao-quem-somos:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: #94a3b8;
+}
+
+/* ==========================================================================
+   4. SEÇÕES INFORMATIVAS (CONTEÚDO)
+   ========================================================================== */
+.secao-explicativa, 
+.sobre-nos {
+    padding: 80px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.secao-explicativa h2, 
+.sobre-nos h2 {
+    font-size: 2rem;
+    color: #0f172a;
+    margin-bottom: 40px;
+    font-weight: 700;
 }
 
 .secao-explicativa {
-    max-width: 750px;
-    margin: 0 auto 40px auto; /* Reduzido a margem inferior para acumular as seções */
-    background: rgba(0, 0, 0, 0.8);
-    padding: 40px;
-    border-radius: 8px;
-}
-
-.secao-explicativa h2 {
-    font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 30px;
-    border-bottom: 1px solid #374151;
-    padding-bottom: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .bloco-recurso {
-    margin-bottom: 25px;
-    text-align: left;
+    margin-bottom: 32px;
 }
 
 .bloco-recurso h3 {
-    font-size: 18px;
-    color: #f3f4f6;
+    font-size: 1.2rem;
+    color: #0f172a;
     margin-bottom: 8px;
 }
 
 .bloco-recurso p {
-    font-size: 14px;
-    color: #9ca3af;
-    line-height: 1.5;
-}
-
-.cta-buttons {
-    display: flex;      /* Ativa o Flexbox para alinhar os botões um ao lado do outro */
-    flex-wrap: wrap;    /* Permite que os botões pulem de linha automaticamente se não couberem na tela */
-    gap: 20px;          /* Cria uma distância padrão de 20px fixa entre cada botão */
-    justify-content: center;
-}
-
-.btn {                     /*aplica mudanças a todos os botoes*/
-    display: inline-block; /* Permite ajustar altura/largura e alinhar ao lado de outros botões */
-    padding: 14px 28px;    /* Define o espaçamento interno (14px cima/baixo, 28px lados) para dar volume */
-    font-size: 1rem;       /* Define o tamanho do texto do botão */
-    font-weight: 600;      /* Deixa a fonte em negrito */
-    text-decoration: none; 
-    border-radius: 8px;     /* Deixa os cantos do botão arredondados e modernos */
-    transition: all 0.3s ease;   /* Faz com que qualquer mudança (como o :hover) aconteça de forma suave e gradual */
-    cursor: pointer;            /* Transforma a seta do mouse naquela "mãozinha" de clique quando passa por cima */
-}
-
-.btn-primary {
-    background-color: #b91c1c; 
-    color: #ffffff;
-    box-shadow: 0 4px 15px rgba(185, 28, 28, 0.4);
-}
-.btn-primary:hover {
-    background-color: #dc2626; 
-    transform: translateY(-3px);  /* Move o botão 3 pixels para cima */
-    box-shadow: 0 6px 20px rgba(220, 38, 38, 0.6);
-}
-
-.btn-secondary {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);  /* Adiciona uma borda contornando o botão */
-}
-
-.btn-terciary {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.3);  /* Adiciona uma borda contornando o botão */
-}
-
-.btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-3px); /* Move o botão 3 pixels para cima */
-}
-
-.btn-terciary:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translatey(-3px); /* Move o botão 3 pixels para cima */
-}
-
-.sobre-nos{
+    color: #64748b;
+    font-size: 1rem;
     max-width: 750px;
-    width: 100%;
-    margin: 0 auto 30px auto; /* Margem inferior reduzida para manter o espaçamento curto */
-    background: rgba(0, 0, 0, 0.8);
-    padding: 40px;
-    border-radius: 8px;
-    box-sizing: border-box;
-}
-
-.sobre-nos h2{
-    font-size: 24px;
-    color: #ffffff;
-    margin-bottom: 25px;
-    border-bottom: 1px solid #374151; /* Linha sutil divisória */
-    padding-bottom: 10px;
-    text-align: left;
 }
 
 .sub-bloco-sobre {
-    margin-bottom: 25px;
-}
-
-.sub-bloco-sobre:last-child {
-    margin-bottom: 0;
+    margin-bottom: 32px;
 }
 
 .sub-bloco-sobre h3 {
-    font-size: 16px;
-    color: #f3f4f6;
+    font-size: 1.2rem;
+    color: #0f172a;
     margin-bottom: 12px;
-    text-align: left;
 }
 
 .sub-bloco-sobre p {
-    font-size: 14px;
-    color: #9ca3af;
-    line-height: 1.6;
-    text-align: left;
+    color: #64748b;
+    font-size: 1rem;
+    max-width: 800px;
 }
 
 .lista-integrantes {
-    list-style: none; 
-    padding: 0;
-    margin: 0;
-    text-align: left;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
+    list-style: none;
 }
 
 .lista-integrantes li {
-    font-size: 14px;
-    color: #9ca3af;
-    background: rgba(255, 255, 255, 0.03); /* Fundo cinza bem sutil para criar um bloco */
-    padding: 10px 15px;
-    border-radius: 4px;
-    border-left: 3px solid #b91c1c; /* Detalhe em vermelho escuro combinando com a identidade do site */
-    transition: background-color 0.2s ease, color 0.2s ease;
+    color: #64748b;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 0.95rem;
+    max-width: 400px;
 }
 
-.lista-integrantes li:hover {
-    background: rgba(255, 255, 255, 0.06);
-    color: #ffffff;
-}
-
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2rem;
-    }
-    .cta-buttons {
-        flex-direction: column;
-    }
-    .btn {
-        width: 100%;
-    }
-}
-
+/* ==========================================================================
+   5. RODAPÉ (FOOTER)
+   ========================================================================== */
 .rodape {
     display: flex;
-    justify-content: space-between; 
-    align-items: center;            
-    padding: 20px 40px;             
-    background: rgba(0, 0, 0, 0.4); 
-    backdrop-filter: blur(5px);     
-    margin-top: auto;
-    width: 100%;
-    box-sizing: border-box;         
-    z-index: 10;                    
-}
-
-.rodape .texto p {
-    font-size: 14px;
-    color: #9ca3af; 
-    margin: 0;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px 8%;
+    border-top: 1px solid #e2e8f0;
+    background-color: #ffffff;
+    font-size: 0.875rem;
+    color: #64748b;
 }
 
 .links-rodape {
     display: flex;
-    gap: 20px; /* Cria um espaçamento horizontal idêntico entre cada link */
+    gap: 20px;
 }
 
 .links-rodape a {
-    font-size: 14px;
-    color: #f3f4f6; 
-    text-decoration: none; 
-    transition: color 0.2s ease; 
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s ease;
 }
 
 .links-rodape a:hover {
-    color: #9ca3af; 
+    color: #0d9488;
+}
+
+/* ==========================================================================
+   6. RESPONSIVIDADE
+   ========================================================================== */
+@media (max-width: 768px) {
+    .site-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cta-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+    }
+
+    .conteudo-principal h1 {
+        font-size: 2.2rem;
+    }
+
+    .rodape {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
 }
