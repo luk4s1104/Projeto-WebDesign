@@ -27,50 +27,6 @@
             flex-direction: column;
         }
 
-        /* BARRA DE NAVEGAÇÃO SUPERIOR */
-        header.main-header {
-            background-color: var(--bg-nav);
-            border-bottom: 2px solid var(--border-color);
-            padding: 0 40px;
-        }
-
-        nav.nav-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 60px;
-        }
-
-        nav.nav-bar ul {
-            display: flex;
-            list-style: none;
-            gap: 30px;
-            height: 100%;
-            align-items: center;
-        }
-
-        nav.nav-bar li {
-            height: 100%;
-            display: flex;
-            align-items: center;
-        }
-
-        nav.nav-bar a, nav.nav-bar strong {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        nav.nav-bar ul li.active {
-            border-bottom: 3px solid #3da8f5;
-        }
-
-        nav.nav-bar ul li.active a {
-            color: var(--text-primary);
-            font-weight: bold;
-        }
-
         /* CONTAINER DA DASHBOARD */
         .dashboard-container {
             display: flex;
@@ -80,7 +36,7 @@
 
         .main-content {
             flex: 1;
-            padding: 40px;
+            padding: 40px 8%;
         }
 
         /* CABEÇALHO DO PAINEL */
@@ -279,9 +235,9 @@
         }
 
         .action-buttons {
+            display: flex;
+            justify-content: space-between;
             list-style: none;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
         }
 
         .action-buttons button {
@@ -296,70 +252,3 @@
         .action-buttons button:hover {
             color: var(--text-primary);
         }
-
-.global-footer {
-    background-color: #141b22; /* Mesma cor da barra lateral para manter consistência */
-    border-top: 2px solid var(--border-color);
-    padding: 20px 40px;
-    margin-top: auto; /* Garante que o rodapé fique sempre na parte inferior da tela */
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Informações e Versão */
-.footer-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.footer-copyright {
-    color: var(--text-muted);
-    font-size: 13px;
-}
-
-.footer-version {
-    color: #4faeff;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-/* Links de Navegação do Rodapé */
-.footer-nav .footer-links {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-.footer-nav .footer-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s ease;
-}
-
-.footer-nav .footer-links a:hover {
-    color: var(--text-main);
-    text-decoration: underline;
-}
-
-/* Responsividade para Telas Menores */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .footer-nav .footer-links {
-        flex-direction: column;
-        gap: 12px;
-    }
-}
