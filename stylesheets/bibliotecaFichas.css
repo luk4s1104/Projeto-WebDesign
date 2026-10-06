@@ -29,50 +29,6 @@ body {
     flex-direction: column;
 }
 
-/* BARRA DE NAVEGAÇÃO */
-header.main-header {
-    background-color: var(--bg-nav);
-    border-bottom: 2px solid var(--border-color);
-    padding: 0 40px;
-}
-
-nav.nav-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-}
-
-nav.nav-bar ul {
-    display: flex;
-    list-style: none;
-    gap: 30px;
-    height: 100%;
-    align-items: center;
-}
-
-nav.nav-bar li {
-    height: 100%;
-    display: flex;
-    align-items: center;
-}
-
-nav.nav-bar a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-nav.nav-bar ul li.active {
-    border-bottom: 3px solid #3da8f5;
-}
-
-nav.nav-bar ul li.active a {
-    color: var(--text-primary);
-    font-weight: bold;
-}
-
 /* CONTAINER DA DASHBOARD */
 .dashboard-container {
     display: flex;
@@ -82,7 +38,7 @@ nav.nav-bar ul li.active a {
 
 .main-content {
     flex: 1;
-    padding: 40px;
+    padding: 40px 8%;
 }
 
 /* CABEÇALHO DO PAINEL */
@@ -281,9 +237,8 @@ nav.nav-bar ul li.active a {
 /* Customização dos botões para a Biblioteca (2 colunas em vez de 4) */
 .library-actions {
     list-style: none;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .library-actions button {
@@ -312,59 +267,6 @@ nav.nav-bar ul li.active a {
 .library-actions .btn-clone:hover {
     background-color: #237e4c;
     color: #ffffff;
-}
-
-/* RODAPÉ GLOBAL */
-.global-footer {
-    background-color: #141b22;
-    border-top: 2px solid var(--border-color);
-    padding: 20px 40px;
-    margin-top: auto;
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-.footer-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.footer-copyright {
-    color: var(--text-secondary);
-    font-size: 13px;
-}
-
-.footer-version {
-    color: #4faeff;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-.footer-nav .footer-links {
-    display: flex;
-    list-style: none;
-    gap: 25px;
-}
-
-.footer-nav .footer-links a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-size: 13px;
-    transition: color 0.2s ease;
-}
-
-.footer-nav .footer-links a:hover {
-    color: var(--text-primary);
-    text-decoration: underline;
 }
 
 /* RESPONSIVIDADE */
