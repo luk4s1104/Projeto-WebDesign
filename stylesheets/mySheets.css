@@ -36,7 +36,7 @@
 
         .main-content {
             flex: 1;
-            padding: 40px;
+            padding: 40px 8%;
         }
 
         /* CABEÇALHO DO PAINEL */
@@ -235,9 +235,9 @@
         }
 
         .action-buttons {
+            display: flex;
+            justify-content: space-between;
             list-style: none;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
         }
 
         .action-buttons button {
@@ -252,51 +252,3 @@
         .action-buttons button:hover {
             color: var(--text-primary);
         }
-
-.global-footer {
-    background-color: #141b22; /* Mesma cor da barra lateral para manter consistência */
-    border-top: 2px solid var(--border-color);
-    padding: 20px 40px;
-    margin-top: auto; /* Garante que o rodapé fique sempre na parte inferior da tela */
-}
-
-.footer-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    max-width: 1400px;
-    margin: 0 auto;
-}
-
-/* Informações e Versão */
-.footer-info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.footer-copyright {
-    color: var(--text-muted);
-    font-size: 13px;
-}
-
-.footer-version {
-    color: #4faeff;
-    font-size: 11px;
-    font-weight: 500;
-}
-
-/* Responsividade para Telas Menores */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    .footer-nav .footer-links {
-        flex-direction: column;
-        gap: 12px;
-    }
-}
