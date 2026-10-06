@@ -8,9 +8,6 @@
     padding: 18px 8%;
     background-color: #1a2335; 
     border-bottom: 1px solid #334155; /* Linha divisória sutil */
-    position: sticky;
-    top: 0;
-    z-index: 100;
 }
 
 .logo {

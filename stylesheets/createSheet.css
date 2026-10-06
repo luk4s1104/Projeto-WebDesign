@@ -1,48 +1,123 @@
-@import url('https://googleapis.com');
-
-*{ 
-    margin: 0; 
-    padding: 0; 
-    box-sizing: border-box; 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body{ 
-    font-family: 'EB Garamond', Garamond, Georgia, serif; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: flex-start; 
-    min-height: 100vh; 
-    background-color: #f5f5f5; /* Apenas para contraste básico */
-    padding: 20px;
+body {
+    background-color: #f5f5f5; 
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-h1{ 
-    margin-bottom: 15px; 
+/* ==========================================================================
+   --- SITE HEADER ---
+   ========================================================================== */
+.site-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between; /* Empurra o logo para a esquerda e os botões para a direita */
+    align-items: center;
+    padding: 18px 8%;  
+    background-color: #1a2335; 
+    border-bottom: 1px solid #334155; 
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo-img img {
+    height: 32px;
+    width: auto;
+    display: block;
+    filter: invert(100%) brightness(1000%);
+}
+
+.logo-texto {
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #ffffff; 
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+}
+
+.cta-buttons a {
+    text-decoration: none;
+    color: #94a3b8; 
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.2s ease;
+}
+
+.cta-buttons a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #0d9488; 
+    transition: width 0.25s ease-in-out;
+}
+
+.cta-buttons a:hover {
+    color: #0d9488; 
+}
+
+.cta-buttons a:hover::after {
+    width: 100%;
+}
+
+/* ==========================================================================
+   --- CONTEÚDO CENTRAL (FORMULÁRIOS) ---
+   ========================================================================== */
+h1 { 
+    font-family: 'EB Garamond', Garamond, Georgia, serif;
+    margin: 30px 0 15px 0; 
     font-size: 45px; 
     font-weight: 800; 
     text-transform: uppercase;
     letter-spacing: 2px;
+    text-align: center;
 }
 
-#formBox{ 
+#formBox { 
     display: flex; 
     flex-direction: column; 
     gap: 30px; 
     width: 100%;
-    max-width: 800px; /* Limita a largura máxima do formulário */
+    max-width: 800px;
+    padding: 0 20px 20px 20px; 
+    flex: 1;
 }
 
-/* CONTAINER GERAL DE CADA SEÇÃO */
 .CharacterInfoBox {
     display: flex;
     flex-direction: column;
     border: 2px solid #000;
     width: 100%;
     padding: 15px;
+    background-color: #ffffff; 
 }
 
 .CharacterInfoBox h2 {
+    font-family: 'EB Garamond', Garamond, Georgia, serif;
     font-size: 28px;
     font-weight: 700;
     text-transform: uppercase;
@@ -54,7 +129,7 @@ h1{
 /* 1. SEÇÃO: CREATE CHARACTER */
 #formCharacterInfoBox {
     display: flex;
-    flex-wrap: wrap; /* Permite que o 'Health' quebre a linha ou se alinhe */
+    flex-wrap: wrap; 
     gap: 15px;
 }
 
@@ -62,18 +137,22 @@ h1{
     display: flex;
     align-items: center;
     gap: 10px;
-    flex: 1 1 40%; /* Faz os inputs dividirem o espaço em duas colunas */
+    flex: 1 1 40%; 
     font-size: 18px;
     font-weight: 600;
 }
 
-.characterInfoInput input {
-    flex: 1;
-    padding: 4px;
+.characterInfoInput:has(#health) {
+    flex: 1 1 100%;
 }
 
+.characterInfoInput input {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ccc;
+}
 
-/* 2. SEÇÃO: CHARACTER STATUS (ESTRUTURA DE TABELA) */
+/* 2. SEÇÃO: CHARACTER STATUS */
 #formCharacterStatusBox {
     display: flex;
     flex-direction: column;
@@ -82,7 +161,6 @@ h1{
 
 .statusRow {
     display: grid;
-    /* Alinha em 4 colunas: Nome do Atributo, Valor, Mod, Mod+Level */
     grid-template-columns: 2fr 1fr 1fr 1fr; 
     align-items: center;
     gap: 10px;
@@ -100,16 +178,16 @@ h1{
 .statusLabel img {
     width: 24px;
     height: 24px;
-    border: 1px dashed #000; /* Placeholder para o ícone */
+    border: 1px dashed #000; 
 }
 
 .statusRow input {
     width: 100%;
-    padding: 4px;
+    padding: 6px;
     text-align: center;
+    border: 1px solid #ccc;
 }
 
-/* Customizações para o cabeçalho e rodapé dos atributos */
 .headerRow {
     font-weight: bold;
     border-bottom: 2px solid #000;
@@ -121,13 +199,12 @@ h1{
 }
 
 .footerRow {
-    grid-template-columns: 2fr 1fr; /* Humanity usa apenas duas colunas na imagem */
+    grid-template-columns: 2fr 3.2fr;
     border-top: 2px solid #000;
     margin-top: 10px;
 }
 
-
-/* 3. SEÇÃO INFERIOR: LADO A LADO */
+/* 3. SEÇÃO INFERIOR */
 #bottomSection {
     display: flex;
     gap: 40px;
@@ -135,7 +212,6 @@ h1{
     margin-top: 10px;
 }
 
-/* Quadrados de Equipamento (Esquerda) */
 #equipmentSlotsGrid {
     display: grid;
     grid-template-columns: repeat(2, 100px);
@@ -150,7 +226,6 @@ h1{
     background-color: #e0e0e0;
 }
 
-/* Pergaminho de Textos (Direita) */
 #extraInfoBox {
     flex: 1;
     display: flex;
@@ -158,6 +233,7 @@ h1{
     gap: 15px;
     border: 2px solid #000;
     padding: 15px;
+    background-color: #ffffff;
 }
 
 .textareaGroup {
@@ -172,7 +248,45 @@ h1{
 
 .textareaGroup textarea {
     width: 100%;
-    resize: none; /* Impede o usuário de quebrar o layout puxando a caixa */
+    resize: none; 
     padding: 8px;
-    font-family: inherit;
+    border: 1px solid #ccc;
+}
+
+/* ==========================================================================
+   --- SITE FOOTER ---
+   ========================================================================== */
+.rodape {
+    width: 100%;
+    margin-top: auto; /* Cola o rodapé no fim absoluto da tela */
+    display: flex;
+    justify-content: space-between; /* Mantém copyright na esquerda e links na direita */
+    align-items: center;
+    padding: 30px 8%; 
+    border-top: 1px solid #334155; 
+    background-color: #1a2335; 
+    font-size: 0.875rem;
+    color: #94a3b8; 
+
+    margin-bottom: 0 !important;
+    flex-shrink: 0; 
+}
+
+.rodape .texto p {
+    margin: 0;
+}
+
+.links-rodape {
+    display: flex;
+    gap: 20px;
+}
+
+.links-rodape a {
+    color: #94a3b8; 
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.links-rodape a:hover {
+    color: #0d9488; 
 }
