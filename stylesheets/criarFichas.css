@@ -1,3 +1,17 @@
+:root {
+    --bg-main: #0d1117;
+    --bg-dashboard: #11161d;
+    --bg-card: #151d26;
+    --bg-input: #1b242f;
+    --text-primary: #ffffff;
+    --text-secondary: #8b9aa7;
+    --accent-blue: #1c6ba0;
+    --accent-teal: #0d9488;
+    --accent-gold: #c39a4b;
+    --border-color: #273544;
+    --blue-stats: #4faeff;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -6,179 +20,299 @@
 }
 
 body {
-    background-color: #f5f5f5; 
-    color: #000000;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
-/* ==========================================================================
-   --- CONTEÚDO CENTRAL (FORMULÁRIOS) ---
-   ========================================================================== */
+/* CONTAINER DA DASHBOARD (IGUAL ÀS OUTRAS ABAS) */
+.dashboard-container {
+    display: flex;
+    flex: 1;
+    background-color: var(--bg-dashboard);
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px 8%;
+}
+
 h1 { 
-    font-family: 'EB Garamond', Garamond, Georgia, serif;
-    margin: 30px 0 15px 0; 
-    font-size: 45px; 
-    font-weight: 800; 
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    text-align: center;
+    margin-bottom: 25px; 
+    font-size: 32px; 
+    font-weight: bold;
+    color: var(--text-primary);
+    text-align: left;
 }
 
 #formBox { 
     display: flex; 
     flex-direction: column; 
-    gap: 30px; 
+    gap: 25px; 
     width: 100%;
-    max-width: 800px;
-    padding: 0 20px 20px 20px; 
-    flex: 1;
 }
 
+/* ==========================================================================
+   2. PAINÉIS DE FORMULÁRIO (PADRÃO DOS CARDS DA COMUNIDADE)
+   ========================================================================== */
 .CharacterInfoBox {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
     display: flex;
     flex-direction: column;
-    border: 2px solid #000;
-    width: 100%;
-    padding: 15px;
-    background-color: #ffffff; 
 }
 
 .CharacterInfoBox h2 {
-    font-family: 'EB Garamond', Garamond, Georgia, serif;
-    font-size: 28px;
-    font-weight: 700;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    border-bottom: 1px solid #000;
-    padding-bottom: 5px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
 }
 
-/* 1. SEÇÃO: CREATE CHARACTER */
+/* ESTILIZAÇÃO DO INPUT PADRÃO */
+input[type="text"],
+input[type="number"],
+textarea {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   3. SEÇÃO: CREATE CHARACTER (GRID DE 2 COLUNAS)
+   ========================================================================== */
 #formCharacterInfoBox {
-    display: flex;
-    flex-wrap: wrap; 
-    gap: 15px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
 .characterInfoInput {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1 1 40%; 
-    font-size: 18px;
-    font-weight: 600;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.characterInfoInput:has(#health) {
-    flex: 1 1 100%;
+.characterInfoInput label {
+    font-size: 13px;
+    color: var(--text-secondary);
 }
 
-.characterInfoInput input {
-    flex: 1;
-    padding: 6px;
-    border: 1px solid #ccc;
+.characterInfoInput.row-full {
+    grid-column: span 2;
 }
 
-/* 2. SEÇÃO: CHARACTER STATUS */
+/* ==========================================================================
+   4. SEÇÃO: CHARACTER STATUS (ALINHAMENTO EM TABELA DINÂMICA)
+   ========================================================================== */
 #formCharacterStatusBox {
     display: flex;
     flex-direction: column;
-    gap: 5px;
 }
 
 .statusRow {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr; 
+    grid-template-columns: 2.5fr 1fr 1fr 1fr; 
     align-items: center;
-    gap: 10px;
-    border-bottom: 1px solid #ccc;
-    padding: 5px 0;
+    gap: 15px;
+    border-bottom: 1px solid rgba(39, 53, 68, 0.5);
+    padding: 12px 0;
 }
 
 .statusLabel {
     display: flex;
     align-items: center;
-    gap: 10px;
-    font-weight: 600;
+    gap: 12px;
 }
 
-.statusLabel img {
+.statusLabel label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Caixas de ícones combinando com a borda gold do avatar */
+.placeholder-icon {
     width: 24px;
     height: 24px;
-    border: 1px dashed #000; 
+    border: 1px dashed var(--accent-gold);
+    border-radius: 4px;
+    background-color: rgba(195, 154, 75, 0.05);
 }
 
 .statusRow input {
-    width: 100%;
-    padding: 6px;
     text-align: center;
-    border: 1px solid #ccc;
+    font-weight: bold;
+    color: var(--blue-stats);
 }
 
+/* Cabeçalho do Status */
 .headerRow {
-    font-weight: bold;
-    border-bottom: 2px solid #000;
+    border-bottom: 2px solid var(--border-color);
+    padding-top: 0;
 }
 
 .columnLabel {
     text-align: center;
-    font-size: 14px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
 }
 
+/* Rodapé do Status (Humanity) */
 .footerRow {
-    grid-template-columns: 2fr 3.2fr;
-    border-top: 2px solid #000;
-    margin-top: 10px;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr;
+    border-top: 2px solid var(--border-color);
+    border-bottom: none;
+    margin-top: 15px;
+    padding-top: 20px;
 }
 
-/* 3. SEÇÃO INFERIOR */
-#bottomSection {
-    display: flex;
-    gap: 40px;
+.footerRow input {
+    grid-column: 2 / span 3; 
     width: 100%;
-    margin-top: 10px;
+}
+
+/* ==========================================================================
+   5. SEÇÃO INFERIOR: GRIDS DE ITENS E CAIXAS DE TEXTO
+   ========================================================================== */
+#bottomSection {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 30px;
+    align-items: start;
 }
 
 #equipmentSlotsGrid {
     display: grid;
-    grid-template-columns: repeat(2, 100px);
-    grid-template-rows: repeat(2, 100px);
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    align-content: center;
-    justify-content: center;
 }
 
 .slot {
-    border: 2px dashed #666;
-    background-color: #e0e0e0;
+    height: 110px;
+    background-color: var(--bg-card);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.slot:hover {
+    border-color: var(--accent-gold);
+    background-color: rgba(195, 154, 75, 0.05);
 }
 
 #extraInfoBox {
-    flex: 1;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 15px;
-    border: 2px solid #000;
-    padding: 15px;
-    background-color: #ffffff;
 }
 
 .textareaGroup {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
 }
 
 .textareaGroup label {
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
 }
 
 .textareaGroup textarea {
-    width: 100%;
-    resize: none; 
-    padding: 8px;
-    border: 1px solid #ccc;
+    max-height: 75px;
+    resize: none;
+}
+
+/* ==========================================================================
+   6. BOTÃO SALVAR (PADRÃO TEMA VERDE DE SUCESSO DO SEU PROJETO)
+   ========================================================================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-save {
+    background-color: #1a5c38;
+    color: #ffffff;
+    border: 1px solid #237e4c;
+    padding: 12px 35px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-save:hover {
+    background-color: #237e4c;
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE COMPLETA MÓVEL
+   ========================================================================== */
+@media (max-width: 900px) {
+    #bottomSection {
+        grid-template-columns: 1fr;
+    }
+    
+    #equipmentSlotsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .slot {
+        height: 90px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        padding: 30px 20px;
+    }
+    
+    #formCharacterInfoBox {
+        grid-template-columns: 1fr;
+    }
+    
+    .characterInfoInput.row-full {
+        grid-column: span 1;
+    }
+    
+    .statusRow {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .statusLabel label {
+        font-size: 11px;
+    }
+    
+    #equipmentSlotsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
