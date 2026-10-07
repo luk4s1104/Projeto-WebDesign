@@ -26,73 +26,6 @@ body {
     flex-direction: column;
 }
 
-.site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 18px 8%;
-    background-color: #1a2335; 
-    border-bottom: 1px solid #334155; /* Linha divisória sutil */
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-.logo-img img {
-    height: 32px;
-    width: auto;
-    display: block;
-    filter: invert(100%) brightness(1000%);
-}
-
-.logo-texto {
-    font-weight: 700;
-    font-size: 1.25rem;
-    color: #ffffff; 
-}
-
-.cta-buttons {
-    display: flex;
-    gap: 28px;
-    align-items: center;
-}
-
-/* Efeito Underline nos Links do Header - Cor Clara */
-.cta-buttons a {
-    text-decoration: none;
-    color: #94a3b8; 
-    font-size: 0.95rem;
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 4px;
-    transition: color 0.2s ease;
-}
-
-.cta-buttons a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: 0;
-    left: 0;
-    background-color: #0d9488; 
-    transition: width 0.25s ease-in-out;
-}
-
-.cta-buttons a:hover {
-    color: #0d9488; 
-}
-
-.cta-buttons a:hover::after {
-    width: 100%;
-}
-
 /* CONTAINER DA DASHBOARD */
 .dashboard-container {
     display: flex;
@@ -241,30 +174,4 @@ body {
 .total-value {
     color: #3da8f5; /* Destaque azul condizente com o tema ativo */
     font-size: 24px;
-}
-
-.rodape {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 30px 8%;
-    border-top: 1px solid #334155; 
-    background-color: #1a2335; 
-    font-size: 0.875rem;
-    color: #94a3b8; 
-}
-
-.links-rodape {
-    display: flex;
-    gap: 20px;
-}
-
-.links-rodape a {
-    color: #94a3b8; 
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.links-rodape a:hover {
-    color: #0d9488; 
 }

@@ -1,0 +1,318 @@
+:root {
+    --bg-main: #0d1117;
+    --bg-dashboard: #11161d;
+    --bg-card: #151d26;
+    --bg-input: #1b242f;
+    --text-primary: #ffffff;
+    --text-secondary: #8b9aa7;
+    --accent-blue: #1c6ba0;
+    --accent-teal: #0d9488;
+    --accent-gold: #c39a4b;
+    --border-color: #273544;
+    --blue-stats: #4faeff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* CONTAINER DA DASHBOARD (IGUAL ÀS OUTRAS ABAS) */
+.dashboard-container {
+    display: flex;
+    flex: 1;
+    background-color: var(--bg-dashboard);
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    padding: 40px 8%;
+}
+
+h1 { 
+    margin-bottom: 25px; 
+    font-size: 32px; 
+    font-weight: bold;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+#formBox { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 25px; 
+    width: 100%;
+}
+
+/* ==========================================================================
+   2. PAINÉIS DE FORMULÁRIO (PADRÃO DOS CARDS DA COMUNIDADE)
+   ========================================================================== */
+.CharacterInfoBox {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.CharacterInfoBox h2 {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 20px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+/* ESTILIZAÇÃO DO INPUT PADRÃO */
+input[type="text"],
+input[type="number"],
+textarea {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 10px 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 100%;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--accent-blue);
+}
+
+/* ==========================================================================
+   3. SEÇÃO: CREATE CHARACTER (GRID DE 2 COLUNAS)
+   ========================================================================== */
+#formCharacterInfoBox {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.characterInfoInput {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.characterInfoInput label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.characterInfoInput.row-full {
+    grid-column: span 2;
+}
+
+/* ==========================================================================
+   4. SEÇÃO: CHARACTER STATUS (ALINHAMENTO EM TABELA DINÂMICA)
+   ========================================================================== */
+#formCharacterStatusBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.statusRow {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr 1fr 1fr; 
+    align-items: center;
+    gap: 15px;
+    border-bottom: 1px solid rgba(39, 53, 68, 0.5);
+    padding: 12px 0;
+}
+
+.statusLabel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.statusLabel label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Caixas de ícones combinando com a borda gold do avatar */
+.placeholder-icon {
+    width: 24px;
+    height: 24px;
+    border: 1px dashed var(--accent-gold);
+    border-radius: 4px;
+    background-color: rgba(195, 154, 75, 0.05);
+}
+
+.statusRow input {
+    text-align: center;
+    font-weight: bold;
+    color: var(--blue-stats);
+}
+
+/* Cabeçalho do Status */
+.headerRow {
+    border-bottom: 2px solid var(--border-color);
+    padding-top: 0;
+}
+
+.columnLabel {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Rodapé do Status (Humanity) */
+.footerRow {
+    grid-template-columns: 2.5fr 1fr 1fr 1fr;
+    border-top: 2px solid var(--border-color);
+    border-bottom: none;
+    margin-top: 15px;
+    padding-top: 20px;
+}
+
+.footerRow input {
+    grid-column: 2 / span 3; 
+    width: 100%;
+}
+
+/* ==========================================================================
+   5. SEÇÃO INFERIOR: GRIDS DE ITENS E CAIXAS DE TEXTO
+   ========================================================================== */
+#bottomSection {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+#equipmentSlotsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.slot {
+    height: 110px;
+    background-color: var(--bg-card);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.slot:hover {
+    border-color: var(--accent-gold);
+    background-color: rgba(195, 154, 75, 0.05);
+}
+
+#extraInfoBox {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.textareaGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.textareaGroup label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+}
+
+.textareaGroup textarea {
+    max-height: 75px;
+    resize: none;
+}
+
+/* ==========================================================================
+   6. BOTÃO SALVAR (PADRÃO TEMA VERDE DE SUCESSO DO SEU PROJETO)
+   ========================================================================== */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.btn-save {
+    background-color: #1a5c38;
+    color: #ffffff;
+    border: 1px solid #237e4c;
+    padding: 12px 35px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-save:hover {
+    background-color: #237e4c;
+}
+
+/* ==========================================================================
+   7. RESPONSIVIDADE COMPLETA MÓVEL
+   ========================================================================== */
+@media (max-width: 900px) {
+    #bottomSection {
+        grid-template-columns: 1fr;
+    }
+    
+    #equipmentSlotsGrid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    .slot {
+        height: 90px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-content {
+        padding: 30px 20px;
+    }
+    
+    #formCharacterInfoBox {
+        grid-template-columns: 1fr;
+    }
+    
+    .characterInfoInput.row-full {
+        grid-column: span 1;
+    }
+    
+    .statusRow {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .statusLabel label {
+        font-size: 11px;
+    }
+    
+    #equipmentSlotsGrid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
