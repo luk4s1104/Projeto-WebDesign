@@ -69,17 +69,26 @@
 }
 
 /* ==========================================================================
-   5. RODAPÉ (FOOTER) - Tema Escuro
+   --- SITE FOOTER ---
    ========================================================================== */
+
 .rodape {
+    width: 100%;
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 8%;
+    padding: 30px 8%; 
     border-top: 1px solid #334155; 
     background-color: #1a2335; 
     font-size: 0.875rem;
-    color: #94a3b8; 
+    color: #94a3b8;
+    margin-bottom: 0 !important;
+    flex-shrink: 0; 
+}
+
+.rodape .texto p {
+    margin: 0;
 }
 
 .links-rodape {
@@ -96,8 +105,6 @@
 .links-rodape a:hover {
     color: #0d9488; 
 }
-
-
 
 /* ==========================================================================
    6. RESPONSIVIDADE
