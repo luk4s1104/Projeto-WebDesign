@@ -2,12 +2,16 @@
    2. HEADER (CABEÇALHO) - Tema Escuro
    ========================================================================== */
 .site-header {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 8%;
+    padding: 18px 8%;  
     background-color: #1a2335; 
-    border-bottom: 1px solid #334155; /* Linha divisória sutil */
+    border-bottom: 1px solid #334155; 
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
@@ -35,7 +39,6 @@
     align-items: center;
 }
 
-/* Efeito Underline nos Links do Header - Cor Clara */
 .cta-buttons a {
     text-decoration: none;
     color: #94a3b8; 
@@ -64,8 +67,6 @@
 .cta-buttons a:hover::after {
     width: 100%;
 }
-
-
 
 /* ==========================================================================
    5. RODAPÉ (FOOTER) - Tema Escuro
