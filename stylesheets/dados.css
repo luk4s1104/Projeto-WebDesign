@@ -158,23 +158,20 @@ body {
 
 .dice-grid {
     display: grid;
-    grid-template-columns: repeat(3, 140px);
-    gap: 40px;
     justify-content: center;
 }
 
-/* MOCKUP ESTÁTICO DO DADO (Simulando o formato de diamante/polígono em CSS) */
 .dice-mockup {
     position: relative;
     width: 130px;
     height: 130px;
     background-color: var(--dice);
-    clip-path: polygon(50% 0%, 100% 35%, 100% 65%, 50% 100%, 0% 65%, 0% 35%);
+    border-radius: 12px; 
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.15);
+    border: 2px solid var(--border-color); /* Usa a cor de borda do seu tema */
 }
 
 /* Valor Principal do Centro */
