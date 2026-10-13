@@ -16,11 +16,11 @@ body {
 }
 
 html {
-    scroll-behavior: smooth; /* Faz a mágica da rolagem suave acontecer */
+    scroll-behavior: smooth; /* Faz a rolagem suave */
 }
 
 /* ==========================================================================
-   2. HEADER (CABEÇALHO) - Tema Escuro
+   2. HEADER (CABEÇALHO) 
    ========================================================================== */
 .site-header {
     display: flex;
@@ -90,7 +90,7 @@ html {
 }
 
  /* ==========================================================================
-   3. HERO SECTION (BANNER PRINCIPAL) - OTIMIZADO PARA SATURAÇÃO E COR
+   3. HERO SECTION (BANNER PRINCIPAL)
    ========================================================================= */
 .conteudo-principal {
     background-color: #0f172a; 
@@ -181,26 +181,114 @@ html {
 }
 
 /* ==========================================================================
-   4. SEÇÕES INFORMATIVAS (CONTEÚDO)
+   3. BOM PARA O SEU SISTEMA
    ========================================================================== */
-.secao-explicativa, 
-.sobre-nos {
+.secao-explicativa-dupla {
     padding: 80px 8%;
     max-width: 1200px;
     margin: 0 auto;
+    display: flex;
+    align-items: flex-start; /* Alinha o topo da imagem com o topo do texto */
+    gap: 56px; 
 }
 
-.secao-explicativa h2, 
-.sobre-nos h2 {
+.conteudo-lado {
+    flex: 1.2; 
+}
+
+/* Espaçamento interno para os blocos de texto não ficarem grudados */
+.conteudo-lado .bloco-recurso {
+    margin-bottom: 28px; /* Dá espaço entre o fim de um parágrafo e o próximo h3 */
+}
+
+.conteudo-lado h3 {
+    font-size: 1.2rem;
+    color: #ffffff;
+    margin-bottom: 8px; /* Afasta o h3 do seu respectivo parágrafo */
+}
+
+.conteudo-lado p {
+    color: #cbd5e1;
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+/* Lado da Imagem */
+.imagem-lado {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px; /* Ajuste fino para alinhar perfeitamente com a altura do h2 */
+}
+
+.imagem-lado img {
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    border-radius: 8px; 
+    border: 1px solid #334155; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); 
+    display: block;
+}
+
+/* Forçando a estilização correta do Botão Verde Ciano */
+.alinhamento-botao {
+    margin-top: 32px;
+}
+
+.botao-sistema-destaque {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none ; /* Remove qualquer sublinhado roxo */
+    background-color: #0d9488 ; 
+    color: #ffffff ; /* Força o texto branco */
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.botao-sistema-destaque:hover {
+    background-color: #0f766e ; /* Hover escurecido igual ao botão saiba mais */
+}
+
+/* Responsividade para Celulares */
+@media (max-width: 992px) {
+    .secao-explicativa-dupla {
+        flex-direction: column;
+        align-items: flex-start; 
+        gap: 40px;
+    }
+    
+    .imagem-lado {
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .imagem-lado img {
+        max-width: 100%; 
+    }
+}
+
+
+/* ==========================================================================
+   4. SEÇÕES INFORMATIVAS (CONTEÚDO)
+   ========================================================================== */
+.secao-explicativa {
+    padding: 80px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.secao-explicativa h2 {
     font-size: 2rem;
     color: #ffffff; 
     margin-bottom: 40px;
     font-weight: 700;
-}
-
-.secao-explicativa {
-    display: flex;
-    flex-direction: column;
 }
 
 .bloco-recurso {
@@ -217,6 +305,174 @@ html {
     color: #cbd5e1; 
     font-size: 1rem;
     max-width: 750px;
+}
+
+/* ==========================================================================
+   4.1 CONFIGURAÇÃO DA SEÇÃO DUPLA (SISTEMA EXCLUSIVO)
+   ========================================================================== */
+.secao-explicativa-dupla {
+    padding: 80px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 56px; 
+}
+
+.secao-explicativa-dupla h2 {
+    font-size: 2rem;
+    color: #ffffff; 
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.conteudo-lado {
+    flex: 1.2; 
+}
+
+.conteudo-lado .bloco-recurso {
+    margin-bottom: 28px; 
+}
+
+.imagem-lado {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.imagem-lado img {
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    border-radius: 8px; 
+    border: 1px solid #334155; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); 
+    display: block;
+}
+
+.alinhamento-botao {
+    margin-top: 32px;
+}
+
+.botao-sistema-destaque {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none ;
+    background-color: #0d9488 ;
+    color: #ffffff ;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.botao-sistema-destaque:hover {
+    background-color: #0f766e ;
+}
+
+/* ==========================================================================
+   4.3 CONFIGURAÇÃO DA SEÇÃO DE DADOS (IMAGEM NA ESQUERDA)
+   ========================================================================== */
+.secao-dados-dupla {
+    padding: 80px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start;
+    gap: 56px; 
+}
+
+.secao-dados-dupla h2 {
+    font-size: 2rem;
+    color: #ffffff; 
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.conteudo-dados {
+    flex: 1.2; 
+}
+
+.conteudo-dados .bloco-recurso {
+    margin-bottom: 28px; 
+}
+
+.imagem-dados {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.imagem-dados img {
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    border-radius: 8px; 
+    border: 1px solid #334155; 
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); 
+    display: block;
+}
+
+.botao-dados-destaque {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none ;
+    background-color: #0d9488 ;
+    color: #ffffff ;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.botao-dados-destaque:hover {
+    background-color: #0f766e ;
+}
+
+/* ==========================================================================
+   4.2 CONFIGURAÇÃO DA SEÇÃO SOBRE NÓS
+   ========================================================================== */
+.sobre-nos {
+    padding: 80px 8%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: flex-start; 
+    gap: 56px; 
+}
+
+.sobre-nos h2 {
+    font-size: 2rem;
+    color: #ffffff; 
+    margin-bottom: 40px;
+    font-weight: 700;
+}
+
+.imagem-sobre {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 15px; 
+}
+
+.imagem-sobre img {
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    display: block;
+}
+
+.conteudo-sobre {
+    flex: 1.2;
 }
 
 .sub-bloco-sobre {
@@ -247,11 +503,48 @@ html {
     max-width: 400px;
 }
 
-.lista-integrantes :hover{
+.lista-integrantes li:hover {
     color: #ffffff;
     padding-left: 5px;
     transition: all 0.25s ease;
     text-shadow: 0 0 8px rgba(13, 148, 136, 0.4);
+}
+
+/* ==========================================================================
+   4.4 LINHAS DIVISÓRIAS EM DEGRADÊ
+   ========================================================================== */
+
+/* Linha entre: Como Funciona e Sistema Próprio */
+.secao-explicativa + .secao-explicativa-dupla {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(
+        to right, 
+        rgba(51, 65, 85, 0) 0%, 
+        rgba(13, 148, 136, 0.4) 50%, 
+        rgba(51, 65, 85, 0) 100%
+    ) 1;
+}
+
+/* Linha entre: Sistema Próprio e Rolador de Dados */
+.secao-explicativa-dupla + .secao-dados-dupla {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(
+        to right, 
+        rgba(51, 65, 85, 0) 0%, 
+        rgba(13, 148, 136, 0.4) 50%, 
+        rgba(51, 65, 85, 0) 100%
+    ) 1;
+}
+
+/* Linha entre: Rolador de Dados e Sobre Nós */
+.secao-dados-dupla + .sobre-nos {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(
+        to right, 
+        rgba(51, 65, 85, 0) 0%, 
+        rgba(13, 148, 136, 0.4) 50%, 
+        rgba(51, 65, 85, 0) 100%
+    ) 1;
 }
 
 /* ==========================================================================
