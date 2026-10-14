@@ -81,21 +81,21 @@ body {
 /* ÁREA DE EXIBIÇÃO DOS DADOS */
 .dice-display-area {
     width: 100%;
-    max-width: 500px;
+    max-width: 900px; /* Aumentamos a mesa para os dados se espalharem bem */
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-bottom: 40px;
+    border: 1px dashed rgba(39, 53, 68, 0.3); /* Opcional: uma borda sutil para ver a mesa */
+    border-radius: 12px;
 }
 
+/* O contêiner agora é a mesa 3D inteira */
 .dice-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
     width: 100%;
-    max-width: 500px;
+    height: 400px; /* Dá uma altura excelente para eles quicarem livremente */
+    position: relative;
 }
 
 .dice-grid.dados-4 {
@@ -197,4 +197,10 @@ body {
 @keyframes shake {
   from { transform: rotate(-5deg) scale(0.95); }
   to { transform: rotate(5deg) scale(1.05); }
+}
+
+#dice-canvas {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
 }
