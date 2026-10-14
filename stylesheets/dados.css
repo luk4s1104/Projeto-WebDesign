@@ -81,7 +81,7 @@ body {
 /* ÁREA DE EXIBIÇÃO DOS DADOS */
 .dice-display-area {
     width: 100%;
-    max-width: 800px;
+    max-width: 500px;
     flex: 1;
     display: flex;
     align-items: center;
@@ -90,8 +90,22 @@ body {
 }
 
 .dice-grid {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.dice-grid.dados-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 130px);
+}
+
+.dice-grid.dados-6 {
+    display: grid;
+    grid-template-columns: repeat(3, 130px);
 }
 
 .dice-mockup {
