@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../stylesheets/criarFichas.css">
     <link rel="stylesheet" href="../stylesheets/components.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script type="module" src="../scripts/criarFichas.js"></script>
     <title>Creator</title>
 </head>
 <body>
@@ -27,30 +29,30 @@
         <div class="main-content">
             <h1>Insert your Character Info</h1>
             
-            <form action="#" id="formBox">
+            <form action="#" id="formBox" onsubmit="salvarPersonagem(event)">
                 
                 <!-- SEÇÃO: CREATE CHARACTER -->
                 <section class="CharacterInfoBox">
-                    <h2>Create Character</h2>
+                    <h2>Criar Personagem</h2>
                     <div id="formCharacterInfoBox">
                         <div class="characterInfoInput">
-                            <label for="name">Name:</label>
+                            <label for="name">Nome:</label>
                             <input name="name" id="name" type="text" placeholder="Nome do personagem">
                         </div>
                         <div class="characterInfoInput">
-                            <label for="sex">Sex:</label>
+                            <label for="sex">Sexo:</label>
                             <input name="sex" id="sex" type="text" placeholder="Ex: Masculino, Feminino">
                         </div>
                         <div class="characterInfoInput">
-                            <label for="class">Class:</label>
+                            <label for="class">Classe:</label>
                             <input name="class" id="class" type="text" placeholder="Ex: Guerreiro, Mago">
                         </div>
                         <div class="characterInfoInput">
-                            <label for="gift">Gift:</label>
+                            <label for="gift">Item Inicial:</label>
                             <input name="gift" id="gift" type="text" placeholder="Item inicial ou dádiva">
                         </div>
                         <div class="characterInfoInput row-full">
-                            <label for="health">Health:</label>
+                            <label for="health">Vida:</label>
                             <input name="health" id="health" type="number" placeholder="Pontos de vida máximos">
                         </div>
                     </div>
@@ -58,25 +60,25 @@
 
                 <!-- SEÇÃO: CHARACTER STATUS -->
                 <section class="CharacterInfoBox">
-                    <h2>Character Status</h2>
+                    <h2>Status do Personagem</h2>
                     <div id="formCharacterStatusBox">
                         
                         <!-- Linha do Level (Cabeçalho da tabela) -->
                         <div class="statusRow headerRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon"></span>
-                                <label for="level">LEVEL</label>
+                                <span class="material-symbols-outlined">military_tech</span>
+                                <label for="level">NÍVEL</label>
                             </div>
                             <input name="level" id="level" type="number" value="1">
                             <span class="columnLabel">MOD</span>
-                            <span class="columnLabel">MOD+LEVEL</span>
+                            <span class="columnLabel">MOD+NÍVEL</span>
                         </div>
 
                         <!-- Atributos principais -->
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
-                                <label for="vitality">VITALITY</label>
+                                <span class="material-symbols-outlined">favorite</span> 
+                                <label for="vitality">VITALIDADE</label>
                             </div>
                             <input name="vitality" id="vitality" type="number" placeholder="0">
                             <input name="vitalityMod" type="number" placeholder="0">
@@ -85,8 +87,8 @@
 
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
-                                <label for="strength">STRENGTH</label>
+                                <span class="material-symbols-outlined">fitness_center</span>
+                                <label for="strength">FORÇA</label>
                             </div>
                             <input name="strength" id="strength" type="number" placeholder="0">
                             <input name="strengthMod" type="number" placeholder="0">
@@ -95,8 +97,8 @@
 
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
-                                <label for="dexterity">DEXTERITY</label>
+                                <span class="material-symbols-outlined">navigation</span>
+                                <label for="dexterity">DESTREZA</label>
                             </div>
                             <input name="dexterity" id="dexterity" type="number" placeholder="0">
                             <input name="dexterityMod" type="number" placeholder="0">
@@ -105,8 +107,8 @@
 
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
-                                <label for="resistence">RESISTENCE</label>
+                                <span class="material-symbols-outlined">shield</span>
+                                <label for="resistence">RESISTÊNCIA</label>
                             </div>
                             <input name="resistence" id="resistence" type="number" placeholder="0">
                             <input name="resistenceMod" type="number" placeholder="0">
@@ -115,8 +117,8 @@
 
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
-                                <label for="intelligence">INTELLIGENCE</label>
+                                <span class="material-symbols-outlined">menu_book</span>
+                                <label for="intelligence">INTELIGÊNCIA</label>
                             </div>
                             <input name="intelligence" id="intelligence" type="number" placeholder="0">
                             <input name="intelligenceMod" type="number" placeholder="0">
@@ -125,7 +127,7 @@
 
                         <div class="statusRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon attribute-icon"></span>
+                                <span class="material-symbols-outlined">brightness_5</span> 
                                 <label for="faith">FAITH</label>
                             </div>
                             <input name="faith" id="faith" type="number" placeholder="0">
@@ -136,7 +138,7 @@
                         <!-- Linha da Humanity (Rodapé da tabela) -->
                         <div class="statusRow footerRow">
                             <div class="statusLabel">
-                                <span class="placeholder-icon humanity-icon"></span>
+                                <span class="material-symbols-outlined">person</span>
                                 <label for="humanity">HUMANITY</label>
                             </div>
                             <input name="humanity" id="humanity" type="number" placeholder="0">
@@ -161,17 +163,17 @@
                     <!-- Listas de Texto (Painel da direita) -->
                     <div id="extraInfoBox">
                         <div class="textareaGroup">
-                            <label for="spells">SPELLS:</label>
+                            <label for="spells">FEITIÇOS:</label>
                             <textarea name="spells" id="spells" rows="3" placeholder="Escreva as magias ou milagres aprendidos..."></textarea>
                         </div>
                         
                         <div class="textareaGroup">
-                            <label for="equipment">EQUIPMENT:</label>
+                            <label for="equipment">Equipamento:</label>
                             <textarea name="equipment" id="equipment" rows="3" placeholder="Armas, armaduras e escudos equipados..."></textarea>
                         </div>
                         
                         <div class="textareaGroup">
-                            <label for="items">ITEMS:</label>
+                            <label for="items">ITENS:</label>
                             <textarea name="items" id="items" rows="3" placeholder="Itens consumíveis ou utilitários na mochila..."></textarea>
                         </div>
                     </div>
