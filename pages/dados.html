@@ -6,6 +6,7 @@
     <title>Rolar Dados - Aventura Digital</title>
     <link rel="stylesheet" href="../stylesheets/dados.css">
     <link rel="stylesheet" href="../stylesheets/components.css">
+    <script type="module" src="../scripts/dados.js"></script>
 </head>
 <body>
 
@@ -45,7 +46,6 @@
                 <div class="config-group">
                     <label for="dice-sides">Número de lados</label>
                     <select id="dice-sides">
-                        <option value="7" selected>7 lados</option>
                         <option value="4">d4</option>
                         <option value="6">d6</option>
                         <option value="8">d8</option>
@@ -62,7 +62,7 @@
                     
                     <!-- Dado 1 -->
                     <div class="dice-mockup">
-                        <span class="main-value">5</span>
+                        <span class="main-value" id="dice">5</span>
                     </div>
 
                 </div>
@@ -70,9 +70,9 @@
 
             <!-- SEÇÃO DE AÇÃO E RESULTADOS -->
             <section class="dice-action-area">
-                <button type="button" class="btn-roll">Lançar</button>
+                <button type="button" class="btn-roll" id="lauch">Lançar</button>
                 <div class="total-display">
-                    Total : <span class="total-value">5</span>
+                    Total : <span class="total-value" id="total">5</span>
                 </div>
             </section>
 
