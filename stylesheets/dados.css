@@ -35,24 +35,26 @@ body {
 
 .main-content {
     flex: 1;
-    padding: 40px;
+    padding: 20px; /* Reduzido de 40px para poupar espaço no celular */
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 100%;
 }
 
 /* PAINEL DE CONFIGURAÇÃO (TOPO) */
 .dice-config-panel {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: 20px; /* Reduzido o espaçamento */
+    flex-wrap: wrap; /* ESSENCIAL: Faz os itens quebrarem linha no celular */
     width: 100%;
     max-width: 800px;
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
     padding: 20px;
     border-radius: 8px;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .config-group {
@@ -81,49 +83,53 @@ body {
 /* ÁREA DE EXIBIÇÃO DOS DADOS */
 .dice-display-area {
     width: 100%;
-    max-width: 900px; /* Aumentamos a mesa para os dados se espalharem bem */
+    max-width: 900px;
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 40px;
-    border: 1px dashed rgba(39, 53, 68, 0.3); /* Opcional: uma borda sutil para ver a mesa */
+    margin-bottom: 30px;
+    border: 1px dashed rgba(39, 53, 68, 0.3);
     border-radius: 12px;
+    padding: 10px;
 }
 
-/* O contêiner agora é a mesa 3D inteira */
+/* O contêiner agora se adapta ao conteúdo */
 .dice-grid {
     width: 100%;
-    height: 400px; /* Dá uma altura excelente para eles quicarem livremente */
+    min-height: 200px; /* Mudado de height fixo para min-height */
     position: relative;
+    display: flex;
+    flex-wrap: wrap; /* Organiza os dados dinamicamente no mobile */
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
 }
 
-.dice-grid.dados-4 {
-    display: grid;
-    grid-template-columns: repeat(2, 130px);
-}
-
+/* Removidas as larguras fixas de grid das classes dados-4 e dados-6 
+   para que o flex-wrap do .dice-grid cuide do alinhamento automático */
+.dice-grid.dados-4, 
 .dice-grid.dados-6 {
-    display: grid;
-    grid-template-columns: repeat(3, 130px);
+    display: flex; 
 }
 
 .dice-mockup {
     position: relative;
-    width: 130px;
-    height: 130px;
+    width: 100px; /* Reduzido de 130px para caber melhor lado a lado no celular */
+    height: 100px;
     background-color: var(--dice);
     border-radius: 12px; 
     display: flex;
     align-items: center;
     justify-content: center;
     box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4), 0 4px 10px rgba(0, 0, 0, 0.15);
-    border: 2px solid var(--border-color); /* Usa a cor de borda do seu tema */
+    border: 2px solid var(--border-color);
+    flex-shrink: 0; /* Impede o dado de esmagar */
 }
 
 /* Valor Principal do Centro */
 .main-value {
-    font-size: 38px;
+    font-size: 28px; /* Ajustado proporcionalmente ao novo tamanho do dado */
     font-weight: bold;
     color: #ffffff;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -133,20 +139,20 @@ body {
 /* Números secundários simulando as outras faces do d20 da imagem */
 .dice-sub-num {
     position: absolute;
-    font-size: 11px;
+    font-size: 10px;
     color: rgba(255, 255, 255, 0.6);
     font-weight: 500;
 }
 
 .dice-sub-num.top {
-    top: 15px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .dice-sub-num.left {
-    bottom: 30px;
-    left: 20px;
+    bottom: 20px;
+    left: 15px;
     transform: rotate(-30deg);
 }
 
@@ -157,19 +163,23 @@ body {
     align-items: center;
     gap: 20px;
     width: 100%;
+    padding-bottom: 20px;
 }
 
 .btn-roll {
     background-color: var(--dice);
     color: #ffffff;
     border: none;
-    padding: 14px 60px;
+    padding: 14px 0;
+    width: 100%; /* O botão ocupa a largura disponível no celular */
+    max-width: 300px; /* Mas não passa de 300px para ficar elegante */
     font-size: 16px;
     font-weight: bold;
     border-radius: 8px;
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(28, 38, 185, 0.4);
     transition: all 0.2s ease;
+    text-align: center;
 }
 
 .btn-roll:hover {
@@ -186,7 +196,7 @@ body {
 }
 
 .total-value {
-    color: #3da8f5; /* Destaque azul condizente com o tema ativo */
+    color: #3da8f5;
     font-size: 24px;
 }
 
