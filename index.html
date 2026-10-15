@@ -16,24 +16,13 @@
     <meta property="og:locale" content="pt_BR" />
 
     <link rel="stylesheet" href="./stylesheets/index.css">
+    <script type="module" src="./scripts/loader.js"></script>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="logo">
-            <span class="logo-img"> <img src="./Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20"></span>
-            <span class="logo-texto">Criador de Ficha RPG</span>
-        </div>
-        <div class="cta-buttons">
-            <a href="index.html" class="btn">Página Principal</a>
-            <a href="./pages/criarFichas.html" class="btn btn-primary">Criar Ficha</a>
-            <a href="./pages/minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
-            <a href="./pages/bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
-            <a href="./pages/dados.html" class="btn btn-terciary">Rolar Dados</a>
-        </div>
-    </header>
+    <div data-component="comp-header"></div>
 
-        <main class="principal">
+    <main class="principal">
 
         <section class="conteudo-principal">
             <h1>Plataforma de Suporte para Jogos de RPG</h1>
@@ -135,17 +124,6 @@
 
     </main>
 
+    <div data-component="comp-footer"></div>
 </body>
-
-    <footer class="rodape">
-        <div class="texto">
-            <p>&copy; 2026 . Todos os direitos reservados.</p>
-        </div>
-
-        <div class="links-rodape">
-            <a href="documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
-            <a href="documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
-            <a href="documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
-        </div>
-    </footer>
 </html>
