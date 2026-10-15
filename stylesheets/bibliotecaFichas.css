@@ -142,6 +142,28 @@ body {
     text-align: left;
 }
 
+.char-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-hp {
+  display: flex;
+  justify-content: flex-start; 
+  width: 100%;                 
+  box-sizing: border-box;
+  padding-left: 20px;          /* Alinhamento */
+  margin: 10px 0 2px 0;        /* Margem reduzida */
+}
+
+.hp-label {
+  font-size: 0.85rem;          /* Diminui o tamanho do texto */
+  font-weight: 600;            
+  color: #8a9ba8;              
+  letter-spacing: 0.5px;       /* Espaçamento leve entre as letras para melhorar a leitura */
+}
+
+
 .char-card-header h4 {
     font-size: 15px;
     font-weight: 600;
@@ -167,12 +189,14 @@ body {
 }
 
 .char-avatar img {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    border: 2px solid var(--accent-gold);
-    object-fit: cover;
-    background-color: #2a3644;
+  width: 100px;               
+  height: 100px;              
+  border-radius: 50%;         /* Mantém o formato redondo */
+  
+  object-fit: cover;          
+  object-position: top center; /* Alinha o zoom a partir do topo e centraliza nas laterais */
+  border: 2px solid var(--accent-gold);
+  box-sizing: border-box; 
 }
 
 .char-avatar figcaption {
@@ -224,14 +248,6 @@ body {
     margin-top: auto;
     border-top: 1px solid var(--border-color);
     padding-top: 10px;
-}
-
-.char-card-footer .update-time {
-    font-size: 10px;
-    color: var(--text-secondary);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
 }
 
 /* Customização dos botões para a Biblioteca (2 colunas em vez de 4) */
