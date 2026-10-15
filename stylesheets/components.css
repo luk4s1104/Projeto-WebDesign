@@ -1,5 +1,20 @@
 /* ==========================================================================
-   2. HEADER (CABEÇALHO) - Tema Escuro
+   VARIÁVEIS GLOBAIS (Configure as cores do seu tema aqui)
+   ========================================================================== */
+:root {
+    --bg-card: #1e293b;            /* Cor de fundo padrão dos cards */
+    --border-color: #334155;       /* Bordas sutis */
+    --text-primary: #ffffff;       /* Texto principal */
+    --text-secondary: #94a3b8;     /* Textos secundários e descrições */
+    --accent-gold: #e2b855;        /* Detalhes de itens e ouro */
+    --blue-stats: #38bdf8;         /* Cor dos números dos atributos */
+    --btn-primary: #0d9488;        /* Verde-azulado dos botões principais */
+    --btn-clone: #1a5c38;          /* Verde para clonar ficha */
+    --btn-clone-hover: #237e4c;    /* Verde hover para clonar */
+}
+
+/* ==========================================================================
+   COMPONENT: HEADER (CABEÇALHO)
    ========================================================================== */
 .site-header {
     width: 100%;
@@ -8,7 +23,7 @@
     align-items: center;
     padding: 18px 8%;  
     background-color: #1a2335; 
-    border-bottom: 1px solid #334155; 
+    border-bottom: 1px solid var(--border-color); 
     position: sticky;
     top: 0;
     z-index: 100;
@@ -30,7 +45,7 @@
 .logo-texto {
     font-weight: 700;
     font-size: 1.25rem;
-    color: #ffffff; 
+    color: var(--text-primary); 
 }
 
 .cta-buttons {
@@ -41,7 +56,7 @@
 
 .cta-buttons a {
     text-decoration: none;
-    color: #94a3b8; 
+    color: var(--text-secondary); 
     font-size: 0.95rem;
     font-weight: 500;
     position: relative;
@@ -56,12 +71,12 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #0d9488; 
+    background-color: var(--btn-primary); 
     transition: width 0.25s ease-in-out;
 }
 
 .cta-buttons a:hover {
-    color: #0d9488; 
+    color: var(--btn-primary); 
 }
 
 .cta-buttons a:hover::after {
@@ -69,9 +84,196 @@
 }
 
 /* ==========================================================================
-   --- SITE FOOTER ---
+   COMPONENT: CARDS (ESTRUTURA BASE E ATRIBUTOS)
    ========================================================================== */
+.char-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px 15px 12px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
 
+.char-card-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.char-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-hp {
+  display: flex;
+  justify-content: flex-start; 
+  width: 100%;                 
+  box-sizing: border-box;
+  padding-left: 20px;
+  margin: 10px 0 2px 0;
+}
+
+.hp-label {
+  font-size: 0.85rem;
+  font-weight: 600;            
+  color: #8a9ba8;              
+  letter-spacing: 0.5px;
+}
+
+
+.char-card-header h4 {
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 180px;
+}
+
+.char-card-header .char-subtitle {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.char-card-header .char-level {
+    font-size: 12px;
+    color: var(--text-secondary);
+}
+
+.char-avatar {
+    margin-bottom: 15px;
+}
+
+.char-avatar img {
+  width: 100px;               
+  height: 100px;              
+  border-radius: 50%;
+  object-fit: cover;          
+  object-position: top center;
+  border: 2px solid var(--accent-gold);
+  box-sizing: border-box; 
+}
+
+.char-avatar figcaption {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+}
+
+/* TABELA DE ATRIBUTOS */
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 15px;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.stats-table th {
+    font-size: 10px;
+    color: var(--text-secondary);
+    padding: 6px 4px 2px 4px;
+    font-weight: normal;
+}
+
+.stats-table td {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--blue-stats);
+    padding: 2px 4px 8px 4px;
+}
+
+/* EQUIPAMENTOS */
+.equip-list {
+    list-style: none;
+    display: flex;
+    gap: 12px;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 5px;
+}
+
+/* RODAPÉ DO CARD E BOTÕES */
+.char-card-footer {
+    width: 100%;
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
+}
+
+/* ==========================================================================
+   COMPONENT: BOTÕES DE AÇÃO DOS CARDS
+   ========================================================================== */
+/* Minhas Fichas */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+}
+
+.action-buttons button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 10px;
+    cursor: pointer;
+    padding: 4px 0;
+}
+
+.action-buttons button:hover {
+    color: var(--text-primary);
+}
+
+/* Biblioteca de Fichas */
+.library-actions {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+.library-actions button {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 6px 0;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.library-actions button:hover {
+    color: var(--text-primary);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.library-actions .btn-clone {
+    background-color: #1a5c38;
+    color: #ffffff;
+    border-color: #237e4c;
+}
+
+.library-actions .btn-clone:hover {
+    background-color: #237e4c;
+    color: #ffffff;
+}
+
+/* ==========================================================================
+   COMPONENT: FOOTER (RODAPÉ)
+   ========================================================================== */
 .rodape {
     width: 100%;
     margin-top: auto;
@@ -79,10 +281,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 30px 8%; 
-    border-top: 1px solid #334155; 
+    border-top: 1px solid var(--border-color); 
     background-color: #1a2335; 
     font-size: 0.875rem;
-    color: #94a3b8;
+    color: var(--text-secondary);
     margin-bottom: 0 !important;
     flex-shrink: 0; 
 }
@@ -97,17 +299,17 @@
 }
 
 .links-rodape a {
-    color: #94a3b8; 
+    color: var(--text-secondary); 
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .links-rodape a:hover {
-    color: #0d9488; 
+    color: var(--btn-primary); 
 }
 
 /* ==========================================================================
-   6. RESPONSIVIDADE
+   RESPONSIVIDADE (MEDIA QUERIES)
    ========================================================================== */
 @media (max-width: 768px) {
     .site-header {

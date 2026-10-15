@@ -1,40 +1,170 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../stylesheets/components.css">
-    <title>Document</title>
+    <title>Repositório de Componentes RPG</title>
 </head>
 <body>
-    
+
+    <!-- ==========================================
+         COMPONENTE: HEADER & Index-HEADER (CABEÇALHO)
+         ========================================== -->
+    <div id="comp-header">
+        <header class="site-header">
+            <div class="logo">
+                <span class="logo-img"> 
+                    <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20">
+                </span>
+                <span class="logo-texto">Criador de Ficha RPG</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="../index.html" class="btn">Página Principal</a>
+                <a href="criarFichas.html" class="btn btn-primary">Criar Ficha</a>
+                <a href="minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
+                <a href="bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
+                <a href="dados.html" class="btn btn-terciary">Rolar Dados</a>
+            </div>
+        </header>
+    </div>
+
+    <div id="comp-header-index">
+        <header class="site-header">
+            <div class="logo">
+                <span class="logo-img"> 
+                    <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20">
+                </span>
+                <span class="logo-texto">Criador de Ficha RPG</span>
+            </div>
+            <div class="cta-buttons">
+                <a href="../index.html" class="btn">Página Principal</a>
+                <a href="./pages/criarFichas.html" class="btn btn-primary">Criar Ficha</a>
+                <a href="./pages/minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
+                <a href="./pages/bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
+                <a href="./pages/dados.html" class="btn btn-terciary">Rolar Dados</a>
+            </div>
+        </header>
+    </div>
+
+
+    <!-- ==========================================
+         COMPONENTE: CARD - MINHAS FICHAS
+         ========================================== -->
+    <div id="card-minhas-fichas">
+        <article class="char-card">
+            <header class="char-card-header">
+                <div>
+                    <h4>Thorgar</h4>
+                    <div class="char-subtitle">Por: @LucasRicci</div>
+                </div>
+                <span class="char-level">Nvl 8</span>
+            </header>
+
+            <figure class="char-avatar">
+                <img src="../Img_folder/combatente.jpg" alt="imagem generica de personagem de rpg">
+                <figcaption>Combatente Corporal</figcaption>
+            </figure>
+
+            <div class="char-hp">
+                <span class="hp-label">VIDA: 70</span>
+            </div>
+
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18</td><td>20</td><td>10</td><td>19</td><td>8</td><td>12</td><td>15</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="equip-list">
+                <li>Martelo de Guerra</li>
+                <li>Escudo Pesado</li>
+            </ul>
+            <footer class="char-card-footer">
+                <ul class="action-buttons">
+                    <li><button type="button">Visualizar</button></li>
+                    <li><button type="button">Editar</button></li>
+                    <li><button type="button">Deletar</button></li>
+                    <li><button type="button">Compartilhar</button></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+
+
+    <!-- ==========================================
+         COMPONENTE: CARD - BIBLIOTECA DE FICHAS
+         ========================================== -->
+    <div id="card-biblioteca-fichas">
+        <article class="char-card">
+            <header class="char-card-header">
+                <div>
+                    <h4>Breach</h4>
+                    <div class="char-subtitle">Por: @LucasRicci</div>
+                </div>
+                <span class="char-level">Nvl 8</span>
+            </header>
+
+            <figure class="char-avatar">
+                <img src="../Img_folder/combatente.jpg" alt="imagem generica de personagem de rpg">
+                <figcaption>Combatente Corporal</figcaption>
+            </figure>
+
+            <div class="char-hp">
+                <span class="hp-label">VIDA: 70</span>
+            </div>
+
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>18</td><td>20</td><td>10</td><td>19</td><td>8</td><td>12</td><td>15</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="equip-list">
+                <li>Martelo de Guerra</li>
+                <li>Escudo Pesado</li>
+            </ul>
+
+            <footer class="char-card-footer">
+                <ul class="action-buttons library-actions">
+                    <li><button type="button">Visualizar</button></li>
+                    <li><button type="button" class="btn-clone">Clonar Ficha</button></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+
+
+    <!-- ==========================================
+         COMPONENTE: RODAPÉ (FOOTER)
+         ========================================== -->
+    <div id="comp-footer">
+        <footer class="rodape">
+            <div class="texto">
+                <p>&copy; 2026 . Todos os direitos reservados.</p>
+            </div>
+
+            <div class="links-rodape">
+                <a href="../documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
+                <a href="../documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
+                <a href="../documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
+            </div>
+        </footer>
+    </div>
+
 </body>
 </html>
-
-
-    <header class="site-header">
-        <div class="logo">
-            <span class="logo-img"> <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20"></span>
-            <span class="logo-texto">Criador de Ficha RPG</span>
-        </div>
-        <div class="cta-buttons">
-            <a href="../index.html" class="btn">Página Principal</a>
-            <a href="criarFichas.html" class="btn btn-primary">Criar Ficha</a>
-            <a href="minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
-            <a href="bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
-            <a href="dados.html" class="btn btn-terciary">Rolar Dados</a>
-        </div>
-    </header>
-
-
-<footer class="rodape">
-    <div class="texto">
-        <p>&copy; 2026 . Todos os direitos reservados.</p>
-    </div>
-
-    <div class="links-rodape">
-        <a href="../documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
-        <a href="../documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
-        <a href="../documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
-    </div>
-</footer>

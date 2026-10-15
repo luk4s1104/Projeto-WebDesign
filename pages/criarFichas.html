@@ -7,24 +7,12 @@
     <link rel="stylesheet" href="../stylesheets/components.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script type="module" src="../scripts/criarFichas.js"></script>
-    <script type="module" src="../scripts/politicas.js"></script>
+    <script type="module" src="../scripts/loader.js"></script>
     <title>Creator</title>
 </head>
 <body>
 
-    <header class="site-header">
-        <div class="logo">
-            <span class="logo-img"> <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20"></span>
-            <span class="logo-texto">Criador de Ficha RPG</span>
-        </div>
-        <div class="cta-buttons">
-            <a href="../index.html" class="btn">Página Principal</a>
-            <a href="criarFichas.html" class="btn btn-primary">Criar Ficha</a>
-            <a href="minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
-            <a href="bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
-            <a href="dados.html" class="btn btn-terciary">Rolar Dados</a>
-        </div>
-    </header>
+    <div data-component="comp-header"></div>
 
     <main class="dashboard-container">
         <div class="main-content">
@@ -195,17 +183,7 @@
         </div>
     </main>
 
-    <footer class="rodape">
-        <div class="texto">
-            <p>&copy; 2026 . Todos os direitos reservados.</p>
-        </div>
-
-        <div class="links-rodape">
-        <a href="../documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
-        <a href="../documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
-        <a href="../documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
-        </div>
-    </footer>
+    <div data-component="comp-footer"></div>
 
 </body>
 
