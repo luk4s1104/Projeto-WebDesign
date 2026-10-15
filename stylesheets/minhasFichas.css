@@ -142,6 +142,22 @@
             text-align: left;
         }
 
+        .char-hp {
+        display: flex;
+        justify-content: flex-start; 
+        width: 100%;                 
+        box-sizing: border-box;
+        padding-left: 20px;          /* Alinhamento */
+        margin: 10px 0 2px 0;        /* Margem reduzida */
+        }
+
+        .hp-label {
+        font-size: 0.85rem;          /* Diminui o tamanho do texto */
+        font-weight: 600;            
+        color: #8a9ba8;              
+        letter-spacing: 0.5px;       /* Espaçamento leve entre as letras para melhorar a leitura */
+        }
+
         .char-card-header h4 {
             font-size: 15px;
             font-weight: 600;
@@ -167,12 +183,14 @@
         }
 
         .char-avatar img {
-            width: 75px;
-            height: 75px;
-            border-radius: 50%;
-            border: 2px solid var(--accent-gold);
-            object-fit: cover;
-            background-color: #2a3644;
+        width: 100px;               
+        height: 100px;              
+        border-radius: 50%;         /* Mantém o formato redondo */
+        
+        object-fit: cover;          
+        object-position: top center; /* Alinha o zoom a partir do topo e centraliza nas laterais */
+        border: 2px solid var(--accent-gold);
+        box-sizing: border-box; 
         }
 
         .char-avatar figcaption {
@@ -226,14 +244,6 @@
             padding-top: 10px;
         }
 
-        .char-card-footer .update-time {
-            font-size: 10px;
-            color: var(--text-secondary);
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
         .action-buttons {
             display: flex;
             justify-content: space-between;
@@ -252,3 +262,38 @@
         .action-buttons button:hover {
             color: var(--text-primary);
         }
+
+    @media (max-width: 768px) {
+    /* 1. Reduz o espaçamento geral da tela para dar mais espaço aos cards */
+    .main-content {
+        padding: 20px 16px;
+    }
+
+    /* 2. Faz o formulário de filtros empilhar verticalmente */
+    .filters-form {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* 3. Garante que todos os selects e inputs ocupem 100% da largura da tela */
+    .filters-form input, 
+    .filters-form select {
+        width: 100%;
+        flex: none; /* Desativa a divisão proporcional do desktop */
+    }
+
+    /* 4. Ajusta o tamanho dos textos do cabeçalho para caber em telas menores */
+    .panel-header {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .panel-header h1 {
+        font-size: 26px;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr; 
+    }
+}

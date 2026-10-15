@@ -23,31 +23,35 @@ function renderizarFichasSalvas() {
     cardsGrid.innerHTML = '';
 
     // 4. Percorre a lista de fichas criando a estrutura visual idêntica à sua
+        // 4. Percorre a lista de fichas criando a estrutura visual idêntica à sua
     fichas.forEach(p => {
         const card = document.createElement('article');
         card.className = 'char-card';
-
-        // Formata a data de criação baseada no ID gerado por Date.now()
-        const dataCriacao = new Date(p.id).toLocaleDateString('pt-BR');
 
         card.innerHTML = `
             <header class="char-card-header">
                 <div>
                     <h4>${p.info.nome}</h4>
-                    <div class="char-subtitle">${p.info.classe}</div>
+                    <div class="char-subtitle">Por: @LucasRicci</div>
                 </div>
                 <span class="char-level">Nvl ${p.info.nivel}</span>
             </header>
 
             <figure class="char-avatar">
-                <img src="https://unsplash.com" alt="Avatar do personagem">
+                <img src="../Img_folder/generico.jpg" alt="Avatar do personagem">
                 <figcaption>${p.info.classe}</figcaption>
             </figure>
 
+            <!-- Bloco de Vida adicionado e alinhado -->
+            <div class="char-hp">
+                <span class="hp-label">VIDA: ${p.info.vidaMax || '0'}</span>
+            </div>
+
+            <!-- Tabela atualizada com a coluna HUM -->
             <table class="stats-table">
                 <thead>
                     <tr>
-                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th>
+                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -58,21 +62,19 @@ function renderizarFichasSalvas() {
                         <td>${p.atributos.resistence.base}</td>
                         <td>${p.atributos.intelligence.base}</td>
                         <td>${p.atributos.faith.base}</td>
+                        <td>${p.atributos.humanity || '0'}</td>
                     </tr>
                 </tbody>
             </table>
 
+            <!-- Lista de equipamentos limpa e puxando as variáveis corretas -->
             <ul class="equip-list">
-                <li>🎁 Dádiva: ${p.info.dadiva || 'Nenhuma'}</li>
-                <li>❤️ Vida Máxima: ${p.info.vidaMax || '0'}</li>
-                <li>👁️ Humanidade: ${p.atributos.humanity || '0'}</li>
+                <li>${p.info.armaPrincipal || 'Martelo de Guerra'}</li>
+                <li>${p.info.armaSecundaria || 'Escudo Pesado'}</li>
             </ul>
 
+            <!-- Rodapé do card aberto e fechado corretamente -->
             <footer class="char-card-footer">
-                <div class="update-time">
-                    <span>Criado em</span>
-                    <span>${dataCriacao}</span>
-                </div>
                 <ul class="action-buttons">
                     <li><button type="button">Visualizar</button></li>
                     <li><button type="button">Editar</button></li>
