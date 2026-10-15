@@ -1,8 +1,6 @@
 function salvarPersonagem(event) {
-    // 1. Impede a página de recarregar por causa do comportamento padrão do formulário (submit)
     event.preventDefault();
 
-    // 2. Captura as informações básicas do personagem
     const nome = document.getElementById('name').value;
     const sexo = document.getElementById('sex').value;
     const classe = document.getElementById('class').value;
@@ -10,15 +8,13 @@ function salvarPersonagem(event) {
     const vidaMax = document.getElementById('health').value;
     const nivel = document.getElementById('level').value;
 
-    // Validação de segurança: Não deixa salvar se o campo nome estiver vazio
     if (!nome.trim()) {
         alert("Por favor, preencha o Nome do personagem antes de salvar!");
         return;
     }
 
-    // 3. Captura detalhada de todos os atributos e modificadores
     const personagem = {
-        id: Date.now(), // ID único baseado no carimbo de data/hora
+        id: Date.now(),
         info: { nome, sexo, classe, dadiva, vidaMax, nivel },
         atributos: {
             vitality: {
@@ -55,16 +51,30 @@ function salvarPersonagem(event) {
         }
     };
 
-    // 4. Salva a lista de fichas no banco de dados do navegador (localStorage)
     let bancoFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
     bancoFichas.push(personagem);
     localStorage.setItem('fichasRPG', JSON.stringify(bancoFichas));
 
-    alert(`Sucesso! A ficha de ${nome} foi enviada para "Minhas Fichas".`);
+    // Ativa o pop-up na tela
+    const alerta = document.getElementById('personagemCriadoAlerta');
+    if (alerta) {
+        alerta.classList.remove('closed');
+        alerta.classList.add('open');
+    }
 
-    // 5. Redireciona o usuário para a página de listagem
-    window.location.href = 'minhasFichas.html';
+    // Redireciona após 2.5 segundos
+    setTimeout(() => {
+        window.location.href = 'minhasFichas.html';
+    }, 3500);
 }
 
-// EXPÕE A FUNÇÃO PARA O ESCOPO GLOBAL: Resolve o conflito com type="module"
+function fecharAlerta() {
+    const alerta = document.getElementById('personagemCriadoAlerta');
+    if (alerta) {
+        alerta.classList.remove('open');
+        alerta.classList.add('closed');
+    }
+}
+
 window.salvarPersonagem = salvarPersonagem;
+window.fecharAlerta = fecharAlerta;
