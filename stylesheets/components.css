@@ -106,6 +106,28 @@
     text-align: left;
 }
 
+.char-card-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.char-hp {
+  display: flex;
+  justify-content: flex-start; 
+  width: 100%;                 
+  box-sizing: border-box;
+  padding-left: 20px;
+  margin: 10px 0 2px 0;
+}
+
+.hp-label {
+  font-size: 0.85rem;
+  font-weight: 600;            
+  color: #8a9ba8;              
+  letter-spacing: 0.5px;
+}
+
+
 .char-card-header h4 {
     font-size: 15px;
     font-weight: 600;
@@ -113,7 +135,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 180px;
-    color: var(--text-primary);
 }
 
 .char-card-header .char-subtitle {
@@ -132,12 +153,13 @@
 }
 
 .char-avatar img {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    border: 2px solid var(--accent-gold);
-    object-fit: cover;
-    background-color: #2a3644;
+  width: 100px;               
+  height: 100px;              
+  border-radius: 50%;
+  object-fit: cover;          
+  object-position: top center;
+  border: 2px solid var(--accent-gold);
+  box-sizing: border-box; 
 }
 
 .char-avatar figcaption {
@@ -146,6 +168,7 @@
     margin-top: 6px;
 }
 
+/* TABELA DE ATRIBUTOS */
 .stats-table {
     width: 100%;
     border-collapse: collapse;
@@ -169,6 +192,7 @@
     padding: 2px 4px 8px 4px;
 }
 
+/* EQUIPAMENTOS */
 .equip-list {
     list-style: none;
     display: flex;
@@ -181,19 +205,12 @@
     padding-left: 5px;
 }
 
+/* RODAPÉ DO CARD E BOTÕES */
 .char-card-footer {
     width: 100%;
     margin-top: auto;
     border-top: 1px solid var(--border-color);
     padding-top: 10px;
-}
-
-.char-card-footer .update-time {
-    font-size: 10px;
-    color: var(--text-secondary);
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
 }
 
 /* ==========================================================================
@@ -204,7 +221,6 @@
     display: flex;
     justify-content: space-between;
     list-style: none;
-    padding: 0;
 }
 
 .action-buttons button {
@@ -225,7 +241,6 @@
     list-style: none;
     display: flex;
     justify-content: space-between;
-    padding: 0;
 }
 
 .library-actions button {
@@ -235,7 +250,7 @@
     font-size: 11px;
     font-weight: 500;
     cursor: pointer;
-    padding: 6px 12px;
+    padding: 6px 0;
     border-radius: 4px;
     transition: all 0.2s ease;
 }
@@ -246,14 +261,14 @@
 }
 
 .library-actions .btn-clone {
-    background-color: var(--btn-clone);
-    color: var(--text-primary);
-    border-color: var(--btn-clone-hover);
+    background-color: #1a5c38;
+    color: #ffffff;
+    border-color: #237e4c;
 }
 
 .library-actions .btn-clone:hover {
-    background-color: var(--btn-clone-hover);
-    color: var(--text-primary);
+    background-color: #237e4c;
+    color: #ffffff;
 }
 
 /* ==========================================================================
