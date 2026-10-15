@@ -1,129 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../stylesheets/components.css">
-    <title>Document</title>
+    <title>Repositório de Componentes RPG</title>
 </head>
 <body>
-    <header class="site-header">
-        <div class="logo">
-            <span class="logo-img"> <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20"></span>
-            <span class="logo-texto">Criador de Ficha RPG</span>
-        </div>
-        <div class="cta-buttons">
-            <a href="../index.html" class="btn">Página Principal</a>
-            <a href="criarFichas.html" class="btn btn-primary">Criar Ficha</a>
-            <a href="minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
-            <a href="bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
-            <a href="dados.html" class="btn btn-terciary">Rolar Dados</a>
-        </div>
-    </header>
 
-    <!-- CONTAINER MINHAS FICHAS -->
-    <article class="char-card">
-        <header class="char-card-header">
-            <div>
-                <h4>Eldrin Presa da Noite</h4>
-                <div class="char-subtitle">Elf Rogue</div>
+    <!-- ==========================================
+         COMPONENTE: HEADER (CABEÇALHO)
+         ========================================== -->
+    <div id="comp-header">
+        <header class="site-header">
+            <div class="logo">
+                <span class="logo-img"> 
+                    <img src="../Img_folder/d20-certo-sem-fundo.png" alt="imagem de d20">
+                </span>
+                <span class="logo-texto">Criador de Ficha RPG</span>
             </div>
-            <span class="char-level">Nvl 6</span>
+            <div class="cta-buttons">
+                <a href="../index.html" class="btn">Página Principal</a>
+                <a href="criarFichas.html" class="btn btn-primary">Criar Ficha</a>
+                <a href="minhasFichas.html" class="btn btn-secondary">Minhas Fichas</a>
+                <a href="bibliotecaFichas.html" class="btn btn-secondary">Biblioteca Fichas</a>
+                <a href="dados.html" class="btn btn-terciary">Rolar Dados</a>
+            </div>
         </header>
+    </div>
 
-        <figure class="char-avatar">
-            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=150" alt="Avatar Eldrin">
-            <figcaption>Elf Rogue</figcaption>
-        </figure>
 
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th>FOR</th><th>DES</th><th>CON</th><th>INT</th><th>SAB</th><th>CAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>10</td><td>18</td><td>14</td><td>16</td><td>12</td><td>10</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ==========================================
+         COMPONENTE: CARD - MINHAS FICHAS
+         ========================================== -->
+    <div id="card-minhas-fichas">
+        <article class="char-card">
+            <header class="char-card-header">
+                <div>
+                    <h4>Eldrin Presa da Noite</h4>
+                    <div class="char-subtitle">Elf Rogue</div>
+                </div>
+                <span class="char-level">Nvl 6</span>
+            </header>
 
-        <ul class="equip-list">
-            <li>🗡️ Punhal</li>
-            <li>🏹 Arco</li>
-        </ul>
+            <figure class="char-avatar">
+                <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?w=150" alt="Avatar Eldrin">
+                <figcaption>Elf Rogue</figcaption>
+            </figure>
 
-        <footer class="char-card-footer">
-            <div class="update-time">
-                <span>Última atualização</span>
-                <span>12/10/2023</span>
-            </div>
-            <ul class="action-buttons">
-                <li><button type="button">Visualizar</button></li>
-                <li><button type="button">Editar</button></li>
-                <li><button type="button">Deletar</button></li>
-                <li><button type="button">Compartilhar</button></li>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>FOR</th><th>DES</th><th>CON</th><th>INT</th><th>SAB</th><th>CAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>10</td><td>18</td><td>14</td><td>16</td><td>12</td><td>10</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="equip-list">
+                <li>🗡️ Punhal</li>
+                <li>🏹 Arco</li>
             </ul>
-        </footer>
-    </article>
 
-    <!-- CONTAINER BIBLIOTECA FICHAS -->
-    <article class="char-card">
-        <header class="char-card-header">
-            <div>
-                <h4>Thorgar Martelo-Firme</h4>
-                <div class="char-subtitle">Por: @MestreDoAlmoco</div>
-            </div>
-            <span class="char-level">Nvl 8</span>
-        </header>
+            <footer class="char-card-footer">
+                <div class="update-time">
+                    <span>Última atualização</span>
+                    <span>12/10/2023</span>
+                </div>
+                <ul class="action-buttons">
+                    <li><button type="button">Visualizar</button></li>
+                    <li><button type="button">Editar</button></li>
+                    <li><button type="button">Deletar</button></li>
+                    <li><button type="button">Compartilhar</button></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
 
-        <figure class="char-avatar">
-            <img src="../Img_folder/mockup image.webp" alt="Avatar Thorgar">
-            <figcaption>Dwarf Cleric</figcaption>
-        </figure>
 
-        <table class="stats-table">
-            <thead>
-                <tr>
-                    <th>FOR</th><th>DES</th><th>CON</th><th>INT</th><th>SAB</th><th>CAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>16</td><td>10</td><td>16</td><td>10</td><td>16</td><td>12</td>
-                </tr>
-            </tbody>
-        </table>
+    <!-- ==========================================
+         COMPONENTE: CARD - BIBLIOTECA DE FICHAS
+         ========================================== -->
+    <div id="card-biblioteca-fichas">
+        <article class="char-card">
+            <header class="char-card-header">
+                <div>
+                    <h4>Thorgar Martelo-Firme</h4>
+                    <div class="char-subtitle">Por: @MestreDoAlmoco</div>
+                </div>
+                <span class="char-level">Nvl 8</span>
+            </header>
 
-        <ul class="equip-list">
-            <li>🔨 Martelo de Guerra</li>
-            <li>🛡️ Escudo Pesado</li>
-        </ul>
+            <figure class="char-avatar">
+                <img src="../Img_folder/mockup image.webp" alt="Avatar Thorgar">
+                <figcaption>Dwarf Cleric</figcaption>
+            </figure>
 
-        <footer class="char-card-footer">
-            <div class="update-time">
-                <span>Sistema: D&D 5e</span>
-                <span>📥 42 Clones</span>
-            </div>
-            <ul class="action-buttons library-actions">
-                <li><button type="button">Visualizar</button></li>
-                <li><button type="button" class="btn-clone">Clonar Ficha</button></li>
+            <table class="stats-table">
+                <thead>
+                    <tr>
+                        <th>FOR</th><th>DES</th><th>CON</th><th>INT</th><th>SAB</th><th>CAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>16</td><td>10</td><td>16</td><td>10</td><td>16</td><td>12</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <ul class="equip-list">
+                <li>🔨 Martelo de Guerra</li>
+                <li>🛡️ Escudo Pesado</li>
             </ul>
+
+            <footer class="char-card-footer">
+                <div class="update-time">
+                    <span>Sistema: D&D 5e</span>
+                    <span>📥 42 Clones</span>
+                </div>
+                <ul class="action-buttons library-actions">
+                    <li><button type="button">Visualizar</button></li>
+                    <li><button type="button" class="btn-clone">Clonar Ficha</button></li>
+                </ul>
+            </footer>
+        </article>
+    </div>
+
+
+    <!-- ==========================================
+         COMPONENTE: RODAPÉ (FOOTER)
+         ========================================== -->
+    <div id="comp-footer">
+        <footer class="rodape">
+            <div class="texto">
+                <p>&copy; 2026 . Todos os direitos reservados.</p>
+            </div>
+
+            <div class="links-rodape">
+                <a href="../documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
+                <a href="../documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
+                <a href="../documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
+            </div>
         </footer>
-    </article>
+    </div>
 
-
-    <footer class="rodape">
-        <div class="texto">
-            <p>&copy; 2026 . Todos os direitos reservados.</p>
-        </div>
-
-        <div class="links-rodape">
-            <a href="../documentos/ajuda_e_suporte.pdf" target="_blank">Ajuda & Suporte</a>
-            <a href="../documentos/termos_de_uso_(1).pdf" target="_blank">Termos de Uso</a>
-            <a href="../documentos/politicaPrivacidade.pdf" target="_blank">Política de Privacidade</a>
-        </div>
-    </footer>
 </body>
 </html>
