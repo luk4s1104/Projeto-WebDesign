@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async () => {
+const loader = document.addEventListener('DOMContentLoaded', async () => {
     try {
         const response = await fetch("../pages/components.html")
         if(!response.ok){
@@ -28,3 +28,5 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error("Algo deu errado enquanto fazia fecth no components.html. Erro:", error);
     }
 })
+
+export default loader
