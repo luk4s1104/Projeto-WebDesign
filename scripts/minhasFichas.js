@@ -1,16 +1,49 @@
-document.addEventListener('DOMContentLoaded', () => {
+import loader from './loader.js';
+import { abrirModalVisualizacao } from './modalController.js';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Carrega os componentes estáticos globais (header/footer) se a função existir
+    if (typeof loader === 'function') {
+        await loader();
+    }
+    
+    // 2. Injeta o container invisível do Modal vindo do components.html
+    await carregarComponenteModal();
+    
+    // 3. Renderiza os cards puxando o template e injetando os dados do localStorage
     renderizarFichasSalvas();
 });
 
+// Busca o modal no arquivo central e o injeta na página atual
+async function carregarComponenteModal() {
+    try {
+        const response = await fetch("../pages/components.html");
+        if (!response.ok) throw new Error("Erro ao carregar repositório de componentes.");
+        
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const docVirtual = parser.parseFromString(htmlText, "text/html");
+        
+        const modalTemplate = docVirtual.getElementById('comp-modal-ficha');
+        if (modalTemplate) {
+            document.body.appendChild(modalTemplate.cloneNode(true));
+            console.log("Bastidores: Componente do Modal injetado com sucesso!");
+        } else {
+            console.warn("Aviso: O componente com id 'comp-modal-ficha' não existe no components.html.");
+        }
+    } catch (error) {
+        console.error("Algo deu errado ao carregar o modal de componentes:", error);
+    }
+}
+
 function renderizarFichasSalvas() {
-    // 1. Seleciona a div grid onde os cards devem ser inseridos
     const cardsGrid = document.querySelector('.cards-grid');
     if (!cardsGrid) return;
 
-    // 2. Busca as fichas guardadas no localStorage
+    // Busca as fichas guardadas no localStorage
     const fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
 
-    // Se não houver fichas salvas, limpa a tela e avisa o jogador
+    // Se não houver fichas, exibe o aviso amigável
     if (fichas.length === 0) {
         cardsGrid.innerHTML = `
             <p style="color: #bbb; text-align: center; grid-column: 1 / -1; padding: 40px; font-family: sans-serif;">
@@ -19,94 +52,91 @@ function renderizarFichasSalvas() {
         return;
     }
 
-    // 3. Limpa o card estático de exemplo para injetar os dados reais
     cardsGrid.innerHTML = '';
 
-    // 4. Percorre a lista de fichas criando a estrutura visual idêntica à sua
-        // 4. Percorre a lista de fichas criando a estrutura visual idêntica à sua
-    fichas.forEach(p => {
-        const card = document.createElement('article');
-        card.className = 'char-card';
+    try {
+        // 1. Carrega o components.html em segundo plano para extrair a estrutura pura
+        fetch("../pages/components.html")
+            .then(res => res.text())
+            .then(htmlText => {
+                const parser = new DOMParser();
+                const docVirtual = parser.parseFromString(htmlText, "text/html");
+                
+                // Pega o card de exemplo que está salvo no repositório de componentes
+                const templateOriginal = docVirtual.getElementById("card-minhas-fichas");
 
-        card.innerHTML = `
-            <header class="char-card-header">
-                <div>
-                    <h4>${p.info.nome}</h4>
-                    <div class="char-subtitle">Por: @LucasRicci</div>
-                </div>
-                <span class="char-level">Nvl ${p.info.nivel}</span>
-            </header>
+                if (!templateOriginal) {
+                    console.error("Erro: Template 'card-minhas-fichas' não encontrado no components.html");
+                    return;
+                }
 
-            <figure class="char-avatar">
-                <img src="../Img_folder/generico.jpg" alt="Avatar do personagem">
-                <figcaption>${p.info.classe}</figcaption>
-            </figure>
+                // 2. Itera pelas fichas reais do localStorage clonando o template para cada uma
+                fichas.forEach(personagem => {
+                    const cardClone = templateOriginal.cloneNode(true);
+                    const artigoCard = cardClone.querySelector('.char-card');
 
-            <!-- Bloco de Vida adicionado e alinhado -->
-            <div class="char-hp">
-                <span class="hp-label">VIDA: ${p.info.vidaMax || '0'}</span>
-            </div>
+                    // 3. Substitui os dados fictícios do template pelos dados do banco do navegador
+                    artigoCard.querySelector('h4').textContent = personagem.info.nome || "Sem Nome";
+                    artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info.nivel || 1}`;
+                    artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info.vidaMax || 0}`;
+                    artigoCard.querySelector('figcaption').textContent = personagem.info.classe || "Guerreiro";
 
-            <!-- Tabela atualizada com a coluna HUM -->
-            <table class="stats-table">
-                <thead>
-                    <tr>
-                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>${p.atributos.vitality.base}</td>
-                        <td>${p.atributos.strength.base}</td>
-                        <td>${p.atributos.dexterity.base}</td>
-                        <td>${p.atributos.resistence.base}</td>
-                        <td>${p.atributos.intelligence.base}</td>
-                        <td>${p.atributos.faith.base}</td>
-                        <td>${p.atributos.humanity || '0'}</td>
-                    </tr>
-                </tbody>
-            </table>
+                    // Alinha os atributos numéricos com as colunas da tabela (VIT, FOR, DES, etc.)
+                    const celulasAtributos = artigoCard.querySelectorAll('.stats-table tbody td');
+                    if (celulasAtributos.length >= 7) {
+                        celulasAtributos[0].textContent = personagem.atributos?.vitality?.base || 0;
+                        celulasAtributos[1].textContent = personagem.atributos?.strength?.base || 0;
+                        celulasAtributos[2].textContent = personagem.atributos?.dexterity?.base || 0;
+                        celulasAtributos[3].textContent = personagem.atributos?.resistence?.base || 0;
+                        celulasAtributos[4].textContent = personagem.atributos?.intelligence?.base || 0;
+                        celulasAtributos[5].textContent = personagem.atributos?.faith?.base || 0;
+                        celulasAtributos[6].textContent = personagem.atributos?.humanity || 0;
+                    }
 
-            <!-- Lista de equipamentos limpa e puxando as variáveis corretas -->
-            <ul class="equip-list">
-                <li>${p.info.armaPrincipal || 'Martelo de Guerra'}</li>
-                <li>${p.info.armaSecundaria || 'Escudo Pesado'}</li>
-            </ul>
+                    // Insere o item inicial/dádiva na lista rápida
+                    const itemLista = artigoCard.querySelector('.equip-list li');
+                    if (itemLista) {
+                        itemLista.textContent = personagem.info.dadiva || 'Nenhum item';
+                    }
 
-            <!-- Rodapé do card aberto e fechado corretamente -->
-            <footer class="char-card-footer">
-                <ul class="action-buttons">
-                    <li><button type="button">Visualizar</button></li>
-                    <li><button type="button">Editar</button></li>
-                    <li><button type="button" onclick="deletarFicha(${p.id})">Deletar</button></li>
-                    <li><button type="button">Compartilhar</button></li>
-                </ul>
-            </footer>
-        `;
+                    // 4. Captura a lista de botões do rodapé e mapeia as ações do Modal de forma indexada
+                    const botoes = artigoCard.querySelectorAll('.action-buttons button');
+                    if (botoes.length >= 3) {
+                        // Botão Visualizar: Abre no modo Readonly (false)
+                        botoes[0].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', false)); 
+                        
+                        // Botão Editar: Abre liberado direto para escrita (true)
+                        botoes[1].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', true)); 
+                        
+                        // Botão Deletar
+                        botoes[2].addEventListener('click', () => deletarFicha(personagem.id));                        
+                    }
 
-        cardsGrid.appendChild(card);
-    });
+                    // Envia o card montado e configurado para a tela
+                    cardsGrid.appendChild(artigoCard);
+                });
+                
+                // Atualiza o contador de fichas com o tamanho real da lista
+                const contador = document.querySelector('.panel-header small');
+                if (contador) {
+                    contador.textContent = `MINHAS FICHAS (${fichas.length})`;
+                }
+            });
 
-    // 5. Atualiza o pequeno contador dinâmico do cabeçalho da página
-    const contador = document.querySelector('.panel-header small');
-    if (contador) {
-        contador.textContent = `MINHAS FICHAS (${fichas.length})`;
+    } catch (erro) {
+        console.error("Erro no processamento da renderização dos cartões:", erro);
     }
 }
 
-// Função para deletar um personagem específico pelo ID único
 function deletarFicha(id) {
     if (confirm("Tem certeza que deseja deletar permanentemente este personagem?")) {
         let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-        // Mantém na lista apenas as fichas que possuem ID diferente do clicado
         fichas = fichas.filter(p => p.id !== id);
-        // Devolve os dados remanescentes para a memória do navegador
         localStorage.setItem('fichasRPG', JSON.stringify(fichas));
-        // Recarrega os cards na tela instantaneamente
         renderizarFichasSalvas();
     }
 }
 
-// EXPÕE AS FUNÇÕES PARA O ESCOPO GLOBAL: Garante funcionamento dos cliques
+// Expõe as funções principais para o escopo global por segurança de renderização
 window.renderizarFichasSalvas = renderizarFichasSalvas;
 window.deletarFicha = deletarFicha;
