@@ -12,6 +12,10 @@ function salvarPersonagem(event) {
         alert("Por favor, preencha o Nome do personagem antes de salvar!");
         return;
     }
+    if (!classe.trim()){
+        alert("Por favor, preencha a Classe do personagem antes de salvar!");
+        return;
+    }
 
     const personagem = {
         id: Date.now(),
