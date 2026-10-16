@@ -148,6 +148,66 @@
         </article>
     </div>
 
+    <!-- ==========================================
+         COMPONENTE: MODAL GLOBAL DE FICHA (DETALHES/EDIÇÃO)
+         ========================================== -->
+    <div id="comp-modal-ficha">
+        <div class="modal-overlay hidden" id="modalFicha">
+            <div class="modal-box">
+                <header class="modal-header">
+                    <h2 id="modalTitle">Detalhes do Personagem</h2>
+                    <button type="button" class="btn-close-modal" id="closeModalBtn">&times;</button>
+                </header>
+
+                <main class="modal-body">
+                    <!-- O formulário encapsula tudo para permitir alternar entre visualização e edição -->
+                    <form id="modalForm" onsubmit="return false;">
+                        <input type="hidden" id="modalCharId">
+                        
+                        <div class="modal-grid-top">
+                            <div class="modal-field">
+                                <label for="modalName">Nome</label>
+                                <input type="text" id="modalName" readonly>
+                            </div>
+                            <div class="modal-field">
+                                <label for="modalLevel">Nível</label>
+                                <input type="number" id="modalLevel" readonly>
+                            </div>
+                            <div class="modal-field">
+                                <label for="modalClass">Classe</label>
+                                <input type="text" id="modalClass" readonly>
+                            </div>
+                            <div class="modal-field">
+                                <label for="modalHealth">Vida Máxima</label>
+                                <input type="number" id="modalHealth" readonly>
+                            </div>
+                        </div>
+
+                        <div class="modal-section-title">Atributos Base</div>
+                        <div class="modal-grid-stats">
+                            <div class="modal-field-stat"><label>VIT</label><input type="number" id="modalVit" readonly></div>
+                            <div class="modal-field-stat"><label>FOR</label><input type="number" id="modalFor" readonly></div>
+                            <div class="modal-field-stat"><label>DES</label><input type="number" id="modalDes" readonly></div>
+                            <div class="modal-field-stat"><label>RES</label><input type="number" id="modalRes" readonly></div>
+                            <div class="modal-field-stat"><label>INT</label><input type="number" id="modalInt" readonly></div>
+                            <div class="modal-field-stat"><label>FÉ</label><input type="number" id="modalFaith" readonly></div>
+                            <div class="modal-field-stat"><label>HUM</label><input type="number" id="modalHum" readonly></div>
+                        </div>
+
+                        <div class="modal-section-title">Inventário & Detalhes</div>
+                        <div class="modal-field textarea-field">
+                            <label for="modalGift">Item Inicial / Dádiva</label>
+                            <input type="text" id="modalGift" readonly>
+                        </div>
+                    </form>
+                </main>
+
+                <footer class="modal-footer" id="modalFooterActions">
+                    <!-- Os botões serão injetados dinamicamente via JS dependendo do contexto (Minhas Fichas ou Biblioteca) -->
+                </footer>
+            </div>
+        </div>
+    </div>
 
     <!-- ==========================================
          COMPONENTE: RODAPÉ (FOOTER)
