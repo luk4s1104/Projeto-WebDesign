@@ -111,15 +111,18 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
 
                     // Configura os ouvintes de ação para o menu de botões do rodapé do cartão
                     const botoes = artigoCard.querySelectorAll('.action-buttons button');
-                    if (botoes.length >= 3) {
-                        // Botão Visualizar: Modo somente leitura (false)
+                    if (botoes && botoes.length >= 4) {
+                        // Botão Visualizar (Índice 0)
                         botoes[0].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', false)); 
                         
-                        // Botão Editar: Modo de escrita liberado (true)
+                        // Botão Editar (Índice 1)
                         botoes[1].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', true)); 
                         
-                        // Botão Deletar: Deleta o item via ID único
+                        // Botão Deletar (Índice 2)
                         botoes[2].addEventListener('click', () => deletarFicha(personagem.id));                        
+                        
+                        // Botão Salvar (Índice 3): Envia o elemento HTML do card para marcar antes do PDF
+                        botoes[3].addEventListener('click', () => salvarPDF(artigoCard));
                     }
 
                     // Empurra o cartão montado para dentro da grid visual do documento
@@ -137,6 +140,12 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
         console.error("Erro no processamento da renderização dos cartões:", erro);
     }
 }
+
+// Auxiliar simples caso seu código use mapeamento de nome de classe
+function fantasyMapClasse(classe) {
+    return classe;
+}
+
 
 // Remove o registro do localStorage e atualiza os filtros de pesquisa ativos
 function deletarFicha(id) {
@@ -199,3 +208,27 @@ function inicializarFiltros() {
 window.renderizarFichasSalvas = renderizarFichasSalvas;
 window.deletarFicha = deletarFicha;
 window.aplicarFiltros = aplicarFiltros;
+
+function salvarPDF(cardElemento) {
+    // 1. Clona o card completo de forma idêntica
+    const cardClone = cardElemento.cloneNode(true);
+    
+    // 2. Adiciona a classe exclusiva de impressão mapeada no CSS
+    cardClone.classList.add('char-card-print-target');
+    
+    // 3. Encontra a lista de botões dentro do clone e deleta ela fisicamente para não sair no PDF
+    const botoesParaRemover = cardClone.querySelector('.action-buttons');
+    if (botoesParaRemover) {
+        botoesParaRemover.remove();
+    }
+    
+    // 4. Injeta temporariamente o clone limpo direto no <body> da página (fora de contêineres ocultos)
+    document.body.appendChild(cardClone);
+
+    // 5. Dispara a janela nativa de impressão/salvamento em PDF do navegador
+    window.print();
+
+    // 6. Remove o clone logo após o fechamento da janela para não acumular lixo na interface
+    cardClone.remove();
+}
+
