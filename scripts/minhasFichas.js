@@ -79,7 +79,7 @@ function renderizarFichasSalvas() {
                     artigoCard.querySelector('h4').textContent = personagem.info.nome || "Sem Nome";
                     artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info.nivel || 1}`;
                     artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info.vidaMax || 0}`;
-                    artigoCard.querySelector('figcaption').textContent = personagem.info.classe || "Guerreiro";
+                    artigoCard.querySelector('figcaption').textContent = fantasyMapClasse(personagem.info.classe) || "Guerreiro";
 
                     // Alinha os atributos numéricos com as colunas da tabela (VIT, FOR, DES, etc.)
                     const celulasAtributos = artigoCard.querySelectorAll('.stats-table tbody td');
@@ -99,17 +99,20 @@ function renderizarFichasSalvas() {
                         itemLista.textContent = personagem.info.dadiva || 'Nenhum item';
                     }
 
-                    // 4. Captura a lista de botões do rodapé e mapeia as ações do Modal de forma indexada
+                    // 4. Captura a lista de botões do rodapé e mapeia as ações de forma segura por índice
                     const botoes = artigoCard.querySelectorAll('.action-buttons button');
-                    if (botoes.length >= 3) {
-                        // Botão Visualizar: Abre no modo Readonly (false)
+                    if (botoes && botoes.length >= 4) {
+                        // Botão Visualizar (Índice 0)
                         botoes[0].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', false)); 
                         
-                        // Botão Editar: Abre liberado direto para escrita (true)
+                        // Botão Editar (Índice 1)
                         botoes[1].addEventListener('click', () => abrirModalVisualizacao(personagem, 'minhasFichas', true)); 
                         
-                        // Botão Deletar
+                        // Botão Deletar (Índice 2)
                         botoes[2].addEventListener('click', () => deletarFicha(personagem.id));                        
+                        
+                        // Botão Salvar (Índice 3): Envia o elemento HTML do card para marcar antes do PDF
+                        botoes[3].addEventListener('click', () => salvarPDF(artigoCard));
                     }
 
                     // Envia o card montado e configurado para a tela
@@ -128,6 +131,12 @@ function renderizarFichasSalvas() {
     }
 }
 
+// Auxiliar simples caso seu código use mapeamento de nome de classe
+function fantasyMapClasse(classe) {
+    return classe;
+}
+
+
 function deletarFicha(id) {
     if (confirm("Tem certeza que deseja deletar permanentemente este personagem?")) {
         let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
@@ -140,3 +149,27 @@ function deletarFicha(id) {
 // Expõe as funções principais para o escopo global por segurança de renderização
 window.renderizarFichasSalvas = renderizarFichasSalvas;
 window.deletarFicha = deletarFicha;
+
+function salvarPDF(cardElemento) {
+    // 1. Clona o card completo de forma idêntica
+    const cardClone = cardElemento.cloneNode(true);
+    
+    // 2. Adiciona a classe exclusiva de impressão mapeada no CSS
+    cardClone.classList.add('char-card-print-target');
+    
+    // 3. Encontra a lista de botões dentro do clone e deleta ela fisicamente para não sair no PDF
+    const botoesParaRemover = cardClone.querySelector('.action-buttons');
+    if (botoesParaRemover) {
+        botoesParaRemover.remove();
+    }
+    
+    // 4. Injeta temporariamente o clone limpo direto no <body> da página (fora de contêineres ocultos)
+    document.body.appendChild(cardClone);
+
+    // 5. Dispara a janela nativa de impressão/salvamento em PDF do navegador
+    window.print();
+
+    // 6. Remove o clone logo após o fechamento da janela para não acumular lixo na interface
+    cardClone.remove();
+}
+
