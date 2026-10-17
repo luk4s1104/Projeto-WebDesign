@@ -12,6 +12,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // 3. Vincula a inteligência de clique nas fichas estáticas da comunidade
     configurarCliquesBiblioteca();
+
+    // 4. Inicializa os ouvintes de eventos para os filtros da biblioteca
+    inicializarFiltrosBiblioteca();
 });
 
 async function carregarComponenteModal() {
@@ -34,7 +37,6 @@ function configurarCliquesBiblioteca() {
     const cards = document.querySelectorAll('.char-card');
     
     cards.forEach(card => {
-        // Extrai os dados contidos nas tags HTML do card estático da comunidade
         const nome = card.querySelector('h4').textContent;
         const autor = card.querySelector('.char-subtitle').textContent;
         const nivelTexto = card.querySelector('.char-level').textContent;
@@ -46,7 +48,6 @@ function configurarCliquesBiblioteca() {
         const celulas = card.querySelectorAll('.stats-table tbody td');
         const itemLista = card.querySelector('.equip-list li')?.textContent || '';
 
-        // Monta o objeto estruturado simulando o banco de dados
         const personagemObjeto = {
             id: 'publico',
             info: { nome, classe, nivel, vidaMax, dadiva: itemLista },
@@ -61,7 +62,6 @@ function configurarCliquesBiblioteca() {
             }
         };
 
-        // Vincula a ação de clique nos botões do card específico
         const btnVisualizar = card.querySelector('.library-actions button:nth-child(1)');
         if (btnVisualizar) {
             btnVisualizar.onclick = () => abrirModalVisualizacao(personagemObjeto, 'biblioteca', false);
@@ -78,4 +78,70 @@ function configurarCliquesBiblioteca() {
             };
         }
     });
+}
+
+// ==========================================================================
+// SISTEMA DE FILTROS DA BIBLIOTECA PÚBLICA
+// ==========================================================================
+
+function aplicarFiltrosBiblioteca() {
+    // Captura os elementos do formulário de filtros pelos IDs corretos
+    const inputPesquisar = document.getElementById('pesquisar');
+    const inputClasse = document.getElementById('classe');
+    const inputNivel = document.getElementById('nivel');
+
+    if (!inputPesquisar || !inputClasse || !inputNivel) return;
+
+    // Padroniza os termos digitados pelo usuário (remover espaços e colocar em minúsculo)
+    const termoBusca = inputPesquisar.value.toLowerCase().trim();
+    const termoClasse = inputClasse.value.toLowerCase().trim();
+    const termoNivel = inputNivel.value.trim();
+
+    // Seleciona todos os cards físicos desenhados na tela
+    const cards = document.querySelectorAll('.cards-grid .char-card');
+    let cardsVisiveis = 0;
+
+    cards.forEach(card => {
+        // Extrai as informações de texto de dentro de cada card
+        const nomeCard = card.querySelector('h4').textContent.toLowerCase();
+        const autorCard = card.querySelector('.char-subtitle').textContent.toLowerCase();
+        const classeCard = card.querySelector('figcaption').textContent.toLowerCase();
+        
+        const nivelTexto = card.querySelector('.char-level').textContent;
+        const nivelCard = parseInt(nivelTexto.replace('Nvl ', '').trim(), 10) || 0;
+
+        // Regra 1: O "search" pode ler tanto o Nome do Personagem QUANTO o Criador (@autor)
+        const bateBusca = termoBusca === '' || nomeCard.includes(termoBusca) || autorCard.includes(termoBusca);
+        
+        // Regra 2: Filtragem por classe por correspondência de texto
+        const bateClasse = termoClasse === '' || classeCard.includes(termoClasse);
+
+        // Regra 3: Filtragem por nível igual ou maior ao digitado
+        const bateNivel = termoNivel === '' || nivelCard >= parseInt(termoNivel, 10);
+
+        // Condição final: o card precisa passar em todos os filtros ativos
+        if (bateBusca && bateClasse && bateNivel) {
+            card.style.display = ""; // Mostra o card
+            cardsVisiveis++;
+        } else {
+            card.style.display = "none"; // Esconde o card
+        }
+    });
+
+    // Atualiza dinamicamente o contador do painel superior com o número de fichas encontradas
+    const contador = document.querySelector('.panel-header small');
+    if (contador) {
+        contador.textContent = `FICHAS DISPONÍVEIS (${cardsVisiveis})`;
+    }
+}
+
+// Vincula os escutadores de digitação em tempo real (evento 'input')
+function inicializarFiltrosBiblioteca() {
+    const inputPesquisar = document.getElementById('pesquisar');
+    const inputClasse = document.getElementById('classe');
+    const inputNivel = document.getElementById('nivel');
+
+    if (inputPesquisar) inputPesquisar.addEventListener('input', aplicarFiltrosBiblioteca);
+    if (inputClasse) inputClasse.addEventListener('input', aplicarFiltrosBiblioteca);
+    if (inputNivel) inputNivel.addEventListener('input', aplicarFiltrosBiblioteca);
 }
