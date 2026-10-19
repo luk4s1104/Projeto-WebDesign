@@ -28,7 +28,7 @@
             <!-- SEÇÃO DE FILTROS -->
             <section class="filters-section">
                 <form class="filters-form" onsubmit="return false;">
-                    <input id="pesquisar" type="search" placeholder="Pesquisar">
+                    <input id="pesquisar" type="search" placeholder="Buscar por nome do personagem ou criador...">
                     <input id="classe" type="text" placeholder="Classe">
                     <input id="nivel" type="number" placeholder="Nivel" min="0">
                 </form>
@@ -178,6 +178,11 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <div id="personagemClonadoAlerta" class="closed">
+    <button type="button" class="close-btn" onclick="fecharAlertaClonado()">&times;</button>
+        <p id="textoAlertaClonado">Ficha clonada com sucesso!</p> <!-- ID para colocar o nome do personagem clonado -->
     </div>
 
     <!-- RODAPÉ GLOBAL da PÁGINA -->

@@ -2,6 +2,8 @@ import loader from './components/loader.js';
 import { abrirModalVisualizacao } from './components/modalController.js';
 import { carregarComponenteModal, bindFilterInputs, matchFilterRules } from './utils/filterController.js';
 
+let idCronometroAlerta = null;
+
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Carrega o header e footer globais
     if (typeof loader === 'function') {
@@ -25,19 +27,20 @@ function configurarCliquesBiblioteca() {
     cards.forEach(card => {
         // Extrai e limpa os dados contidos nas tags HTML do card para podermos ler depois
         const nome = card.querySelector('h4').textContent;
+        const autor = card.querySelector('.char-subtitle').textContent;
         const nivelTexto = card.querySelector('.char-level').textContent;
         const nivel = nivelTexto.replace('Nvl ', '').trim();
         const classe = card.querySelector('figcaption').textContent;
         const vidaTexto = card.querySelector('.hp-label').textContent;
         const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
-        
+        const imagemUrl = card.querySelector('.char-avatar img').getAttribute('src');
         const celulas = card.querySelectorAll('.stats-table tbody td');
         const itemLista = card.querySelector('.equip-list li')?.textContent || '';
 
         // Monta o objeto de dados temporário idêntico ao modelo do banco
         const personagemObjeto = {
             id: 'publico',
-            info: { nome, classe, nivel, vidaMax, dadiva: itemLista },
+            info: { nome, classe, nivel, vidaMax, dadiva: itemLista , imagem: imagemUrl},
             atributos: {
                 vitality: { base: celulas[0]?.textContent || 0 },
                 strength: { base: celulas[1]?.textContent || 0 },
@@ -72,7 +75,7 @@ function clonarFichaParaPainel(personagemObjeto) {
     const novaFicha = { ...personagemObjeto, id: Date.now() }; // Gera um ID único e real
     minhasFichas.push(novaFicha);
     localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
-    alert(`A ficha de ${personagemObjeto.info.nome} foi clonada com sucesso! Veja em "Minhas Fichas".`);
+    mostrarAlertaClonado(nome);
 }
 
 // Lógica que varre os elementos estáticos ocultando-os se não passarem na regra do filtro
@@ -118,3 +121,45 @@ function atualizarContadorBiblioteca(quantidade) {
         contador.textContent = `FICHAS DISPONÍVEIS (${quantidade})`;
     }
 }
+
+
+function mostrarAlertaClonado(nomePersonagem) {
+    const alerta = document.getElementById('personagemClonadoAlerta');
+    const texto = document.getElementById('textoAlertaClonado');
+    
+    if (alerta && texto) {
+        // Altera o texto dinamicamente para mostrar o nome da ficha que você clonou
+        texto.textContent = `A ficha do(a) ${nomePersonagem} foi clonada com sucesso!`;
+        
+        // Acende o pop-up na tela tirando o 'closed' e colocando 'open'
+        alerta.classList.remove('closed');
+        alerta.classList.add('open');
+        
+        // Se o usuário clicar em clonar rápido várias vezes, cancela o tempo do clique anterior
+        if (idCronometroAlerta) clearTimeout(idCronometroAlerta);
+        
+        // Inicia a contagem de 3.5 segundos para esconder o pop-up sozinho
+        idCronometroAlerta = setTimeout(() => {
+            fecharAlertaClonado();
+        }, 3500);
+    }
+}
+
+function fecharAlertaClonado() {
+    const alerta = document.getElementById('personagemClonadoAlerta');
+    if (alerta) {
+        // Apaga o pop-up da tela invertendo as classes CSS
+        alerta.classList.remove('open');
+        alerta.classList.add('closed');
+    }
+    // Desliga o relógio se o usuário clicou no "X" antes do tempo acabar
+    if (idCronometroAlerta) {
+        clearTimeout(idCronometroAlerta);
+        idCronometroAlerta = null; // Esvazia a variável de segurança
+    }
+}
+
+// Vincula a função à janela global para o botão "X" do HTML conseguir disparar o clique
+window.fecharAlertaClonado = fecharAlertaClonado;
+window.mostrarAlertaClonado = mostrarAlertaClonado;
+window.fecharAlertaClonado = fecharAlertaClonado;

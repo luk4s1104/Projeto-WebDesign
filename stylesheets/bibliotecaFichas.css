@@ -136,3 +136,40 @@ body {
         gap: 12px;
     }
 }
+
+/* ==========================================================================
+   ESTRUTURA DO POP-UP
+   ========================================================================== */
+#personagemClonadoAlerta {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #28a745; 
+    color: white;
+    padding: 25px 40px 25px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-family: sans-serif;
+    font-size: 16px;
+    z-index: 1000;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#personagemClonadoAlerta .close-btn {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+#personagemClonadoAlerta .close-btn:hover { opacity: 1; }
+#personagemClonadoAlerta.open { opacity: 1; visibility: visible; }
+#personagemClonadoAlerta.closed { opacity: 0; visibility: hidden; }

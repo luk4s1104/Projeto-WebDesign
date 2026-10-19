@@ -60,11 +60,12 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
                 const cardClone = templateOriginal.cloneNode(true);
                 const artigoCard = cardClone.querySelector('.char-card');
 
-                // Alimenta as tags textuais com as propriedades dinâmicas extraídas do banco
-                artigoCard.querySelector('h4').textContent = personagem.info?.nome || "Sem Nome";
-                artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info?.nivel || 0}`;
-                artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info?.vidaMax || 0}`;
-                artigoCard.querySelector('figcaption').textContent = personagem.info?.classe || "Sem Classe";
+                    // Alimenta as tags textuais com as propriedades dinâmicas extraídas do banco
+                    artigoCard.querySelector('h4').textContent = personagem.info?.nome || "Sem Nome";
+                    artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info?.nivel || 0}`;
+                    artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info?.vidaMax || 0}`;
+                    artigoCard.querySelector('figcaption').textContent = personagem.info?.classe;
+                    artigoCard.querySelector('.char-avatar img').src = personagem.info?.imagem || "../Img_folder/generico.jpg";
 
                 // Preenche sequencialmente a tabela de atributos base
                 preencherAtributosCard(artigoCard, personagem);
@@ -120,18 +121,41 @@ function atualizarContadorFichas(quantidade) {
     }
 }
 
+
 // Remove o registro do localStorage e atualiza os filtros de pesquisa ativos
 function deletarFicha(id) {
-    if (confirm("Tem certeza que deseja deletar permanentemente este personagem?")) {
-        let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-        fichas = fichas.filter(p => p.id !== id);
-        localStorage.setItem('fichasRPG', JSON.stringify(fichas));
+    const popup = document.getElementById('popupDeletarFicha');
+    const btnConfirmar = document.getElementById('btnConfirmarDeletar');
+    
+    if (popup && btnConfirmar) {
+        // Abre visualmente o pop-up de confirmação na tela
+        popup.classList.remove('closed');
+        popup.classList.add('open');
         
-        aplicarFiltros();
+        // Configura o que acontece quando clica no botão "Sim, Deletar"
+        btnConfirmar.onclick = () => {
+            // Remove o registro do banco de dados
+            let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
+            fichas = fichas.filter(p => p.id !== id);
+            localStorage.setItem('fichasRPG', JSON.stringify(fichas));
+            
+            // Fecha o pop-up e recarrega a lista filtrada na tela
+            fecharPopupDeletar();
+            aplicarFiltros();
+        };
     }
 }
 
-// Gerencia o processamento da busca avançada utilizando as regras do filterController
+// Vincula a função de fechar à janela global para os cliques do "X" e do "Cancelar" funcionarem
+function fecharPopupDeletar() {
+    const popup = document.getElementById('popupDeletarFicha');
+    if (popup) {
+        popup.classList.remove('open');
+        popup.classList.add('closed');
+    }
+}
+
+// Gerencia o processamento da busca avançada utilizando .filter() nativo do JavaScript
 function aplicarFiltros() {
     const inputPesquisar = document.getElementById('pesquisar');
     const inputClasse = document.getElementById('classe');
@@ -169,6 +193,7 @@ function salvarPDF(cardElemento) {
 }
 
 // Expõe os métodos estratégicos para o escopo global se necessário
+window.fecharPopupDeletar = fecharPopupDeletar;
 window.renderizarFichasSalvas = renderizarFichasSalvas;
 window.deletarFicha = deletarFicha;
 window.aplicarFiltros = aplicarFiltros;

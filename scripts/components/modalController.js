@@ -135,5 +135,7 @@ function clonarFichaComunidade(personagem) {
     };
     minhasFichas.push(novaFicha);
     localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
-    alert(`A ficha de ${personagem.info.nome} foi adicionada à sua aba "Minhas Fichas"!`);
+    if (window.mostrarAlertaClonado) {
+        window.mostrarAlertaClonado(personagem.info.nome);
+    }
 }

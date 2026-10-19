@@ -292,3 +292,72 @@
     }
 }
 
+/* ==========================================================================
+   ESTRUTURA DO POP-UP DE DELETAR (SEGUINDO O MODELO CENTRALIZADO AZUL)
+   ========================================================================== */
+#popupDeletarFicha {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ed3c3c; /* Mesmo azul do seu pop-up da biblioteca */
+    color: white;
+    padding: 30px 40px 25px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    font-family: sans-serif;
+    font-size: 16px;
+    z-index: 1100; /* Fica acima de tudo, inclusive do modal de detalhes */
+    text-align: center;
+    min-width: 320px;
+    max-width: 450px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+#popupDeletarFicha .close-btn {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+}
+
+#popupDeletarFicha .close-btn:hover { opacity: 1; }
+#popupDeletarFicha.open { opacity: 1; visibility: visible; }
+#popupDeletarFicha.closed { opacity: 0; visibility: hidden; }
+
+/* Botões internos do pop-up de confirmação */
+.popup-acoes {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-popup-perigo, .btn-popup-neutral {
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.btn-popup-perigo {
+    background-color: #b91c1c; /* Vermelho perigo */
+    color: white;
+}
+.btn-popup-perigo:hover { background-color: #991b1b; }
+
+.btn-popup-neutral {
+    background-color: #273544; /* Cinza escuro neutro */
+    color: white;
+}
+.btn-popup-neutral:hover { background-color: #1e293b; }
