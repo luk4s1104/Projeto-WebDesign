@@ -141,12 +141,6 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
     }
 }
 
-// Auxiliar simples caso seu código use mapeamento de nome de classe
-function fantasyMapClasse(classe) {
-    return classe;
-}
-
-
 // Remove o registro do localStorage e atualiza os filtros de pesquisa ativos
 function deletarFicha(id) {
     if (confirm("Tem certeza que deseja deletar permanentemente este personagem?")) {
