@@ -1,4 +1,29 @@
 /**
+ * Injeta a estrutura física invisível do modal vindo do components.html
+ * @param {string} pathToComponents - O caminho relativo até o arquivo components.html
+ */
+export async function carregarComponenteModal(pathToComponents = "../pages/components.html") {
+    try {
+        const response = await fetch(pathToComponents);
+        if (!response.ok) throw new Error("Erro ao carregar repositório de componentes.");
+        
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const docVirtual = parser.parseFromString(htmlText, "text/html");
+        
+        const modalTemplate = docVirtual.getElementById('comp-modal-ficha');
+        if (modalTemplate) {
+            document.body.appendChild(modalTemplate.cloneNode(true));
+            console.log("Bastidores: Componente do Modal injetado com sucesso!");
+        } else {
+            console.warn("Aviso: O componente com id 'comp-modal-ficha' não existe no components.html.");
+        }
+    } catch (error) {
+        console.error("Algo deu errado ao carregar o modal de componentes:", error);
+    }
+}
+
+/**
  * Processes comparison rules between a character data object and active filter search states.
  * @param {Object} character - The character data object.
  * @param {string} searchStr - Cleaned character or author name search string.

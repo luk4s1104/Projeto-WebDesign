@@ -64,7 +64,7 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
                 artigoCard.querySelector('h4').textContent = personagem.info?.nome || "Sem Nome";
                 artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info?.nivel || 0}`;
                 artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info?.vidaMax || 0}`;
-                artigoCard.querySelector('figcaption').textContent = personaje.info?.classe || "Sem Classe";
+                artigoCard.querySelector('figcaption').textContent = personagem.info?.classe || "Sem Classe";
 
                 // Preenche sequencialmente a tabela de atributos base
                 preencherAtributosCard(artigoCard, personagem);
