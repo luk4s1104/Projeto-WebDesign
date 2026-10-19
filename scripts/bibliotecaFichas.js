@@ -75,7 +75,7 @@ function clonarFichaParaPainel(personagemObjeto) {
     const novaFicha = { ...personagemObjeto, id: Date.now() }; // Gera um ID único e real
     minhasFichas.push(novaFicha);
     localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
-    mostrarAlertaClonado(nome);
+    mostrarAlertaClonado(personagemObjeto.info.nome);
 }
 
 // Lógica que varre os elementos estáticos ocultando-os se não passarem na regra do filtro
