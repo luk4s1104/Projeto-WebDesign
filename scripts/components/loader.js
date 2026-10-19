@@ -1,6 +1,6 @@
 const loader = document.addEventListener('DOMContentLoaded', async () => {
     try {
-        const response = await fetch("../pages/components.html")
+        const response = await fetch("../../pages/components.html")
         if(!response.ok){
             throw new Error(`Erro ao buscar componentes. Status: ${response.status}`);
         }
