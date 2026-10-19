@@ -1,5 +1,5 @@
-import loader from './loader.js';
-import { abrirModalVisualizacao } from './modalController.js';
+import loader from './components/loader.js';
+import { abrirModalVisualizacao } from './components/modalController.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     // 1. Carrega o header e footer globais

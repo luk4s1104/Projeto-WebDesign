@@ -1,5 +1,5 @@
-import loader from './loader.js';
-import { abrirModalVisualizacao } from './modalController.js';
+import loader from './components/loader.js';
+import { abrirModalVisualizacao } from './components/modalController.js';
 
 // Executado assim que a página HTML estrutural é carregada no navegador
 document.addEventListener('DOMContentLoaded', async () => {
