@@ -148,17 +148,40 @@ function fantasyMapClasse(classe) {
 }
 
 
-// Remove o registro do localStorage e atualiza os filtros de pesquisa ativos
 function deletarFicha(id) {
-    if (confirm("Tem certeza que deseja deletar permanentemente este personagem?")) {
-        let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-        fichas = fichas.filter(p => p.id !== id);
-        localStorage.setItem('fichasRPG', JSON.stringify(fichas));
+    const popup = document.getElementById('popupDeletarFicha');
+    const btnConfirmar = document.getElementById('btnConfirmarDeletar');
+    
+    if (popup && btnConfirmar) {
+        // Abre visualmente o pop-up de confirmação na tela
+        popup.classList.remove('closed');
+        popup.classList.add('open');
         
-        // Recarrega chamando a função de filtro para manter a persistência da busca do usuário
-        aplicarFiltros();
+        // Configura o que acontece quando clica no botão "Sim, Deletar"
+        btnConfirmar.onclick = () => {
+            // Remove o registro do banco de dados
+            let fichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
+            fichas = fichas.filter(p => p.id !== id);
+            localStorage.setItem('fichasRPG', JSON.stringify(fichas));
+            
+            // Fecha o pop-up e recarrega a lista filtrada na tela
+            fecharPopupDeletar();
+            aplicarFiltros();
+        };
     }
 }
+
+function fecharPopupDeletar() {
+    const popup = document.getElementById('popupDeletarFicha');
+    if (popup) {
+        popup.classList.remove('open');
+        popup.classList.add('closed');
+    }
+}
+
+// Vincula a função de fechar à janela global para os cliques do "X" e do "Cancelar" funcionarem
+window.fecharPopupDeletar = fecharPopupDeletar;
+
 
 // Gerencia o processamento da busca avançada utilizando .filter() nativo do JavaScript
 function aplicarFiltros() {
