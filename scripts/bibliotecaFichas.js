@@ -44,13 +44,15 @@ function configurarCliquesBiblioteca() {
         const classe = card.querySelector('figcaption').textContent;
         const vidaTexto = card.querySelector('.hp-label').textContent;
         const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
+
+        const imagemUrl = card.querySelector('.char-avatar img').getAttribute('src');
         
         const celulas = card.querySelectorAll('.stats-table tbody td');
         const itemLista = card.querySelector('.equip-list li')?.textContent || '';
 
         const personagemObjeto = {
             id: 'publico',
-            info: { nome, classe, nivel, vidaMax, dadiva: itemLista },
+            info: { nome, classe, nivel, vidaMax, dadiva: itemLista , imagem: imagemUrl},
             atributos: {
                 vitality: { base: celulas[0]?.textContent || 0 },
                 strength: { base: celulas[1]?.textContent || 0 },

@@ -90,6 +90,7 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
                     artigoCard.querySelector('.char-level').textContent = `Nvl ${personagem.info?.nivel || 0}`;
                     artigoCard.querySelector('.hp-label').textContent = `VIDA: ${personagem.info?.vidaMax || 0}`;
                     artigoCard.querySelector('figcaption').textContent = personagem.info?.classe;
+                    artigoCard.querySelector('.char-avatar img').src = personagem.info?.imagem || "../Img_folder/generico.jpg";
 
                     // Preenche sequencialmente a tabela horizontal de atributos base
                     const celulasAtributos = artigoCard.querySelectorAll('.stats-table tbody td');
