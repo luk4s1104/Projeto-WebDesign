@@ -1,5 +1,6 @@
-import loader from './loader.js';
-import { abrirModalVisualizacao } from './modalController.js';
+import loader from './components/loader.js';
+import { abrirModalVisualizacao } from './components/modalController.js';
+import { carregarComponenteModal, bindFilterInputs, matchFilterRules } from './utils/filterController.js';
 
 let idCronometroAlerta = null;
 
@@ -9,36 +10,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         await loader();
     }
 
-    // 2. Injeta a estrutura física invisível do modal na página corrente
-    await carregarComponenteModal();
+    // 2. Injeta a estrutura física invisível do modal (Usa a nossa utilidade compartilhada!)
+    await carregarComponenteModal("../pages/components.html");
 
     // 3. Vincula a inteligência de clique nas fichas estáticas da comunidade
     configurarCliquesBiblioteca();
 
-    // 4. Inicializa os ouvintes de eventos para os filtros da biblioteca
-    inicializarFiltrosBiblioteca();
+    // 4. Ativa os ouvintes de evento para monitorar a digitação (Usa a nossa utilidade compartilhada!)
+    bindFilterInputs(aplicarFiltros);
 });
 
-async function carregarComponenteModal() {
-    try {
-        const response = await fetch("../pages/components.html");
-        const htmlText = await response.text();
-        const parser = new DOMParser();
-        const docVirtual = parser.parseFromString(htmlText, "text/html");
-        
-        const modalTemplate = docVirtual.getElementById('comp-modal-ficha');
-        if (modalTemplate) {
-            document.body.appendChild(modalTemplate.cloneNode(true));
-        }
-    } catch (error) {
-        console.error("Erro ao pré-carregar modal de componentes na biblioteca:", error);
-    }
-}
-
+// Lê os dados inseridos de forma estática no HTML e configura as ações dos botões
 function configurarCliquesBiblioteca() {
     const cards = document.querySelectorAll('.char-card');
     
     cards.forEach(card => {
+        // Extrai e limpa os dados contidos nas tags HTML do card para podermos ler depois
         const nome = card.querySelector('h4').textContent;
         const autor = card.querySelector('.char-subtitle').textContent;
         const nivelTexto = card.querySelector('.char-level').textContent;
@@ -46,12 +33,11 @@ function configurarCliquesBiblioteca() {
         const classe = card.querySelector('figcaption').textContent;
         const vidaTexto = card.querySelector('.hp-label').textContent;
         const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
-
         const imagemUrl = card.querySelector('.char-avatar img').getAttribute('src');
-        
         const celulas = card.querySelectorAll('.stats-table tbody td');
         const itemLista = card.querySelector('.equip-list li')?.textContent || '';
 
+        // Monta o objeto de dados temporário idêntico ao modelo do banco
         const personagemObjeto = {
             id: 'publico',
             info: { nome, classe, nivel, vidaMax, dadiva: itemLista , imagem: imagemUrl},
@@ -66,90 +52,76 @@ function configurarCliquesBiblioteca() {
             }
         };
 
+        // Salva esse objeto na própria tag HTML do card! Isso vai facilitar muito a nossa busca no filtro
+        card.dataset.characterData = JSON.stringify(personagemObjeto);
+
+        // Vincula a ação de clique do botão "Visualizar"
         const btnVisualizar = card.querySelector('.library-actions button:nth-child(1)');
         if (btnVisualizar) {
             btnVisualizar.onclick = () => abrirModalVisualizacao(personagemObjeto, 'biblioteca', false);
         }
 
+        // Vincula a ação de clique do botão "Clonar Ficha"
         const btnClonar = card.querySelector('.btn-clone');
         if (btnClonar) {
-            btnClonar.onclick = () => {
-                let minhasFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-                const novaFicha = { ...personagemObjeto, id: Date.now() };
-                minhasFichas.push(novaFicha);
-                localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
-
-                mostrarAlertaClonado(nome);
-            };
+            btnClonar.onclick = () => clonarFichaParaPainel(personagemObjeto);
         }
     });
 }
 
-// ==========================================================================
-// SISTEMA DE FILTROS DA BIBLIOTECA PÚBLICA
-// ==========================================================================
+// Salva a ficha clonada no localStorage do usuário
+function clonarFichaParaPainel(personagemObjeto) {
+    let minhasFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
+    const novaFicha = { ...personagemObjeto, id: Date.now() }; // Gera um ID único e real
+    minhasFichas.push(novaFicha);
+    localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
+    mostrarAlertaClonado(personagemObjeto.info.nome);
+}
 
-function aplicarFiltrosBiblioteca() {
-    // Captura os elementos do formulário de filtros pelos IDs corretos
+// Lógica que varre os elementos estáticos ocultando-os se não passarem na regra do filtro
+function aplicarFiltros() {
     const inputPesquisar = document.getElementById('pesquisar');
     const inputClasse = document.getElementById('classe');
     const inputNivel = document.getElementById('nivel');
 
     if (!inputPesquisar || !inputClasse || !inputNivel) return;
 
-    // Padroniza os termos digitados pelo usuário (remover espaços e colocar em minúsculo)
+    // Padroniza as strings digitadas pelo usuário
     const termoBusca = inputPesquisar.value.toLowerCase().trim();
     const termoClasse = inputClasse.value.toLowerCase().trim();
     const termoNivel = inputNivel.value.trim();
 
-    // Seleciona todos os cards físicos desenhados na tela
-    const cards = document.querySelectorAll('.cards-grid .char-card');
+    const cards = document.querySelectorAll('.char-card');
     let cardsVisiveis = 0;
 
     cards.forEach(card => {
-        // Extrai as informações de texto de dentro de cada card
-        const nomeCard = card.querySelector('h4').textContent.toLowerCase();
-        const autorCard = card.querySelector('.char-subtitle').textContent.toLowerCase();
-        const classeCard = card.querySelector('figcaption').textContent.toLowerCase();
-        
-        const nivelTexto = card.querySelector('.char-level').textContent;
-        const nivelCard = parseInt(nivelTexto.replace('Nvl ', '').trim(), 10) || 0;
+        // Recupera o objeto de dados que guardamos dentro do card no passo anterior
+        if (!card.dataset.characterData) return;
+        const personagem = JSON.parse(card.dataset.characterData);
 
-        // Regra 1: O "search" pode ler tanto o Nome do Personagem QUANTO o Criador (@autor)
-        const bateBusca = termoBusca === '' || nomeCard.includes(termoBusca) || autorCard.includes(termoBusca);
-        
-        // Regra 2: Filtragem por classe por correspondência de texto
-        const bateClasse = termoClasse === '' || classeCard.includes(termoClasse);
+        // Executa a nossa regra de matemática matemática compartilhada do filterController!
+        const passaNoFiltro = matchFilterRules(personagem, termoBusca, termoClasse, termoNivel);
 
-        // Regra 3: Filtragem por nível igual ou maior ao digitado
-        const bateNivel = termoNivel === '' || nivelCard >= parseInt(termoNivel, 10);
-
-        // Condição final: o card precisa passar em todos os filtros ativos
-        if (bateBusca && bateClasse && bateNivel) {
-            card.style.display = ""; // Mostra o card
+        if (passaNoFiltro) {
+            card.classList.remove('hidden'); // Mostra o card se passar
             cardsVisiveis++;
         } else {
-            card.style.display = "none"; // Esconde o card
+            card.classList.add('hidden');    // Esconde o card se falhar
         }
     });
 
-    // Atualiza dinamicamente o contador do painel superior com o número de fichas encontradas
+    // Atualiza o contador de fichas disponíveis no topo da página
+    atualizarContadorBiblioteca(cardsVisiveis);
+}
+
+// Atualiza o texto do contador no cabeçalho de forma segura
+function atualizarContadorBiblioteca(quantidade) {
     const contador = document.querySelector('.panel-header small');
     if (contador) {
-        contador.textContent = `FICHAS DISPONÍVEIS (${cardsVisiveis})`;
+        contador.textContent = `FICHAS DISPONÍVEIS (${quantidade})`;
     }
 }
 
-// Vincula os escutadores de digitação em tempo real (evento 'input')
-function inicializarFiltrosBiblioteca() {
-    const inputPesquisar = document.getElementById('pesquisar');
-    const inputClasse = document.getElementById('classe');
-    const inputNivel = document.getElementById('nivel');
-
-    if (inputPesquisar) inputPesquisar.addEventListener('input', aplicarFiltrosBiblioteca);
-    if (inputClasse) inputClasse.addEventListener('input', aplicarFiltrosBiblioteca);
-    if (inputNivel) inputNivel.addEventListener('input', aplicarFiltrosBiblioteca);
-}
 
 function mostrarAlertaClonado(nomePersonagem) {
     const alerta = document.getElementById('personagemClonadoAlerta');
@@ -189,6 +161,5 @@ function fecharAlertaClonado() {
 
 // Vincula a função à janela global para o botão "X" do HTML conseguir disparar o clique
 window.fecharAlertaClonado = fecharAlertaClonado;
-
 window.mostrarAlertaClonado = mostrarAlertaClonado;
 window.fecharAlertaClonado = fecharAlertaClonado;
