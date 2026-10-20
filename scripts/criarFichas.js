@@ -22,36 +22,36 @@ function salvarPersonagem(event) {
     const personagem = {
         id: Date.now(),
         info: { nome, sexo, classe, dadiva, vidaMax, nivel },
-        atributos: {
+                atributos: {
             vitality: {
                 base: document.getElementById('vitality').value || "0",
                 mod: document.querySelector('input[name="vitalityMod"]').value || "0",
-                modLevel: document.querySelector('input[name="vitalityModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="vitalityModLevel"]').textContent || "0"
             },
             strength: {
                 base: document.getElementById('strength').value || "0",
                 mod: document.querySelector('input[name="strengthMod"]').value || "0",
-                modLevel: document.querySelector('input[name="strengthModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="strengthModLevel"]').textContent || "0"
             },
             dexterity: {
                 base: document.getElementById('dexterity').value || "0",
                 mod: document.querySelector('input[name="dexterityMod"]').value || "0",
-                modLevel: document.querySelector('input[name="strengthModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="dexterityModLevel"]').textContent || "0"
             },
             resistence: {
                 base: document.getElementById('resistence').value || "0",
                 mod: document.querySelector('input[name="resistenceMod"]').value || "0",
-                modLevel: document.querySelector('input[name="resistenceModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="resistenceModLevel"]').textContent || "0"
             },
             intelligence: {
                 base: document.getElementById('intelligence').value || "0",
                 mod: document.querySelector('input[name="intelligenceMod"]').value || "0",
-                modLevel: document.querySelector('input[name="intelligenceModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="intelligenceModLevel"]').textContent || "0"
             },
             faith: {
                 base: document.getElementById('faith').value || "0",
                 mod: document.querySelector('input[name="faithMod"]').value || "0",
-                modLevel: document.querySelector('input[name="faithModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="faithModLevel"]').textContent || "0"
             },
             humanity: document.getElementById('humanity').value || "0"
         }
@@ -90,3 +90,46 @@ function fecharAlerta() {
 
 window.salvarPersonagem = salvarPersonagem;
 window.fecharAlerta = fecharAlerta;
+
+// Aguarda a página HTML carregar totalmente os elementos na tela
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const atributos = ['vitality', 'strength', 'dexterity', 'resistence', 'intelligence', 'faith'];  // lista com os ids dos inputs das caracteristicas
+
+    function calcularAtributoTotal(nomeAtributo){
+
+        const inputBase = document.getElementById(nomeAtributo);  //1. capta o level
+        const inputMod = document.querySelector(`input[name="${nomeAtributo}Mod"]`);
+
+        // 2. Localiza as caixas de MOD e MOD+NÍVEL (usando o atributo 'name' do HTML)
+        const campoDivTotal = document.querySelector(`div[data-name="${nomeAtributo}ModLevel"]`);
+
+        // Verifica se todas as três caixas daquela linha existem na tela antes de somar
+        if (inputBase && inputMod && campoDivTotal) {
+            // Captura os valores digitados (converte para número inteiro ou usa 0 se estiver vazio)
+            const valorBase = parseInt(inputBase.value, 10) || 0;
+            const valorMod = parseInt(inputMod.value, 10) || 0;
+            
+            // Realiza a soma do valor da característica + o modificador dela
+            campoDivTotal.textContent = valorBase + valorMod;
+        }
+    }
+
+    // Passa de linha em linha criando os escutadores de eventos para atualização instantânea
+    atributos.forEach(attr => {
+        const inputBase = document.getElementById(attr);
+        const inputMod = document.querySelector(`input[name="${attr}Mod"]`);
+        
+        // 1: Se o usuário mudar o valor base da característica, recalcula a linha
+        if (inputBase) {
+            inputBase.addEventListener('input', () => calcularAtributoTotal(attr));
+        }
+        
+        // 2: Se o usuário mudar o modificador (MOD) da característica, recalcula a linha
+        if (inputMod) {
+            inputMod.addEventListener('input', () => calcularAtributoTotal(attr));
+        }
+    });
+    // Roda a função uma vez no início para calcular os valores padrões da página (0 + 0)
+    atributos.forEach(attr => calcularAtributoTotal(attr));
+});
