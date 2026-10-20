@@ -209,8 +209,8 @@
     </div>
 
     <!-- ==========================================
-         COMPONENTE: MODAL GLOBAL DE FICHA (DETALHES/EDIÇÃO)
-         ========================================== -->
+        COMPONENTE: MODAL GLOBAL DE FICHA (DETALHES/EDIÇÃO)
+        ========================================== -->
     <div id="comp-modal-ficha">
         <div class="modal-overlay hidden" id="modalFicha">
             <div class="modal-box">
@@ -220,14 +220,18 @@
                 </header>
 
                 <main class="modal-body">
-                    <!-- O formulário encapsula tudo para permitir alternar entre visualização e edição -->
                     <form id="modalForm" onsubmit="return false;">
                         <input type="hidden" id="modalCharId">
                         
+                        <!-- Topo expandido para incluir o Sexo -->
                         <div class="modal-grid-top">
                             <div class="modal-field">
                                 <label for="modalName">Nome</label>
                                 <input type="text" id="modalName" readonly>
+                            </div>
+                            <div class="modal-field">
+                                <label for="modalSex">Sexo</label>
+                                <input type="text" id="modalSex" readonly>
                             </div>
                             <div class="modal-field">
                                 <label for="modalLevel">Nível</label>
@@ -237,33 +241,93 @@
                                 <label for="modalClass">Classe</label>
                                 <input type="text" id="modalClass" readonly>
                             </div>
-                            <div class="modal-field">
+                            <div class="modal-field" style="grid-column: span 2;">
                                 <label for="modalHealth">Vida Máxima</label>
                                 <input type="number" id="modalHealth" readonly>
                             </div>
                         </div>
 
-                        <div class="modal-section-title">Atributos Base</div>
-                        <div class="modal-grid-stats">
-                            <div class="modal-field-stat"><label>VIT</label><input type="number" id="modalVit" readonly></div>
-                            <div class="modal-field-stat"><label>FOR</label><input type="number" id="modalFor" readonly></div>
-                            <div class="modal-field-stat"><label>DES</label><input type="number" id="modalDes" readonly></div>
-                            <div class="modal-field-stat"><label>RES</label><input type="number" id="modalRes" readonly></div>
-                            <div class="modal-field-stat"><label>INT</label><input type="number" id="modalInt" readonly></div>
-                            <div class="modal-field-stat"><label>FÉ</label><input type="number" id="modalFaith" readonly></div>
-                            <div class="modal-field-stat"><label>HUM</label><input type="number" id="modalHum" readonly></div>
-                        </div>
+                        <div class="modal-section-title">Atributos e Modificadores</div>
+                        
+                        <!-- Tabela estruturada para exibir BASE, MOD e MOD+NÍVEL com precisão -->
+                        <table class="grid-attributes-v2" style="width:100%; text-align:center; margin-bottom:15px;">
+                            <thead>
+                                <tr>
+                                    <th style="font-size:10px; padding:6px; color:#8b9aa7;">ATRIB</th>
+                                    <th style="font-size:10px; padding:6px; color:#8b9aa7;">BASE</th>
+                                    <th style="font-size:10px; padding:6px; color:#8b9aa7;">MOD</th>
+                                    <th style="font-size:10px; padding:6px; color:#8b9aa7;">M+N</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="attr-row-vit">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">VIT</td>
+                                    <td><input type="number" id="modalVit" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalVitMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalVitModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-for">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">FOR</td>
+                                    <td><input type="number" id="modalFor" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalForMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalForModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-des">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">DES</td>
+                                    <td><input type="number" id="modalDes" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalDesMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalDesModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-res">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">RES</td>
+                                    <td><input type="number" id="modalRes" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalResMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalResModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-int">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">INT</td>
+                                    <td><input type="number" id="modalInt" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalIntMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalIntModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-fai">
+                                    <td style="font-size:12px; font-weight:bold; padding:6px;">FÉ</td>
+                                    <td><input type="number" id="modalFaith" style="text-align:center; color:#38bdf8; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalFaithMod" style="text-align:center; color:#a7f3d0; background:transparent; border:none;" readonly></td>
+                                    <td><input type="number" id="modalFaithModLvl" style="text-align:center; color:#fde047; background:transparent; border:none;" readonly></td>
+                                </tr>
+                                <tr class="attr-row-hum">
+                                    <td colspan="2" style="font-size:11px; padding:7px; background-color:rgba(0,0,0,0.35);">HUMANIDADE</td>
+                                    <td colspan="2" style="background-color:rgba(0,0,0,0.35);"><input type="number" id="modalHum" style="text-align:center; color:#c39a4b; font-weight:bold; background:transparent; border:none;" readonly></td>
+                                </tr>
+                            </tbody>
+                        </table>
 
                         <div class="modal-section-title">Inventário & Detalhes</div>
-                        <div class="modal-field textarea-field">
+                        <div class="modal-field">
                             <label for="modalGift">Item Inicial / Dádiva</label>
                             <input type="text" id="modalGift" readonly>
+                        </div>
+
+                        <div class="modal-field">
+                            <label for="modalSpells">Feitiços Aprendidos</label>
+                            <textarea id="modalSpells" rows="3" readonly placeholder="Nenhum feitiço aprendido."></textarea>
+                        </div>
+
+                        <div class="modal-field">
+                            <label for="modalEquipment">Equipamento Equipado</label>
+                            <textarea id="modalEquipment" rows="3" readonly placeholder="Nenhum item equipado."></textarea>
+                        </div>
+
+                        <div class="modal-field">
+                            <label for="modalItems">Itens na Mochila</label>
+                            <textarea id="modalItems" rows="3" readonly placeholder="Mochila vazia."></textarea>
                         </div>
                     </form>
                 </main>
 
                 <footer class="modal-footer" id="modalFooterActions">
-                    <!-- Os botões serão injetados dinamicamente via JS dependendo do contexto (Minhas Fichas ou Biblioteca) -->
+                    <!-- Botões injetados dinamicamente via JS -->
                 </footer>
             </div>
         </div>

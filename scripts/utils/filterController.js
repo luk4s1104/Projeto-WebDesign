@@ -1,29 +1,4 @@
 /**
- * Injeta a estrutura física invisível do modal vindo do components.html
- * @param {string} pathToComponents - O caminho relativo até o arquivo components.html
- */
-export async function carregarComponenteModal(pathToComponents = "../pages/components.html") {
-    try {
-        const response = await fetch(pathToComponents);
-        if (!response.ok) throw new Error("Erro ao carregar repositório de componentes.");
-        
-        const htmlText = await response.text();
-        const parser = new DOMParser();
-        const docVirtual = parser.parseFromString(htmlText, "text/html");
-        
-        const modalTemplate = docVirtual.getElementById('comp-modal-ficha');
-        if (modalTemplate) {
-            document.body.appendChild(modalTemplate.cloneNode(true));
-            console.log("Bastidores: Componente do Modal injetado com sucesso!");
-        } else {
-            console.warn("Aviso: O componente com id 'comp-modal-ficha' não existe no components.html.");
-        }
-    } catch (error) {
-        console.error("Algo deu errado ao carregar o modal de componentes:", error);
-    }
-}
-
-/**
  * Processes comparison rules between a character data object and active filter search states.
  * @param {Object} character - The character data object.
  * @param {string} searchStr - Cleaned character or author name search string.
@@ -32,27 +7,22 @@ export async function carregarComponenteModal(pathToComponents = "../pages/compo
  * @returns {boolean} True if the character matches all active criteria simultaneously.
  */
 export function matchFilterRules(character, searchStr, classStr, levelStr) {
+    // CAPTURA SEGURO: Garante compatibilidade tanto com a biblioteca quanto com o painel privado
     const charName = (character.info?.nome || "").toLowerCase();
     const charClass = (character.info?.classe || "").toLowerCase();
-    const charLevel = parseInt(character.info?.nivel, 10) || 0;
+    
+    // Tenta pegar 'nivel' (da biblioteca) ou 'nivel' (dos formulários salvos)
+    const rawLevel = character.info?.nivel || character.info?.nivel || 0;
+    const charLevel = parseInt(rawLevel, 10) || 0;
 
-    const matchesName = searchStr === '' || charName.includes(searchStr);
+    // Se veio da biblioteca, podemos validar o autor também na barra de pesquisa
+    const charAuthor = (character.info?.autor || "").toLowerCase();
+
+    // REGRAS DE FILTRAGEM:
+    // A busca por nome agora aceita tanto o nome do personagem quanto o @criador
+    const matchesName = searchStr === '' || charName.includes(searchStr) || charAuthor.includes(searchStr);
     const matchesClass = classStr === '' || charClass.includes(classStr);
     const matchesLevel = levelStr === '' || charLevel >= parseInt(levelStr, 10);
 
     return matchesName && matchesClass && matchesLevel;
-}
-
-/**
- * Universally binds text and numerical 'input' listeners to document search boxes.
- * @param {Function} onInputCallback - The callback function to run instantly when a user types.
- */
-export function bindFilterInputs(onInputCallback) {
-    const inputSearch = document.getElementById('pesquisar');
-    const inputClass = document.getElementById('classe');
-    const inputLevel = document.getElementById('nivel');
-
-    if (inputSearch) inputSearch.addEventListener('input', onInputCallback);
-    if (inputClass) inputClass.addEventListener('input', onInputCallback);
-    if (inputLevel) inputLevel.addEventListener('input', onInputCallback);
 }

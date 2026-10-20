@@ -1,120 +1,162 @@
 import loader from './components/loader.js';
 import { abrirModalVisualizacao } from './components/modalController.js';
-import { carregarComponenteModal, bindFilterInputs, matchFilterRules } from './utils/filterController.js';
+import { matchFilterRules } from './utils/filterController.js';
 
 let idCronometroAlerta = null;
 
+// Inicialização segura controlada por eventos do ciclo de vida da página
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Carrega o header e footer globais
-    if (typeof loader === 'function') {
-        await loader();
+    try {
+        // 1. Carrega o header e footer globais dinamicamente
+        if (typeof loader === 'function') {
+            await loader;
+        }
+
+        // 2. Mapeia os dados estáticos do HTML e ativa os botões de ação imediatamente
+        configurarCliquesBiblioteca();
+
+        // 3. Ativa os ouvintes dos inputs de filtro manualmente para garantir sincronia
+        inicializarOuvintesFiltro();
+
+    } catch (erro) {
+        console.error("Erro nos bastidores ao inicializar a biblioteca:", erro);
     }
-
-    // 2. Injeta a estrutura física invisível do modal (Usa a nossa utilidade compartilhada!)
-    await carregarComponenteModal("../pages/components.html");
-
-    // 3. Vincula a inteligência de clique nas fichas estáticas da comunidade
-    configurarCliquesBiblioteca();
-
-    // 4. Ativa os ouvintes de evento para monitorar a digitação (Usa a nossa utilidade compartilhada!)
-    bindFilterInputs(aplicarFiltros);
 });
 
-// Lê os dados inseridos de forma estática no HTML e configura as ações dos botões
+// Varre as fichas estáticas da comunidade no HTML e injeta a inteligência de clique nelas
 function configurarCliquesBiblioteca() {
-    const cards = document.querySelectorAll('.char-card');
+    const cards = document.querySelectorAll('.char-card.card-v2');
     
     cards.forEach(card => {
-        // Extrai e limpa os dados contidos nas tags HTML do card para podermos ler depois
-        const nome = card.querySelector('h4').textContent;
-        const autor = card.querySelector('.char-subtitle').textContent;
-        const nivelTexto = card.querySelector('.char-level').textContent;
-        const nivel = nivelTexto.replace('Nvl ', '').trim();
-        const classe = card.querySelector('figcaption').textContent;
-        const vidaTexto = card.querySelector('.hp-label').textContent;
-        const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
-        const imagemUrl = card.querySelector('.char-avatar img').getAttribute('src');
-        const celulas = card.querySelectorAll('.stats-table tbody td');
-        const itemLista = card.querySelector('.equip-list li')?.textContent || '';
+        try {
+            // Coleta básica biográfica estruturada V2
+            const nome = card.querySelector('.char-name-display')?.textContent.trim() || "Sem Nome";
+            const autor = card.querySelector('.char-author')?.textContent.trim() || "@Anonimo";
+            const nivelTexto = card.querySelector('.char-level-display')?.textContent.trim() || "Nvl 0";
+            const nivel = nivelTexto.replace('Nvl ', '').trim();
+            const classe = card.querySelector('.char-class-display')?.textContent.trim() || "Geral";
+            const vidaTexto = card.querySelector('.hp-text-value')?.textContent.trim() || "VIDA: 0";
+            const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
+            const imagemUrl = card.querySelector('.avatar-img-display')?.getAttribute('src') || "../Img_folder/generico.jpg";
 
-        // Monta o objeto de dados temporário idêntico ao modelo do banco
-        const personagemObjeto = {
-            id: 'publico',
-            info: { nome, classe, nivel, vidaMax, dadiva: itemLista , imagem: imagemUrl},
-            atributos: {
-                vitality: { base: celulas[0]?.textContent || 0 },
-                strength: { base: celulas[1]?.textContent || 0 },
-                dexterity: { base: celulas[2]?.textContent || 0 },
-                resistence: { base: celulas[3]?.textContent || 0 },
-                intelligence: { base: celulas[4]?.textContent || 0 },
-                faith: { base: celulas[5]?.textContent || 0 },
-                humanity: celulas[6]?.textContent || 0
+            // Varre a tabela de atributos .grid-attributes-v2 de forma segura
+            const vitality = card.querySelector('.attr-row-vit td:nth-child(2)')?.textContent.trim() || "0";
+            const strength = card.querySelector('.attr-row-for td:nth-child(2)')?.textContent.trim() || "0";
+            const dexterity = card.querySelector('.attr-row-des td:nth-child(2)')?.textContent.trim() || "0";
+            const resistence = card.querySelector('.attr-row-res td:nth-child(2)')?.textContent.trim() || "0";
+            const intelligence = card.querySelector('.attr-row-int td:nth-child(2)')?.textContent.trim() || "0";
+            const faith = card.querySelector('.attr-row-fai td:nth-child(2)')?.textContent.trim() || "0";
+            const humanity = card.querySelector('.attr-row-hum td:nth-child(2)')?.textContent.trim() || "0";
+
+            // Varre os blocos textuais longos com scroll
+            const feiticos = card.querySelector('.block-spells-v2 p')?.textContent.trim() || '';
+            const equipamento = card.querySelector('.block-equip-v2 p')?.textContent.trim() || '';
+            const itensMochila = card.querySelector('.block-items-v2 p')?.textContent.trim() || '';
+
+            // Monta o objeto padronizado do ecossistema garantindo compatibilidade com o modalController
+            const personagemObjeto = {
+                id: 'publico',
+                info: { nome, autor, classe, nivel, vidaMax, imagem: imagemUrl, dadiva: equipamento },
+                atributos: {
+                    vitality: { base: vitality, mod: "0", modLevel: "0" },
+                    strength: { base: strength, mod: "0", modLevel: "0" },
+                    dexterity: { base: dexterity, mod: "0", modLevel: "0" },
+                    resistence: { base: resistence, mod: "0", modLevel: "0" },
+                    intelligence: { base: intelligence, mod: "0", modLevel: "0" },
+                    faith: { base: faith, mod: "0", modLevel: "0" },
+                    humanity: humanity
+                },
+                detalhes: { feiticos, equipamento, itensMochila }
+            };
+
+            // Guarda os dados tratados como metadados no próprio elemento HTML
+            card.dataset.characterData = JSON.stringify(personagemObjeto);
+
+            // Vincula os cliques nos botões do rodapé V2 de forma segura
+            const btnVisualizar = card.querySelector('.btn-v2-view');
+            if (btnVisualizar) {
+                btnVisualizar.onclick = (e) => {
+                    e.preventDefault();
+                    abrirModalVisualizacao(personagemObjeto, 'biblioteca', false);
+                };
             }
-        };
 
-        // Salva esse objeto na própria tag HTML do card! Isso vai facilitar muito a nossa busca no filtro
-        card.dataset.characterData = JSON.stringify(personagemObjeto);
-
-        // Vincula a ação de clique do botão "Visualizar"
-        const btnVisualizar = card.querySelector('.library-actions button:nth-child(1)');
-        if (btnVisualizar) {
-            btnVisualizar.onclick = () => abrirModalVisualizacao(personagemObjeto, 'biblioteca', false);
-        }
-
-        // Vincula a ação de clique do botão "Clonar Ficha"
-        const btnClonar = card.querySelector('.btn-clone');
-        if (btnClonar) {
-            btnClonar.onclick = () => clonarFichaParaPainel(personagemObjeto);
+            const btnClonar = card.querySelector('.btn-v2-clone');
+            if (btnClonar) {
+                btnClonar.onclick = (e) => {
+                    e.preventDefault();
+                    clonarFichaParaPainel(personagemObjeto);
+                };
+            }
+        } catch (errCard) {
+            console.warn("Aviso: Falha ao mapear atributos de um card específico.", errCard);
         }
     });
+
+    // Atualiza o contador de cabeçalho com o total inicial de cards encontrados no HTML
+    atualizarContadorBiblioteca(cards.length);
 }
 
-// Salva a ficha clonada no localStorage do usuário
-function clonarFichaParaPainel(personagemObjeto) {
-    let minhasFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-    const novaFicha = { ...personagemObjeto, id: Date.now() }; // Gera um ID único e real
-    minhasFichas.push(novaFicha);
-    localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
-    mostrarAlertaClonado(personagemObjeto.info.nome);
+// Vincula o evento 'input' diretamente aos campos para filtrar enquanto o usuário digita
+// Vincula o evento 'input' diretamente aos campos para filtrar enquanto o usuário digita
+function inicializarOuvintesFiltro() {
+    const inputPesquisar = document.getElementById('pesquisar');
+    const inputClasse = document.getElementById('classe');
+    const inputNivel = document.getElementById('nivel');
+
+    if (inputPesquisar) inputPesquisar.addEventListener('input', aplicarFiltros);
+    if (inputClasse) inputClasse.addEventListener('input', aplicarFiltros);
+    if (inputNivel) inputNivel.addEventListener('input', aplicarFiltros);
 }
 
-// Lógica que varre os elementos estáticos ocultando-os se não passarem na regra do filtro
+// Lógica de processamento e filtragem visual dos cards
 function aplicarFiltros() {
     const inputPesquisar = document.getElementById('pesquisar');
     const inputClasse = document.getElementById('classe');
     const inputNivel = document.getElementById('nivel');
 
-    if (!inputPesquisar || !inputClasse || !inputNivel) return;
+    const termoBusca = inputPesquisar ? inputPesquisar.value.toLowerCase().trim() : '';
+    const termoClasse = inputClasse ? inputClasse.value.toLowerCase().trim() : '';
+    const termoNivel = inputNivel ? inputNivel.value.trim() : '';
 
-    // Padroniza as strings digitadas pelo usuário
-    const termoBusca = inputPesquisar.value.toLowerCase().trim();
-    const termoClasse = inputClasse.value.toLowerCase().trim();
-    const termoNivel = inputNivel.value.trim();
-
-    const cards = document.querySelectorAll('.char-card');
+    const cards = document.querySelectorAll('.char-card.card-v2');
     let cardsVisiveis = 0;
 
     cards.forEach(card => {
-        // Recupera o objeto de dados que guardamos dentro do card no passo anterior
         if (!card.dataset.characterData) return;
         const personagem = JSON.parse(card.dataset.characterData);
 
-        // Executa a nossa regra de matemática matemática compartilhada do filterController!
+        // Valida as regras através do motor do filterController.js
         const passaNoFiltro = matchFilterRules(personagem, termoBusca, termoClasse, termoNivel);
 
         if (passaNoFiltro) {
-            card.classList.remove('hidden'); // Mostra o card se passar
+            card.style.display = ""; // Exibe o elemento respeitando o layout CSS original (grid)
             cardsVisiveis++;
         } else {
-            card.classList.add('hidden');    // Esconde o card se falhar
+            card.style.display = "none"; // Oculta o card completamente
         }
     });
 
-    // Atualiza o contador de fichas disponíveis no topo da página
     atualizarContadorBiblioteca(cardsVisiveis);
 }
 
-// Atualiza o texto do contador no cabeçalho de forma segura
+// Salva de forma persistente a cópia tratada da ficha no LocalStorage privado
+function clonarFichaParaPainel(personagemObjeto) {
+    try {
+        let minhasFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
+        const novaFicha = { 
+            ...personagemObjeto, 
+            id: Date.now(), // Substitui o ID temporário por um timestamp real exclusivo
+            info: { ...personagemObjeto.info, autor: "@Voce" } // Atualiza a assinatura de posse
+        }; 
+        minhasFichas.push(novaFicha);
+        localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
+        mostrarAlertaClonado(personagemObjeto.info.nome);
+    } catch (erroClone) {
+        console.error("Erro crítico ao salvar clonagem de personagem:", erroClone);
+    }
+}
+
 function atualizarContadorBiblioteca(quantidade) {
     const contador = document.querySelector('.panel-header small');
     if (contador) {
@@ -122,23 +164,17 @@ function atualizarContadorBiblioteca(quantidade) {
     }
 }
 
-
 function mostrarAlertaClonado(nomePersonagem) {
     const alerta = document.getElementById('personagemClonadoAlerta');
     const texto = document.getElementById('textoAlertaClonado');
     
     if (alerta && texto) {
-        // Altera o texto dinamicamente para mostrar o nome da ficha que você clonou
         texto.textContent = `A ficha do(a) ${nomePersonagem} foi clonada com sucesso!`;
-        
-        // Acende o pop-up na tela tirando o 'closed' e colocando 'open'
         alerta.classList.remove('closed');
         alerta.classList.add('open');
         
-        // Se o usuário clicar em clonar rápido várias vezes, cancela o tempo do clique anterior
         if (idCronometroAlerta) clearTimeout(idCronometroAlerta);
         
-        // Inicia a contagem de 3.5 segundos para esconder o pop-up sozinho
         idCronometroAlerta = setTimeout(() => {
             fecharAlertaClonado();
         }, 3500);
@@ -148,17 +184,15 @@ function mostrarAlertaClonado(nomePersonagem) {
 function fecharAlertaClonado() {
     const alerta = document.getElementById('personagemClonadoAlerta');
     if (alerta) {
-        // Apaga o pop-up da tela invertendo as classes CSS
         alerta.classList.remove('open');
         alerta.classList.add('closed');
     }
-    // Desliga o relógio se o usuário clicou no "X" antes do tempo acabar
     if (idCronometroAlerta) {
         clearTimeout(idCronometroAlerta);
-        idCronometroAlerta = null; // Esvazia a variável de segurança
+        idCronometroAlerta = null; 
     }
 }
 
-// Vincula a função à janela global para o botão "X" do HTML conseguir disparar o clique
+// Vincula métodos ao escopo global do navegador para segurança de chamadas em linha inline
 window.fecharAlertaClonado = fecharAlertaClonado;
 window.mostrarAlertaClonado = mostrarAlertaClonado;

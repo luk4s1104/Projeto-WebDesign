@@ -449,7 +449,7 @@
 }
 
 /* ==========================================================================
-   COMPONENT: MODAL GLOBAL
+   COMPONENT: MODAL GLOBAL (ESTILIZAÇÃO COMPLETA & RESPONSIVA)
    ========================================================================== */
 .modal-overlay {
     position: fixed;
@@ -475,7 +475,7 @@
     background-color: #151d26;
     border: 1px solid #273544;
     border-radius: 12px;
-    width: 90%;
+    width: 95%;
     max-width: 600px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     display: flex;
@@ -500,6 +500,7 @@
 .modal-header h2 {
     font-size: 1.25rem;
     color: #ffffff;
+    font-weight: 700;
 }
 
 .btn-close-modal {
@@ -509,6 +510,7 @@
     font-size: 1.75rem;
     cursor: pointer;
     line-height: 1;
+    transition: color 0.2s ease;
 }
 
 .btn-close-modal:hover {
@@ -518,21 +520,38 @@
 .modal-body {
     padding: 20px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Customização fina da barra de rolagem interna do Modal */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: #273544;
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: #1c6ba0;
 }
 
 .modal-section-title {
     font-size: 0.85rem;
     text-transform: uppercase;
     color: #c39a4b;
-    margin: 20px 0 10px 0;
+    margin: 18px 0 8px 0;
     letter-spacing: 0.5px;
-    font-weight: 600;
+    font-weight: 700;
 }
 
 /* Grids do Modal */
 .modal-grid-top {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 15px;
 }
 
@@ -549,24 +568,52 @@
     margin-bottom: 12px;
 }
 
-.modal-field label, .modal-field-stat label {
+.modal-field label, 
+.modal-field-stat label {
     font-size: 0.75rem;
     color: #8b9aa7;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.modal-field input {
+/* Alinhamento unificado para inputs e novas textareas */
+.modal-field input,
+.modal-field textarea {
     background-color: #1b242f;
     border: 1px solid #273544;
     color: #ffffff;
-    padding: 8px 12px;
+    padding: 10px 12px;
     border-radius: 6px;
     font-size: 0.9rem;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+    width: 100%;
 }
 
-.modal-field input[readonly], .modal-field-stat input[readonly] {
-    background-color: rgba(0, 0, 0, 0.15);
-    border-color: rgba(39, 53, 68, 0.4);
-    color: #cbd5e1;
+/* Trava de redimensionamento e rolagem interna para as textareas */
+.modal-field textarea {
+    resize: none;
+    min-height: 70px;
+    max-height: 90px;
+    overflow-y: auto;
+}
+
+/* Foco ativo ao habilitar escrita (edição direta) */
+.modal-field input:focus,
+.modal-field textarea:focus {
+    border-color: #1c6ba0;
+    background-color: #151d26;
+}
+
+/* Customização de campos trancados em modo de visualização (readonly) */
+.modal-field input[readonly], 
+.modal-field-stat input[readonly],
+.modal-field textarea[readonly] {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    border-color: rgba(39, 53, 68, 0.4) !important;
+    color: #cbd5e1 !important;
     cursor: not-allowed;
 }
 
@@ -584,11 +631,11 @@
     border: 1px solid #273544;
     color: #4faeff;
     font-weight: bold;
-    padding: 6px 0;
+    padding: 8px 0;
     border-radius: 6px;
 }
 
-/* Rodapé */
+/* Rodapé do Modal */
 .modal-footer {
     padding: 15px 20px;
     border-top: 1px solid #273544;
@@ -600,28 +647,50 @@
 }
 
 .modal-footer .btn {
-    padding: 8px 20px;
+    padding: 10px 20px;
     border-radius: 6px;
     font-size: 0.85rem;
     font-weight: 600;
     cursor: pointer;
     border: none;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.modal-footer .btn:active {
+    transform: scale(0.98);
 }
 
 .modal-footer .btn-secondary {
     background-color: #273544;
     color: #ffffff;
 }
+.modal-footer .btn-secondary:hover {
+    background-color: #334559;
+}
 
 .modal-footer .btn-primary {
     background-color: #0d9488;
     color: #ffffff;
 }
-
-.modal-footer .btn-danger {
-    background-color: #991b1b;
-    color: #ffffff;
+.modal-footer .btn-primary:hover {
+    background-color: #0f766e;
 }
+
+/* Responsividade de tabelas para telas pequenas de celulares */
+@media (max-width: 480px) {
+    .modal-grid-top {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .modal-grid-stats {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+    .modal-box {
+        max-height: 95vh;
+    }
+}
+
 
 /* ==========================================================================
    COMPONENT: FOOTER (RODAPÉ)
