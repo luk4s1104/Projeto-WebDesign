@@ -35,8 +35,10 @@ function configurarCliquesBiblioteca() {
         const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
         const imagemUrl = card.querySelector('.char-avatar img').getAttribute('src');
         const celulas = card.querySelectorAll('.stats-table tbody td');
-        const itemLista = card.querySelector('.equip-list li')?.textContent || '';
-
+        const todosOsItens = card.querySelectorAll('.equip-list li'); // Captura todos os elementos <li> de equipamentos dentro do card
+        const itensConvertidos = Array.from(todosOsItens).map(li => li.textContent.trim()); // Transforma os elementos em um array de textos e junta-os usando uma vírgula como separador
+        const itemLista = itensConvertidos.join(', '); // Exemplo resultado: "Martelo de Guerra, Escudo Pesado"
+        
         // Monta o objeto de dados temporário idêntico ao modelo do banco
         const personagemObjeto = {
             id: 'publico',

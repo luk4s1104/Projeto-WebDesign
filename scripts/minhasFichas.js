@@ -70,11 +70,26 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
                 // Preenche sequencialmente a tabela de atributos base
                 preencherAtributosCard(artigoCard, personagem);
 
-                // Adiciona a dádiva/item inicial na lista de exibição curta
-                const itemLista = artigoCard.querySelector('.equip-list li');
-                if (itemLista) {
-                    itemLista.textContent = personagem.info?.dadiva || 'Nenhum item';
+                
+                // Localiza o container <ul> que guarda as listas de equipamentos do card
+                const equipListContainer = artigoCard.querySelector('.equip-list');
+
+                if (equipListContainer) {
+                        equipListContainer.innerHTML = ''; // Remove os textos estático herdados do html
+        
+                        const stringItens = personagem.info?.dadiva || 'Nenhum item'; // Recupera a string de itens salvos
+        
+                        const listaDeItens = stringItens.split(', '); // Quebra a string de volta em um array usando a vírgula como ponto de divisão
+    
+                    listaDeItens.forEach(itemTexto => { // Percorre cada item individual da lista para renderizá-lo na tela
+                        const novoItem = document.createElement('li'); // Cria um novo elemento <li> de forma dinâmica na memória
+                
+                        novoItem.textContent = itemTexto; // Define o texto do <li> com o nome do equipamento atual da repetição
+                        
+                        equipListContainer.appendChild(novoItem);  // Coloca o novo elemento <li> atualizado dentro do container <ul> limpo
+                    });
                 }
+
 
                 // Configura os ouvintes de ação para o menu de botões do rodapé do cartão
                 vincularBotoesCard(artigoCard, personagem);
