@@ -4,13 +4,15 @@ import { matchFilterRules } from './utils/filterController.js';
 
 let idCronometroAlerta = null;
 
-// Inicialização segura controlada por eventos do ciclo de vida da página
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         // 1. Carrega o header e footer globais dinamicamente
         if (typeof loader === 'function') {
             await loader;
         }
+
+        // CORREÇÃO: Injeta o modal localmente para que o botão Visualizar funcione na biblioteca
+        await injetarModalLocalmente("../pages/components.html");
 
         // 2. Mapeia os dados estáticos do HTML e ativa os botões de ação imediatamente
         configurarCliquesBiblioteca();
@@ -23,13 +25,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// NOVA FUNÇÃO: Injeta a estrutura do modal de forma assíncrona na página da biblioteca
+async function injetarModalLocalmente(urlComponentes) {
+    try {
+        const response = await fetch(urlComponentes);
+        if (!response.ok) return;
+        const htmlText = await response.text();
+        const parser = new DOMParser();
+        const docVirtual = parser.parseFromString(htmlText, "text/html");
+        const originModal = docVirtual.getElementById("comp-modal-ficha");
+        
+        if (originModal) {
+            const containerModal = document.createElement('div');
+            containerModal.innerHTML = originModal.innerHTML;
+            document.body.appendChild(containerModal);
+        }
+    } catch (err) {
+        console.warn("Aviso: Falha ao carregar o modal de fichas de forma assíncrona:", err);
+    }
+}
+
 // Varre as fichas estáticas da comunidade no HTML e injeta a inteligência de clique nelas
 function configurarCliquesBiblioteca() {
     const cards = document.querySelectorAll('.char-card.card-v2');
     
     cards.forEach(card => {
         try {
-            // Coleta básica biográfica estruturada V2
             const nome = card.querySelector('.char-name-display')?.textContent.trim() || "Sem Nome";
             const autor = card.querySelector('.char-author')?.textContent.trim() || "@Anonimo";
             const nivelTexto = card.querySelector('.char-level-display')?.textContent.trim() || "Nvl 0";
@@ -39,7 +60,6 @@ function configurarCliquesBiblioteca() {
             const vidaMax = vidaTexto.replace('VIDA: ', '').trim();
             const imagemUrl = card.querySelector('.avatar-img-display')?.getAttribute('src') || "../Img_folder/generico.jpg";
 
-            // Varre a tabela de atributos .grid-attributes-v2 de forma segura
             const vitality = card.querySelector('.attr-row-vit td:nth-child(2)')?.textContent.trim() || "0";
             const strength = card.querySelector('.attr-row-for td:nth-child(2)')?.textContent.trim() || "0";
             const dexterity = card.querySelector('.attr-row-des td:nth-child(2)')?.textContent.trim() || "0";
@@ -48,12 +68,10 @@ function configurarCliquesBiblioteca() {
             const faith = card.querySelector('.attr-row-fai td:nth-child(2)')?.textContent.trim() || "0";
             const humanity = card.querySelector('.attr-row-hum td:nth-child(2)')?.textContent.trim() || "0";
 
-            // Varre os blocos textuais longos com scroll
             const feiticos = card.querySelector('.block-spells-v2 p')?.textContent.trim() || '';
             const equipamento = card.querySelector('.block-equip-v2 p')?.textContent.trim() || '';
             const itensMochila = card.querySelector('.block-items-v2 p')?.textContent.trim() || '';
 
-            // Monta o objeto padronizado do ecossistema garantindo compatibilidade com o modalController
             const personagemObjeto = {
                 id: 'publico',
                 info: { nome, autor, classe, nivel, vidaMax, imagem: imagemUrl, dadiva: equipamento },
@@ -69,10 +87,8 @@ function configurarCliquesBiblioteca() {
                 detalhes: { feiticos, equipamento, itensMochila }
             };
 
-            // Guarda os dados tratados como metadados no próprio elemento HTML
             card.dataset.characterData = JSON.stringify(personagemObjeto);
 
-            // Vincula os cliques nos botões do rodapé V2 de forma segura
             const btnVisualizar = card.querySelector('.btn-v2-view');
             if (btnVisualizar) {
                 btnVisualizar.onclick = (e) => {
@@ -93,12 +109,9 @@ function configurarCliquesBiblioteca() {
         }
     });
 
-    // Atualiza o contador de cabeçalho com o total inicial de cards encontrados no HTML
     atualizarContadorBiblioteca(cards.length);
 }
 
-// Vincula o evento 'input' diretamente aos campos para filtrar enquanto o usuário digita
-// Vincula o evento 'input' diretamente aos campos para filtrar enquanto o usuário digita
 function inicializarOuvintesFiltro() {
     const inputPesquisar = document.getElementById('pesquisar');
     const inputClasse = document.getElementById('classe');
@@ -109,7 +122,6 @@ function inicializarOuvintesFiltro() {
     if (inputNivel) inputNivel.addEventListener('input', aplicarFiltros);
 }
 
-// Lógica de processamento e filtragem visual dos cards
 function aplicarFiltros() {
     const inputPesquisar = document.getElementById('pesquisar');
     const inputClasse = document.getElementById('classe');
@@ -125,29 +137,26 @@ function aplicarFiltros() {
     cards.forEach(card => {
         if (!card.dataset.characterData) return;
         const personagem = JSON.parse(card.dataset.characterData);
-
-        // Valida as regras através do motor do filterController.js
         const passaNoFiltro = matchFilterRules(personagem, termoBusca, termoClasse, termoNivel);
 
         if (passaNoFiltro) {
-            card.style.display = ""; // Exibe o elemento respeitando o layout CSS original (grid)
+            card.style.display = "";
             cardsVisiveis++;
         } else {
-            card.style.display = "none"; // Oculta o card completamente
+            card.style.display = "none";
         }
     });
 
     atualizarContadorBiblioteca(cardsVisiveis);
 }
 
-// Salva de forma persistente a cópia tratada da ficha no LocalStorage privado
 function clonarFichaParaPainel(personagemObjeto) {
     try {
         let minhasFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
         const novaFicha = { 
             ...personagemObjeto, 
-            id: Date.now(), // Substitui o ID temporário por um timestamp real exclusivo
-            info: { ...personagemObjeto.info, autor: "@Voce" } // Atualiza a assinatura de posse
+            id: Date.now(), 
+            info: { ...personagemObjeto.info, autor: "@Voce" }
         }; 
         minhasFichas.push(novaFicha);
         localStorage.setItem('fichasRPG', JSON.stringify(minhasFichas));
@@ -193,6 +202,5 @@ function fecharAlertaClonado() {
     }
 }
 
-// Vincula métodos ao escopo global do navegador para segurança de chamadas em linha inline
 window.fecharAlertaClonado = fecharAlertaClonado;
 window.mostrarAlertaClonado = mostrarAlertaClonado;

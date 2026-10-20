@@ -370,6 +370,64 @@
 }
 
 /* ==========================================================================
+   CORREÇÃO: BOTÕES DO PAINEL PRIVADO (MINHAS FICHAS) - ACTION-BUTTONS-V2
+   ========================================================================== */
+.card-v2 .char-card-footer .action-buttons-v2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-v2 .action-buttons-v2 li {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.card-v2 .action-buttons-v2 .btn-v2 {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    border: 1px solid #273544;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    padding: 10px 4px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #8b9aa7;
+}
+
+.card-v2 .action-buttons-v2 .btn-v2:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #8b9aa7;
+}
+
+/* Cores específicas de destaque para interações nos botões de ação */
+.card-v2 .action-buttons-v2 .btn-v2-delete:hover {
+    background-color: rgba(185, 28, 28, 0.2);
+    border-color: #b91c1c;
+    color: #f87171;
+}
+
+.card-v2 .action-buttons-v2 .btn-v2-pdf:hover {
+    background-color: rgba(26, 92, 56, 0.3);
+    border-color: #237e4c;
+    color: #4ade80;
+}
+
+/* ==========================================================================
    CORREÇÃO AJUSTADA: BOTÕES DA BIBLIOTECA COMUNIDADE (V2)
    ========================================================================== */
 
