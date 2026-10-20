@@ -162,4 +162,3 @@ function fecharAlertaClonado() {
 // Vincula a função à janela global para o botão "X" do HTML conseguir disparar o clique
 window.fecharAlertaClonado = fecharAlertaClonado;
 window.mostrarAlertaClonado = mostrarAlertaClonado;
-window.fecharAlertaClonado = fecharAlertaClonado;
