@@ -108,6 +108,9 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
 
         preencherAtributosCard(artigoCard, personagem);
 
+        const contentGift = artigoCard.querySelector('.content-gift-v2');
+        if (contentGift) contentGift.textContent = personagem.info?.dadiva || "Nenhum item inicial.";
+
         const contentSpells = artigoCard.querySelector('.content-spells-v2');
         if (contentSpells) contentSpells.textContent = personagem.detalhes?.feiticos || "Nenhum feitiço aprendido.";
 
