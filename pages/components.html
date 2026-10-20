@@ -52,97 +52,157 @@
          COMPONENTE: CARD - MINHAS FICHAS
          ========================================== -->
     <div id="card-minhas-fichas">
-        <article class="char-card">
+        <article class="char-card card-v2" data-id="">
             <header class="char-card-header">
-                <div>
-                    <h4>Thorgar</h4>
-                    <div class="char-subtitle">Por: @Voce</div>
+                <div class="header-info-group">
+                    <h4 class="char-name-display">Thorgar</h4>
+                    <span class="char-sex-badge">(Masculino)</span>
+                    <div class="char-subtitle">Por: <span class="char-author">@Voce</span></div>
                 </div>
-                <span class="char-level">Nvl 8</span>
+                <span class="char-level-display">Nvl 8</span>
             </header>
 
             <figure class="char-avatar">
-                <img src="../Img_folder/combatente.jpg" alt="imagem generica de personagem de rpg">
-                <figcaption>Combatente Corporal</figcaption>
+                <img src="../Img_folder/combatente.jpg" alt="Foto do personagem" class="avatar-img-display">
+                <figcaption class="char-class-display">Combatente Corporal</figcaption>
             </figure>
 
-            <div class="char-hp">
-                <span class="hp-label">VIDA: 70</span>
+            <div class="char-hp-bar">
+                <span class="hp-text-value">VIDA: 70</span>
             </div>
 
-            <table class="stats-table">
+            <!-- Grade Avançada de Atributos Isolada -->
+            <table class="grid-attributes-v2">
                 <thead>
                     <tr>
-                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
+                        <th>ATRIB</th>
+                        <th>BASE</th>
+                        <th>MOD</th>
+                        <th>M+N</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>18</td><td>20</td><td>10</td><td>19</td><td>8</td><td>12</td><td>15</td>
-                    </tr>
+                    <tr class="attr-row-vit"><td>VIT</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-for"><td>FOR</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-des"><td>DES</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-res"><td>RES</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-int"><td>INT</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-fai"><td>FÉ</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-hum"><td colspan="2">HUMANIDADE</td><td colspan="2" class="val-base">0</td></tr>
                 </tbody>
             </table>
 
-            <ul class="equip-list">
-                <li>Martelo de Guerra</li>
-                <li>Escudo Pesado</li>
-            </ul>
+            <!-- Grade de Inventário (6 slots visuais) -->
+            <div class="inventory-slots-v2">
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+            </div>
+
+            <!-- Caixas de Histórico e Textos Longos -->
+            <div class="scroll-details-v2">
+                <div class="text-block-v2 block-spells-v2">
+                    <h6>Feitiços:</h6>
+                    <p class="content-spells-v2">Nenhum feitiço aprendido.</p>
+                </div>
+                <div class="text-block-v2 block-equip-v2">
+                    <h6>Equipamento:</h6>
+                    <p class="content-equip-v2">Nenhum item equipado.</p>
+                </div>
+                <div class="text-block-v2 block-items-v2">
+                    <h6>Itens:</h6>
+                    <p class="content-items-v2">Mochila vazia.</p>
+                </div>
+            </div>
+
             <footer class="char-card-footer">
-                <ul class="action-buttons">
-                    <li><button type="button">Visualizar</button></li>
-                    <li><button type="button">Editar</button></li>
-                    <li><button type="button">Deletar</button></li>
-                    <li><button type="button" onclick="salvarPDF()">Salvar</button></li>
+                <ul class="action-buttons-v2">
+                    <li><button type="button" class="btn-v2 btn-v2-view">Visualizar</button></li>
+                    <li><button type="button" class="btn-v2 btn-v2-edit">Editar</button></li>
+                    <li><button type="button" class="btn-v2 btn-v2-delete">Deletar</button></li>
+                    <li><button type="button" class="btn-v2 btn-v2-pdf">Salvar</button></li>
                 </ul>
             </footer>
         </article>
     </div>
 
-
     <!-- ==========================================
          COMPONENTE: CARD - BIBLIOTECA DE FICHAS
          ========================================== -->
     <div id="card-biblioteca-fichas">
-        <article class="char-card">
+        <article class="char-card card-v2" data-id="">
             <header class="char-card-header">
-                <div>
-                    <h4>Breach</h4>
-                    <div class="char-subtitle">Por: @Anonimo</div>
+                <div class="header-info-group">
+                    <h4 class="char-name-display">Breach</h4>
+                    <span class="char-sex-badge">(Masculino)</span>
+                    <div class="char-subtitle">Por: <span class="char-author">@Anonimo</span></div>
                 </div>
-                <span class="char-level">Nvl 8</span>
+                <span class="char-level-display">Nvl 8</span>
             </header>
 
             <figure class="char-avatar">
-                <img src="../Img_folder/combatente.jpg" alt="imagem generica de personagem de rpg">
-                <figcaption>Combatente Corporal</figcaption>
+                <img src="../Img_folder/combatente.jpg" alt="Foto do personagem" class="avatar-img-display">
+                <figcaption class="char-class-display">Combatente Corporal</figcaption>
             </figure>
 
-            <div class="char-hp">
-                <span class="hp-label">VIDA: 70</span>
+            <div class="char-hp-bar">
+                <span class="hp-text-value">VIDA: 70</span>
             </div>
 
-            <table class="stats-table">
+            <!-- Grade Avançada de Atributos Isolada -->
+            <table class="grid-attributes-v2">
                 <thead>
                     <tr>
-                        <th>VIT</th><th>FOR</th><th>DES</th><th>RES</th><th>INT</th><th>FÉ</th><th>HUM</th>
+                        <th>ATRIB</th>
+                        <th>BASE</th>
+                        <th>MOD</th>
+                        <th>M+N</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>18</td><td>20</td><td>10</td><td>19</td><td>8</td><td>12</td><td>15</td>
-                    </tr>
+                    <tr class="attr-row-vit"><td>VIT</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-for"><td>FOR</td><td class="val-base">0</td><td class="mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-des"><td>DES</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-res"><td>RES</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-int"><td>INT</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-fai"><td>FÉ</td><td class="val-base">0</td><td class="val-mod">0</td><td class="val-mod-lvl">0</td></tr>
+                    <tr class="attr-row-hum"><td colspan="2">HUMANIDADE</td><td colspan="2" class="val-base">0</td></tr>
                 </tbody>
             </table>
 
-            <ul class="equip-list">
-                <li>Martelo de Guerra</li>
-                <li>Escudo Pesado</li>
-            </ul>
+            <!-- Grade de Inventário (6 slots visuais) -->
+            <div class="inventory-slots-v2">
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+                <div class="slot-item-v2" title="Slot Vazio"></div>
+            </div>
+
+            <!-- Caixas de Histórico e Textos Longos -->
+            <div class="scroll-details-v2">
+                <div class="text-block-v2 block-spells-v2">
+                    <h6>Feitiços:</h6>
+                    <p class="content-spells-v2">Nenhum feitiço aprendido.</p>
+                </div>
+                <div class="text-block-v2 block-equip-v2">
+                    <h6>Equipamento:</h6>
+                    <p class="content-equip-v2">Nenhum item equipado.</p>
+                </div>
+                <div class="text-block-v2 block-items-v2">
+                    <h6>Itens:</h6>
+                    <p class="content-items-v2">Mochila vazia.</p>
+                </div>
+            </div>
 
             <footer class="char-card-footer">
-                <ul class="action-buttons library-actions">
-                    <li><button type="button">Visualizar</button></li>
-                    <li><button type="button" class="btn-clone">Clonar Ficha</button></li>
+                <ul class="library-actions-v2">
+                    <li><button type="button" class="btn-v2 btn-v2-view">Visualizar</button></li>
+                    <li><button type="button" class="btn-v2 btn-v2-clone">Clonar Ficha</button></li>
                 </ul>
             </footer>
         </article>

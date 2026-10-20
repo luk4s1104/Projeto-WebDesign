@@ -84,196 +84,368 @@
 }
 
 /* ==========================================================================
-   COMPONENT: CARDS (ESTRUTURA BASE E ATRIBUTOS)
+   NOVO PADRÃO ISOLADO: CARD V2 (ESTRUTURA DE DESTAQUE & FLUXO)
    ========================================================================== */
-.char-card {
-    background-color: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    padding: 20px 15px 12px 15px;
+
+/* Container geral blindado para evitar quebras por tamanho de texto */
+.char-card.card-v2 {
+    background-color: #151d26; /* Fundo escuro profundo combinando com a dashboard */
+    border: 1px solid #273544;
+    border-radius: 10px;
+    padding: 22px 18px 16px 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    min-height: 640px; /* Altura aumentada para comportar perfeitamente as novas abas visuais */
+    gap: 14px;
+    box-sizing: border-box;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.char-card-header {
+.char-card.card-v2:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+    border-color: #1c6ba0; /* Brilho sutil azul ao passar o mouse */
+}
+
+/* Agrupamento inteligente do cabeçalho */
+.card-v2 .char-card-header {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 15px;
     text-align: left;
+    border-bottom: 1px solid rgba(39, 53, 68, 0.4);
+    padding-bottom: 8px;
 }
 
-.char-card-header {
-  display: flex;
-  justify-content: space-between;
-}
-
-.char-hp {
-  display: flex;
-  justify-content: flex-start; 
-  width: 100%;                 
-  box-sizing: border-box;
-  padding-left: 5px;
-  padding-bottom: 5px;
-  margin: 10px 0 2px 0;
-}
-
-.char-card.hidden {
-    display: none
-}
-
-.hp-label {
-  font-size: 0.85rem;
-  font-weight: 600;            
-  color: #8a9ba8;              
-  letter-spacing: 0.5px;
-}
-
-
-.char-card-header h4 {
-    font-size: 15px;
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 180px;
-}
-
-.char-card-header .char-subtitle {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-}
-
-.char-card-header .char-level {
-    font-size: 12px;
-    color: var(--text-secondary);
-}
-
-.char-avatar {
-    margin-bottom: 15px;
-}
-
-.char-avatar img {
-  width: 100px;               
-  height: 100px;              
-  border-radius: 50%;
-  object-fit: cover;          
-  object-position: top center;
-  border: 2px solid var(--accent-gold);
-  box-sizing: border-box; 
-}
-
-.char-avatar figcaption {
-    font-size: 13px;
-    color: var(--text-secondary);
-    margin-top: 6px;
-}
-
-/* TABELA DE ATRIBUTOS */
-.stats-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
-    background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.stats-table th {
-    font-size: 10px;
-    color: var(--text-secondary);
-    padding: 6px 4px 2px 4px;
-    font-weight: normal;
-}
-
-.stats-table td {
-    font-size: 13px;
-    font-weight: bold;
-    color: var(--blue-stats);
-    padding: 2px 4px 8px 4px;
-}
-
-/* EQUIPAMENTOS */
-.equip-list {
-    list-style: none;
+.card-v2 .header-info-group {
     display: flex;
-    gap: 12px;
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-bottom: 15px;
-    width: 100%;
-    justify-content: flex-start;
-    padding-left: 5px;
+    flex-direction: column;
+    gap: 2px;
 }
 
-/* RODAPÉ DO CARD E BOTÕES */
-.char-card-footer {
-    width: 100%;
-    margin-top: auto;
-    border-top: 1px solid var(--border-color);
-    padding-top: 10px;
+.card-v2 .char-name-display {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Distintivo de gênero dinâmico */
+.card-v2 .char-sex-badge {
+    font-size: 11px;
+    color: #c39a4b; /* Tom dourado padrão para o sexo */
+    font-weight: 600;
+    margin-top: 1px;
+}
+
+.card-v2 .char-level-display {
+    font-size: 12px;
+    font-weight: 700;
+    color: #8b9aa7;
+    background-color: rgba(0, 0, 0, 0.25);
+    padding: 3px 8px;
+    border-radius: 4px;
+    border: 1px solid #273544;
 }
 
 /* ==========================================================================
-   COMPONENT: BOTÕES DE AÇÃO DOS CARDS
+   ETAPA 2: APRESENTAÇÃO DO PERSONAGEM (AVATAR & MENSURAÇÃO DE VIDA)
    ========================================================================== */
-/* Minhas Fichas */
-.action-buttons {
+
+/* Moldura e efeitos do Avatar Circular */
+.card-v2 .char-avatar {
+    margin: 4px 0;
     display: flex;
-    justify-content: space-between;
-    list-style: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
 }
 
-.action-buttons button {
-    background: none;
-    border: none;
-    color: var(--text-secondary);
-    font-size: 10px;
-    cursor: pointer;
-    padding: 4px 0;
+.card-v2 .avatar-img-display {
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: top center;
+    border: 2px solid #c39a4b; /* Borda dourada marcante */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    transition: border-color 0.2s ease;
 }
 
-.action-buttons button:hover {
-    color: var(--text-primary);
+/* Efeito sutil ao interagir com o rosto do herói */
+.card-v2:hover .avatar-img-display {
+    border-color: #1c6ba0; /* Alterna para azul no foco do card */
 }
 
-/* Biblioteca de Fichas */
-.library-actions {
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-}
-
-.library-actions button {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    font-size: 11px;
+/* Subtítulo da Classe do Personagem */
+.card-v2 .char-class-display {
+    font-size: 13px;
     font-weight: 500;
-    cursor: pointer;
-    padding: 6px 0;
+    color: #8b9aa7;
+    letter-spacing: 0.3px;
+}
+
+/* Contêiner de Destaque da Barra de HP */
+.card-v2 .char-hp-bar {
+    width: 100%;
+    background-color: rgba(153, 27, 27, 0.15); /* Fundo avermelhado sutil */
+    border: 1px solid rgba(153, 27, 27, 0.3);
+    border-radius: 5px;
+    padding: 6px 12px;
+    text-align: left;
+    box-sizing: border-box;
+    margin-top: 2px;
+}
+
+.card-v2 .hp-text-value {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f87171; /* Texto vermelho vivo para chamar a atenção para a vida */
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   ETAPA 3: ARQUITETURA DA TABELA DE ATRIBUTOS (DADOS EXPANDIDOS)
+   ========================================================================== */
+
+/* Estrutura base da tabela vertical isolada */
+.card-v2 .grid-attributes-v2 {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4px 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* Cabeçalho de colunas miniaturizado e limpo */
+.card-v2 .grid-attributes-v2 th {
+    font-size: 9px;
+    color: #8b9aa7;
+    padding: 6px 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid #273544;
+    text-align: center;
+}
+
+/* Células de dados numéricos */
+.card-v2 .grid-attributes-v2 td {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(39, 53, 68, 0.3);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Coluna BASE: Mantém o azul característico do painel */
+.card-v2 .grid-attributes-v2 .val-base {
+    color: #38bdf8;
+}
+
+/* Coluna MOD: Verde suave para os modificadores puros */
+.card-v2 .grid-attributes-v2 .val-mod {
+    color: #a7f3d0;
+}
+
+/* Coluna M+N: Amarelo suave para os modificadores somados ao nível */
+.card-v2 .grid-attributes-v2 .val-mod-lvl {
+    color: #fde047;
+}
+
+/* Linha Exclusiva da Humanidade (Ocupa o rodapé da tabela) */
+.card-v2 .grid-attributes-v2 .attr-row-hum td {
+    font-size: 11px;
+    padding: 7px 8px;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-bottom: none;
+}
+
+.card-v2 .grid-attributes-v2 .attr-row-hum .val-base {
+    color: #c39a4b; /* Humanidade recebe destaque em tom dourado */
+    text-align: center;
+}
+
+/* ==========================================================================
+   ETAPA 4: GRID DE INVENTÁRIO (6 SLOTS MINIATURIZADOS)
+   ========================================================================== */
+
+/* Alinhamento horizontal compacto em 6 colunas iguais */
+.card-v2 .inventory-slots-v2 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    width: 100%;
+    margin: 2px 0;
+    padding: 0 2px;
+    box-sizing: border-box;
+}
+
+/* Quadrado de slot pontilhado adaptável */
+.card-v2 .slot-item-v2 {
+    aspect-ratio: 1 / 1; /* Garante que o slot seja sempre perfeitamente quadrado */
+    background-color: rgba(0, 0, 0, 0.15);
+    border: 1px dashed #273544;
     border-radius: 4px;
+    position: relative;
+    cursor: help;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+/* Feedback visual quando o mouse passa sobre o slot ou se ele estiver ocupado */
+.card-v2 .slot-item-v2:hover {
+    border-color: #c39a4b;
+    background-color: rgba(195, 154, 75, 0.05);
+}
+
+/* Classe utilitária extra caso um item real preencha o slot posteriormente */
+.card-v2 .slot-item-v2.active-item {
+    border-style: solid;
+    border-color: #1c6ba0;
+    background-color: rgba(28, 107, 160, 0.1);
+}
+
+/* ==========================================================================
+   ETAPA 5: PAINEL DE INFORMAÇÕES EXTRAS (CONTROLE DE ROLAGEM TEXTUAL)
+   ========================================================================== */
+
+/* Contêiner com tamanho fixo e barra de rolagem vertical independente */
+.card-v2 .scroll-details-v2 {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid #273544;
+    border-radius: 6px;
+    padding: 10px 12px;
+    text-align: left;
+    height: 110px; /* Altura controlada para manter a proporção simétrica do card */
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-sizing: border-box;
+}
+
+/* Customização fina da barra de rolagem interna */
+.card-v2 .scroll-details-v2::-webkit-scrollbar {
+    width: 4px;
+}
+
+.card-v2 .scroll-details-v2::-webkit-scrollbar-thumb {
+    background: #273544;
+    border-radius: 4px;
+}
+
+.card-v2 .scroll-details-v2::-webkit-scrollbar-thumb:hover {
+    background: #1c6ba0;
+}
+
+/* Blocos internos de categorias (Feitiços, Itens, Equipamentos) */
+.card-v2 .text-block-v2 h6 {
+    font-size: 11px;
+    color: #c39a4b; /* Título dourado em caixa alta para catalogação */
+    text-transform: uppercase;
+    margin: 0 0 2px 0;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.card-v2 .text-block-v2 p {
+    font-size: 12px;
+    color: #8b9aa7;
+    line-height: 1.45;
+    margin: 0;
+    word-break: break-word;
+    white-space: pre-line; /* Preserva quebras de linha enviadas pelo formulário */
+}
+
+/* ==========================================================================
+   CORREÇÃO AJUSTADA: BOTÕES DA BIBLIOTECA COMUNIDADE (V2)
+   ========================================================================== */
+
+/* Garante o layout lado a lado com preenchimento total ocupando a base do card */
+.card-v2 .char-card-footer {
+    width: 100% !important;
+    margin-top: auto !important; /* Empurra os botões rigidamente para o fim do card */
+    padding-top: 12px;
+    border-top: 1px solid #273544;
+    box-sizing: border-box;
+    display: block !important;
+}
+
+/* Força a lista a se esticar completamente de ponta a ponta */
+.card-v2 .char-card-footer .library-actions-v2 {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    gap: 12px; /* Distância limpa entre os dois botões */
+    width: 100% !important;
+    box-sizing: border-box;
+}
+
+/* Obriga cada item li a ocupar exatamente metade da largura total da base */
+.card-v2 .library-actions-v2 li {
+    flex: 1 1 50% !important;
+    display: block !important;
+    width: 50% !important;
+    box-sizing: border-box;
+}
+
+/* Configuração em bloco para o botão expandir e centralizar o texto */
+.card-v2 .library-actions-v2 .btn-v2 {
+    width: 100% !important;
+    display: block !important;
+    box-sizing: border-box;
+    border: 1px solid #273544;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    padding: 12px 4px !important; /* Altura confortável para o clique */
+    border-radius: 4px;
+    
+    /* Centralização absoluta do texto interno */
+    text-align: center !important;
+    white-space: nowrap;
+    
     transition: all 0.2s ease;
 }
 
-.library-actions button:hover {
-    color: var(--text-primary);
-    background-color: rgba(255, 255, 255, 0.1);
+/* Botão Visualizar */
+.card-v2 .library-actions-v2 .btn-v2-view {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #8b9aa7;
+}
+.card-v2 .library-actions-v2 .btn-v2-view:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: #8b9aa7;
 }
 
-.library-actions .btn-clone {
+/* Botão Clonar Ficha */
+.card-v2 .library-actions-v2 .btn-v2-clone {
     background-color: #1a5c38;
     color: #ffffff;
     border-color: #237e4c;
 }
-
-.library-actions .btn-clone:hover {
+.card-v2 .library-actions-v2 .btn-v2-clone:hover {
     background-color: #237e4c;
-    color: #ffffff;
+    border-color: #2c9d5f;
+    transform: translateY(-1px);
 }
 
 /* ==========================================================================
