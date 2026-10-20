@@ -3,6 +3,7 @@ let idCronometroRedirecionamento = null;
 function salvarPersonagem(event) {
     event.preventDefault();
 
+    // 1. Coleta das informações biográficas principais
     const nome = document.getElementById('name').value;
     const sexo = document.getElementById('sex').value;
     const classe = document.getElementById('class').value;
@@ -10,6 +11,7 @@ function salvarPersonagem(event) {
     const vidaMax = document.getElementById('health').value;
     const nivel = document.getElementById('level').value;
 
+    // 2. Validações obrigatórias de segurança antes do envio
     if (!nome.trim()) {
         alert("Por favor, preencha o Nome do personagem antes de salvar!");
         return;
@@ -19,9 +21,24 @@ function salvarPersonagem(event) {
         return;
     }
 
+    // 3. Coleta dos blocos de textos longos (Injetados a partir das textareas do bottomSection)
+    const feiticos = document.getElementById('spells').value;
+    const equipamento = document.getElementById('equipment').value;
+    const itensMochila = document.getElementById('items').value;
+
+    // 4. Montagem estruturada do objeto Personagem alinhado ao padrão da dashboard
     const personagem = {
-        id: Date.now(),
-        info: { nome, sexo, classe, dadiva, vidaMax, nivel },
+        id: Date.now(), // Gera um ID único em formato numérico timestamp
+        info: { 
+            nome, 
+            sexo, 
+            classe, 
+            dadiva, 
+            vidaMax, 
+            nivel,
+            // Guardamos a imagem padrão genérica caso o usuário não envie uma customizada
+            imagem: "../Img_folder/generico.jpg" 
+        },
         atributos: {
             vitality: {
                 base: document.getElementById('vitality').value || "0",
@@ -36,7 +53,8 @@ function salvarPersonagem(event) {
             dexterity: {
                 base: document.getElementById('dexterity').value || "0",
                 mod: document.querySelector('input[name="dexterityMod"]').value || "0",
-                modLevel: document.querySelector('input[name="strengthModLevel"]').value || "0"
+                // CORREÇÃO: Corrigido seletor de name duplicado que apontava para strengthModLevel
+                modLevel: document.querySelector('input[name="dexterityModLevel"]').value || "0"
             },
             resistence: {
                 base: document.getElementById('resistence').value || "0",
@@ -54,23 +72,30 @@ function salvarPersonagem(event) {
                 modLevel: document.querySelector('input[name="faithModLevel"]').value || "0"
             },
             humanity: document.getElementById('humanity').value || "0"
+        },
+        detalhes: {
+            feiticos,
+            equipamento,
+            itensMochila
         }
     };
 
+    // 5. Envio e persistência segura no localStorage do navegador
     let bancoFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
     bancoFichas.push(personagem);
     localStorage.setItem('fichasRPG', JSON.stringify(bancoFichas));
 
+    // 6. Reseta o formulário original da página
     document.getElementById('formBox').reset();
 
-    // Ativa o pop-up na tela
+    // 7. Ativa e dispara visualmente o pop-up de alerta de sucesso na tela
     const alerta = document.getElementById('personagemCriadoAlerta');
     if (alerta) {
-        alerta.classList.remove('closed');  // remove a classe que o deixa incisivel
-        alerta.classList.add('open');       // adiciona uma classe que o torna visivel
+        alerta.classList.remove('closed');  
+        alerta.classList.add('open');       
     }
 
-    // Inicia o cronômetro de 3.5 segundos e salva seu ID para podermos cancelá-lo depois se o "X" for clicado
+    // 8. Cronômetro de redirecionamento automático de 3.5 segundos para a aba de listagem
     idCronometroRedirecionamento = setTimeout(() => {
         window.location.href = 'minhasFichas.html';
     }, 3500);
@@ -78,15 +103,16 @@ function salvarPersonagem(event) {
 
 function fecharAlerta() {
     const alerta = document.getElementById('personagemCriadoAlerta');
-    if (alerta) { // Se o pop-up realmente existir na página
-        alerta.classList.remove('open'); // tira a classe que o deixava visivel
-        alerta.classList.add('closed'); // coloca uma classe para deixar o popup invisivel
+    if (alerta) { 
+        alerta.classList.remove('open'); 
+        alerta.classList.add('closed'); 
     }
-    if(idCronometroRedirecionamento){  // Se houver algum cronômetro de redirecionamento rodando na memória
+    if (idCronometroRedirecionamento) {  
         clearTimeout(idCronometroRedirecionamento); 
-        console.log("Redirecionamento cancelado pelo usuário");
+        console.log("Redirecionamento automático cancelado pelo usuário.");
     }
 }
 
+// Vincula os escopos das funções ao objeto global window do navegador
 window.salvarPersonagem = salvarPersonagem;
 window.fecharAlerta = fecharAlerta;
