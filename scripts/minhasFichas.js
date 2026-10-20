@@ -106,6 +106,18 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
         artigoCard.querySelector('figcaption').textContent = personagem.info?.classe || "Geral";
         artigoCard.querySelector('.char-avatar img').src = personagem.info?.imagem || "../Img_folder/generico.jpg";
 
+        // CORREÇÃO: Atualiza dinamicamente o sexo informado no cadastro/edição
+        const badgeSexo = artigoCard.querySelector('.char-sex-badge');
+        if (badgeSexo) {
+            badgeSexo.textContent = personagem.info?.sexo ? `(${personagem.info.sexo})` : "(Nao dito)";
+        }
+
+        // CORREÇÃO: Atualiza dinamicamente o autor da ficha (seja @Voce ou clonado da biblioteca)
+        const spanAutor = artigoCard.querySelector('.char-author');
+        if (spanAutor) {
+            spanAutor.textContent = personagem.info?.autor || "@Voce";
+        }
+
         preencherAtributosCard(artigoCard, personagem);
 
         const contentGift = artigoCard.querySelector('.content-gift-v2');

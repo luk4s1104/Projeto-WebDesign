@@ -74,17 +74,10 @@ function alternarModoEdicao(podeEditar) {
     const inputs = document.querySelectorAll('#modalForm input:not([type="hidden"]), #modalForm textarea');
     inputs.forEach(input => {
         if (podeEditar) {
-            // Em modo de edição, permitimos estilização de escrita, mas os modificadores calculados continuam trancados por segurança
-            const id = input.getAttribute('id');
-            if (id && (id.includes('Mod') || id.includes('ModLvl'))) {
-                input.setAttribute('readonly', 'true');
-                input.style.backgroundColor = 'rgba(0, 0, 0, 0.15)';
-                input.style.borderColor = 'rgba(39, 53, 68, 0.4)';
-            } else {
-                input.removeAttribute('readonly');
-                input.style.backgroundColor = '#1b242f';
-                input.style.borderColor = '#1c6ba0';
-            }
+            // CORREÇÃO: Removemos a trava que impedia a edição dos campos Mod e ModLvl
+            input.removeAttribute('readonly');
+            input.style.backgroundColor = '#1b242f';
+            input.style.borderColor = '#1c6ba0';
         } else {
             input.setAttribute('readonly', 'true');
             input.style.backgroundColor = 'rgba(0, 0, 0, 0.15)';
@@ -115,12 +108,17 @@ function configurarBotoesRodape(personagem, deQuem, estaEditando) {
             btnAcao.onclick = () => {
                 salvarAlteracoesFicha(personagem.id);
                 fecharModalFicha();
-                if (window.renderizarFichasSalvas) window.renderizarFichasSalvas();
+                
+                // CORREÇÃO: Invoca aplicarFiltros para atualizar o cartão no ecrã preservando os filtros ativos
+                if (window.aplicarFiltros) {
+                    window.aplicarFiltros();
+                } else if (window.renderizarFichasSalvas) {
+                    window.renderizarFichasSalvas();
+                }
             };
         } else {
             btnAcao.textContent = 'Habilitar Edição';
             btnAcao.onclick = () => {
-                // Alterna dinamicamente para o modo de edição direta na tela
                 abrirModalVisualizacao(personagem, 'minhasFichas', true);
             };
         }
@@ -142,10 +140,19 @@ function configurarBotoesRodape(personagem, deQuem, estaEditando) {
 
 function salvarAlteracoesFicha(id) {
     let bancoFichas = JSON.parse(localStorage.getItem('fichasRPG')) || [];
-    const index = bancoFichas.findIndex(p => p.id === id);
+    
+    // Garante obtenção do ID seja por parâmetro ou pelo input hidden do modal
+    const targetId = id || document.getElementById('modalCharId').value;
+    
+    // CORREÇÃO: Converte ambos para string na comparação para evitar falhas de tipo (Number vs String)
+    const index = bancoFichas.findIndex(p => String(p.id) === String(targetId));
 
     if (index !== -1) {
-        // Atualiza as informações biográficas principais (Incluindo o novo campo Sexo)
+        // Garante que os objetos base existam para evitar erros
+        if (!bancoFichas[index].info) bancoFichas[index].info = {};
+        if (!bancoFichas[index].atributos) bancoFichas[index].atributos = {};
+
+        // Atualiza as informações biográficas principais
         bancoFichas[index].info.nome = document.getElementById('modalName').value;
         bancoFichas[index].info.sexo = document.getElementById('modalSex').value;
         bancoFichas[index].info.nivel = document.getElementById('modalLevel').value;
@@ -153,31 +160,33 @@ function salvarAlteracoesFicha(id) {
         bancoFichas[index].info.vidaMax = document.getElementById('modalHealth').value;
         bancoFichas[index].info.dadiva = document.getElementById('modalGift').value;
 
-        // Atualiza os valores base de atributos
-        bancoFichas[index].atributos.vitality.base = document.getElementById('modalVit').value;
-        bancoFichas[index].atributos.strength.base = document.getElementById('modalFor').value;
-        bancoFichas[index].atributos.dexterity.base = document.getElementById('modalDes').value;
-        bancoFichas[index].atributos.resistence.base = document.getElementById('modalRes').value;
-        bancoFichas[index].atributos.intelligence.base = document.getElementById('modalInt').value;
-        bancoFichas[index].atributos.faith.base = document.getElementById('modalFaith').value;
-        bancoFichas[index].atributos.humanity = document.getElementById('modalHum').value;
+        // Função auxiliar segura para atualizar cada atributo
+        const atualizarAtributo = (prop, baseId, modId, modLvlId) => {
+            if (!bancoFichas[index].atributos[prop]) {
+                bancoFichas[index].atributos[prop] = { base: "0", mod: "0", modLevel: "0" };
+            }
+            const baseEl = document.getElementById(baseId);
+            const modEl = document.getElementById(modId);
+            const modLvlEl = document.getElementById(modLvlId);
 
-        // Garante a integridade dos sub-objetos de modificadores calculados
-        bancoFichas[index].atributos.vitality.mod = document.getElementById('modalVitMod').value;
-        bancoFichas[index].atributos.strength.mod = document.getElementById('modalForMod').value;
-        bancoFichas[index].atributos.dexterity.mod = document.getElementById('modalDesMod').value;
-        bancoFichas[index].atributos.resistence.mod = document.getElementById('modalResMod').value;
-        bancoFichas[index].atributos.intelligence.mod = document.getElementById('modalIntMod').value;
-        bancoFichas[index].atributos.faith.mod = document.getElementById('modalFaithMod').value;
+            if (baseEl) bancoFichas[index].atributos[prop].base = baseEl.value;
+            if (modEl) bancoFichas[index].atributos[prop].mod = modEl.value;
+            if (modLvlEl) bancoFichas[index].atributos[prop].modLevel = modLvlEl.value;
+        };
 
-        bancoFichas[index].atributos.vitality.modLevel = document.getElementById('modalVitModLvl').value;
-        bancoFichas[index].atributos.strength.modLevel = document.getElementById('modalForModLvl').value;
-        bancoFichas[index].atributos.dexterity.modLevel = document.getElementById('modalDesModLvl').value;
-        bancoFichas[index].atributos.resistence.modLevel = document.getElementById('modalResModLvl').value;
-        bancoFichas[index].atributos.intelligence.modLevel = document.getElementById('modalIntModLvl').value;
-        bancoFichas[index].atributos.faith.modLevel = document.getElementById('modalFaithModLvl').value;
+        atualizarAtributo('vitality', 'modalVit', 'modalVitMod', 'modalVitModLvl');
+        atualizarAtributo('strength', 'modalFor', 'modalForMod', 'modalForModLvl');
+        atualizarAtributo('dexterity', 'modalDes', 'modalDesMod', 'modalDesModLvl');
+        atualizarAtributo('resistence', 'modalRes', 'modalResMod', 'modalResModLvl');
+        atualizarAtributo('intelligence', 'modalInt', 'modalIntMod', 'modalIntModLvl');
+        atualizarAtributo('faith', 'modalFaith', 'modalFaithMod', 'modalFaithModLvl');
 
-        // Salva as modificações das textareas se existirem no objeto original
+        const humEl = document.getElementById('modalHum');
+        if (humEl) {
+            bancoFichas[index].atributos.humanity = humEl.value;
+        }
+
+        // Atualiza caixas de texto longas (detalhes)
         if (!bancoFichas[index].detalhes) {
             bancoFichas[index].detalhes = { feiticos: '', equipamento: '', itensMochila: '' };
         }
@@ -191,7 +200,11 @@ function salvarAlteracoesFicha(id) {
         const txtItems = document.getElementById('modalItems');
         if (txtItems) bancoFichas[index].detalhes.itensMochila = txtItems.value;
 
+        // Persiste de verdade as alterações no navegador
         localStorage.setItem('fichasRPG', JSON.stringify(bancoFichas));
+        console.log("Ficha atualizada com sucesso no localStorage!");
+    } else {
+        console.error("Erro: Personagem não encontrado no localStorage. ID procurado:", targetId);
     }
 }
 
