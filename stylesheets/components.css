@@ -375,39 +375,39 @@
 
 /* Garante o layout lado a lado com preenchimento total ocupando a base do card */
 .card-v2 .char-card-footer {
-    width: 100% !important;
-    margin-top: auto !important; /* Empurra os botões rigidamente para o fim do card */
+    width: 100%;
+    margin-top: auto; /* Empurra os botões rigidamente para o fim do card */
     padding-top: 12px;
     border-top: 1px solid #273544;
     box-sizing: border-box;
-    display: block !important;
+    display: block;
 }
 
 /* Força a lista a se esticar completamente de ponta a ponta */
 .card-v2 .char-card-footer .library-actions-v2 {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
     gap: 12px; /* Distância limpa entre os dois botões */
-    width: 100% !important;
+    width: 100%;
     box-sizing: border-box;
 }
 
 /* Obriga cada item li a ocupar exatamente metade da largura total da base */
 .card-v2 .library-actions-v2 li {
-    flex: 1 1 50% !important;
-    display: block !important;
-    width: 50% !important;
+    flex: 1 1 50%;
+    display: block;
+    width: 50%;
     box-sizing: border-box;
 }
 
 /* Configuração em bloco para o botão expandir e centralizar o texto */
 .card-v2 .library-actions-v2 .btn-v2 {
-    width: 100% !important;
-    display: block !important;
+    width: 100%;
+    display: block;
     box-sizing: border-box;
     border: 1px solid #273544;
     font-size: 11px;
@@ -415,11 +415,11 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
-    padding: 12px 4px !important; /* Altura confortável para o clique */
+    padding: 12px 4px; /* Altura confortável para o clique */
     border-radius: 4px;
     
     /* Centralização absoluta do texto interno */
-    text-align: center !important;
+    text-align: center;
     white-space: nowrap;
     
     transition: all 0.2s ease;
@@ -637,7 +637,7 @@
     background-color: #1a2335; 
     font-size: 0.875rem;
     color: var(--text-secondary);
-    margin-bottom: 0 !important;
+    margin-bottom: 0;
     flex-shrink: 0; 
 }
 
