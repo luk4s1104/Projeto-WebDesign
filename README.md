@@ -6,7 +6,7 @@ O site foi construído dividindo-se em duas identidades visuais: uma interface e
 
 ---
 
-## 🛠️ O Ecossistema do Sistema
+## 🛠️ O Ecossistema do Sistema.
 
 O funcionamento do site é baseado em quatro pilares integrados:
 
