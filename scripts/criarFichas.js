@@ -53,7 +53,7 @@ function salvarPersonagem(event) {
             dexterity: {
                 base: document.getElementById('dexterity').value || "0",
                 mod: document.querySelector('input[name="dexterityMod"]').value || "0",
-                modLevel: document.querySelector('input[name="dexterityModLevel"]').value || "0"
+                modLevel: document.querySelector('div[data-name="dexterityModLevel"]').textContent || "0"
             },
             resistence: {
                 base: document.getElementById('resistence').value || "0",
