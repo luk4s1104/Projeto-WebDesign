@@ -36,14 +36,14 @@ function salvarPersonagem(event) {
             dadiva, 
             vidaMax, 
             nivel,
-            // Guardamos a imagem padrão genérica caso o usuário não envie uma customizada
+            // Guardamos a imagem padrão genérica 
             imagem: "../Img_folder/generico.jpg" 
         },
-        atributos: {
+        atributos: {  // está capturando e estruturando todos os atributos e detalhes do personagem a partir da tela (HTML) para criar um objeto JavaScript pronto para ser salvo.
             vitality: {
-                base: document.getElementById('vitality').value || "0",
-                mod: document.querySelector('input[name="vitalityMod"]').value || "0",
-                modLevel: document.querySelector('div[data-name="vitalityModLevel"]').textContent || "0"
+                base: document.getElementById('vitality').value || "0",  // propriedade entro de um objeto
+                mod: document.querySelector('input[name="vitalityMod"]').value || "0", // propriedade entro de um objeto
+                modLevel: document.querySelector('div[data-name="vitalityModLevel"]').textContent || "0" // propriedade entro de um objeto
             },
             strength: {
                 base: document.getElementById('strength').value || "0",

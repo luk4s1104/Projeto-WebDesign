@@ -106,13 +106,13 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
         artigoCard.querySelector('figcaption').textContent = personagem.info?.classe || "Geral";
         artigoCard.querySelector('.char-avatar img').src = personagem.info?.imagem || "../Img_folder/generico.jpg";
 
-        // CORREÇÃO: Atualiza dinamicamente o sexo informado no cadastro/edição
+        // Atualiza dinamicamente o sexo informado no cadastro/edição
         const badgeSexo = artigoCard.querySelector('.char-sex-badge');
         if (badgeSexo) {
             badgeSexo.textContent = personagem.info?.sexo ? `(${personagem.info.sexo})` : "(Nao dito)";
         }
 
-        // CORREÇÃO: Atualiza dinamicamente o autor da ficha (seja @Voce ou clonado da biblioteca)
+        // Atualiza dinamicamente o autor da ficha (seja @Voce ou clonado da biblioteca)
         const spanAutor = artigoCard.querySelector('.char-author');
         if (spanAutor) {
             spanAutor.textContent = personagem.info?.autor || "@Voce";
@@ -140,7 +140,7 @@ function renderizarFichasSalvas(fichasFiltradas = null) {
 }
 
 // Preenche sequencialmente os atributos na tabela visual do cartão
-function preencherAtributosCard(artigoCard, personagem) {
+function preencherAtributosCard(artigoCard, personagem) {   // pegam os dados individuais de um personagem salvos na memória e os injetam dentro do design HTML daquele cartão específico
     const celulasAtributos = artigoCard.querySelectorAll('.grid-attributes-v2 tbody td.val-base');
     if (celulasAtributos.length >= 6) {
         celulasAtributos[0].textContent = personagem.atributos?.vitality?.base || 0;
@@ -158,7 +158,7 @@ function preencherAtributosCard(artigoCard, personagem) {
 }
 
 // Vincula eventos aos botões de ação do personagem V2
-function vincularBotoesCard(artigoCard, personagem) {
+function vincularBotoesCard(artigoCard, personagem) {  // fazer os botões deles funcionarem no card da ficha
     const botoes = artigoCard.querySelectorAll('.action-buttons-v2 button');
     if (botoes && botoes.length >= 4) {
         botoes[0].onclick = (e) => { e.preventDefault(); abrirModalVisualizacao(personagem, 'minhasFichas', false); };
@@ -168,7 +168,7 @@ function vincularBotoesCard(artigoCard, personagem) {
     }
 }
 
-function atualizarContadorFichas(quantidade) {
+function atualizarContadorFichas(quantidade) {  // quantidade de fichas
     const contador = document.querySelector('.panel-header small');
     if (contador) {
         contador.textContent = `MINHAS FICHAS (${quantidade})`;

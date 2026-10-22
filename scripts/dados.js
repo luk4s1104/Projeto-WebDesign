@@ -20,15 +20,15 @@ const box = new DiceBox(".dice-grid", {
 box.init()
 
 lancar.addEventListener("click", async () => {
-    const quantidade = qtdDados.value;
-    const lados = nLados.value;
-    const comandoRpg = `${quantidade}d${lados}`;
-    lancar.disabled = true;
-    const resultados = await box.roll(comandoRpg);
+    const quantidade = qtdDados.value;    // pega a qtd de dados
+    const lados = nLados.value;   // pega qual e o dado
+    const comandoRpg = `${quantidade}d${lados}`; // ex: 3d12
+    lancar.disabled = true; // 1. Trava o botão 
+    const resultados = await box.roll(comandoRpg); // 2. Espera os dados girarem
     let somaTotal = 0;
     resultados.forEach(dado => {
-        somaTotal += dado.value;
+        somaTotal += dado.value;  // soma o resultado
     });
-    totalR.textContent = somaTotal;
-    lancar.disabled = false;
+    totalR.textContent = somaTotal; // mostra na tela
+    lancar.disabled = false; // 3. Destrava o botão aqui
 });
